@@ -1,6 +1,6 @@
 <template>
     <div class="c-Header">
-
+        Header
     </div>
 </template>
 
@@ -28,6 +28,5 @@ export default {
 .c-Header {
     width:100% ;
     height: 40px;
-
 }
 </style>

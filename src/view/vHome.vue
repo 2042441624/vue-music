@@ -1,25 +1,23 @@
 <template>
   <div class="v-home">
     <c-Header class="c-Header"></c-Header>
-    <c-Banner class="c-Banner"></c-Banner>
-    <c-Resource class="c-Resource"></c-Resource>
-    <c-Toplist class="c-Toplist"></c-Toplist>
-    <c-Audio class="c-Audio" :song="Fsong"></c-Audio>
-    <c-Footer class="c-Footer"></c-Footer>
+    <div class="main">
+      <c-Banner class="c-Banner"></c-Banner>
+      <c-Resource class="c-Resource"></c-Resource>
+      <c-Resource class="c-Resource"></c-Resource>
+      <c-Toplist class="c-Toplist"></c-Toplist>
+      <c-Toplist class="c-Toplist"></c-Toplist>
+    </div>
+
   </div>
+
 </template>
 
 <script>
-import cAudio from '@/component/cAudio.vue';
-import cBanner from '@/component/cBanner.vue';
-import cFooter from '@/component/cFooter.vue';
-import cHeader from '@/component/cHeader.vue';
-import cResource from '@/component/cResource.vue';
-import cToplist from '@/component/cToplist.vue';
-
-// import cAudio from '@/component/cAudio.vue';
-
-// import { mapState } from 'vuex';
+import cHeader from '@/component/Home/cHeader.vue';
+import cBanner from '@/component/Home/cBanner.vue';
+import cResource from '@/component/Home/cResource.vue';
+import cToplist from '@/component/Home/cToplist.vue';
 export default {
   name: 'v-home',
   data() {
@@ -30,17 +28,14 @@ export default {
 
   },
   computed: {
-    Fsong() {
-      return this.$store.state.songs.nowSong
-    }
+
+
   },
   components: {
     cHeader,
     cBanner,
     cResource,
     cToplist,
-    cAudio,
-    cFooter
   }
 }
 </script>
@@ -48,28 +43,24 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .v-home {
+  position: relative;
+
   .c-Header {
-    position: relative;
-    min-height: 40px;
+    position: fixed;
     top: 0;
+    z-index: 99999999;
+    background-color: antiquewhite;
+  }
+
+  .main {
+    position: relative;
+    top: 40px;
   }
 
   .c-Banner,
   .c-Resource,
   .c-Toplist {
     margin-bottom: 0.5rem;
-  }
-
-  .c-Audio {
-    position: fixed;
-    bottom: 60px;
-  }
-
-  .c-Footer {
-    width: 100%;
-    position: fixed;
-    min-height: 60px;
-    bottom: 0;
   }
 }
 </style>

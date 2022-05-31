@@ -4,10 +4,10 @@ vue.use(vueRouter)
 const router = new vueRouter({
     mode: 'history',
     routes: [
-        { path: '/', redirect: '/playlist' },
+        { path: '/', redirect: '/main' },
         {
-            path: "/home", name: 'home', component: () => import('@/view/vHome.vue'),
-
+            path: "/main", name: 'main', component: () => import('@/view/vMain.vue'),redirect: '/home',
+            children: [{ path: "/home", name: 'home', component: () => import('@/view/vHome.vue') }]
         },
         {
             path: "/playlist", name: 'playlist', component: () => import('@/view/vPlayList.vue'),

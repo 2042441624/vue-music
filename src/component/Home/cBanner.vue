@@ -85,16 +85,17 @@ export default {
 </script>
 
 <style lang="less"  scoped>
-.swiper {
-    width: 98%;
-    height: 10rem;
-    border-radius: 20px;
-
-    .swiper-slide {}
-
-    img {
-        width: 100%;
+    .swiper {
+        width: 98%;
         height: 10rem;
+        border-radius: 20px;
+
+        .swiper-slide {
+            img {
+                width: 100%;
+                height: 10rem;
+            }
+
+        }
     }
-}
 </style>

@@ -13,18 +13,18 @@
                         <!-- //三条数据      ar.originSongSimpleData() -->
                         <div v-for=" (item, now) in playlist[index]" :key="item.id" @click="addSong(item.id)">
                             <div><img :src="item.al.picUrl"></div>
-                            <div class="nameBox" v-if='item.name.length<5'>
+                            <div class="nameBox" v-if='item.name.length > 14'>
+                                <p>{{ item.name }}-<span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
+                                                                        ${item.originSongSimpleData.artists[0].name}` : ''
+                                }} </span></p>
+                            </div>
+                            <div class="nameBox" v-else>
                                 <p>{{ item.name }}</p>
                                 <span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
                                                                     ${item.originSongSimpleData.artists[0].name}` : ''
                                 }} </span>
                             </div>
-                            <div class="nameBox" v-else>
-                                <p>{{ item.name }}-<span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
-                                                                        ${item.originSongSimpleData.artists[0].name}` : ''
-                                }} </span></p>
 
-                            </div>
                             <div>
                                 <h2>{{ now + 1 }}</h2>
                             </div>

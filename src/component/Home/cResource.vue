@@ -1,5 +1,5 @@
 <template>
-    <div class="c-Resource" :boxTitle='boxTitle' :recommendList="recommendList">
+    <div class="c-Resource" :boxTitle='boxTitle'>
         <div class="Resource-top">
             <h3>{{ this.boxTitle }}</h3>
             <div>更多</div>
@@ -7,7 +7,8 @@
 
         <slot name="componentBottom">
             <div class="Resource-bottom">
-                <div v-for=" (item) in recommendList" :key="item.id">
+                <div v-for=" (item, index) in recommendList" :key="item.id"
+                    @click="watchPlayList(recommendList[index])">
                     <div><img :src='item.picUrl'></div>
                     <p>{{ item.name.slice(0, 14) }}...</p>
                 </div>
@@ -19,7 +20,8 @@
 </template>
 
 <script>
-import { recommend_Resource } from '@/api/home';
+import { recommend_Resource, playlist_detail } from '@/api/home';
+import { mapState } from 'vuex';
 export default {
     name: 'c-Resource',
     mounted() {
@@ -46,10 +48,19 @@ export default {
         }
     },
     computed: {
-
+        ...mapState({
+            playlist: 'playlist'
+        })
     },
     methods: {
-
+        watchPlayList(nowPlaylist) {
+        
+            playlist_detail(nowPlaylist.id).then(res => {
+                if (res.data.code === 200) {
+                    this.$store.state.songs.playList = res.data.playlist
+                }
+            })
+        }
     },
 };
 </script>

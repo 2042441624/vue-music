@@ -2,8 +2,11 @@
 import { song_url, song_detail } from '@/api/home';
 export default {
     state: {
-
+        //打开的歌单
+        playList:[],
+        //当前的播放的歌单
         songsList: [],
+        //正常播放的歌曲
         nowSong: {
             musicName: '',
             Name: '',
@@ -24,6 +27,7 @@ export default {
             })
             //全局添加单条歌曲
             state.songsList.push(state.nowSong)
+            console.log(state.songsList);
         }
     }
 }

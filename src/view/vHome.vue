@@ -4,8 +4,6 @@
     <div class="main">
       <c-Banner class="c-Banner"></c-Banner>
       <c-Resource class="c-Resource"></c-Resource>
-      <c-Resource class="c-Resource"></c-Resource>
-      <c-Toplist class="c-Toplist"></c-Toplist>
       <c-Toplist class="c-Toplist"></c-Toplist>
     </div>
 
@@ -49,7 +47,6 @@ export default {
     position: fixed;
     top: 0;
     z-index: 99999999;
-    background-color: antiquewhite;
   }
 
   .main {

@@ -3,7 +3,7 @@ import { song_url, song_detail } from '@/api/home';
 export default {
     state: {
         //打开的歌单
-        playList:[],
+        playList: [],
         //当前的播放的歌单
         songsList: [],
         //正常播放的歌曲
@@ -11,7 +11,7 @@ export default {
             musicName: '',
             Name: '',
             musicUrl: '',
-            musciImg: ''
+            musicImg: ''
         }
     },
 
@@ -19,6 +19,7 @@ export default {
         addsongs(state, id) {
             // 变更状态
             song_detail(id).then((res) => {
+                state.nowSong.musicImg = res.data.songs[0].al.picUrl
                 state.nowSong.musicName = res.data.songs[0].name;
                 state.nowSong.Name = res.data.songs[0].ar[0].name
                 song_url(id).then(res => {

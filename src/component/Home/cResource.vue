@@ -54,7 +54,6 @@ export default {
     },
     methods: {
         watchPlayList(nowPlaylist) {
-        
             playlist_detail(nowPlaylist.id).then(res => {
                 if (res.data.code === 200) {
                     this.$store.state.songs.playList = res.data.playlist

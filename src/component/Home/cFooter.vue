@@ -1,6 +1,6 @@
 <template>
     <div>
-        <c-Audio :song="Fsong" class="c-Audio" ></c-Audio>
+        <c-Audio :song="Fsong" class="c-Audio"></c-Audio>
         <footer v-if="Showfooter">
             <div>
                 <div><svg t="1653928043786" class="icon" viewBox="0 0 1042 1024" version="1.1"
@@ -69,15 +69,15 @@
 import cAudio from './cAudio.vue';
 export default {
     name: 'c-Footer',
-    props:{
-       Showfooter:{
-           type:Boolean,
-           default:true
-       }
+    props: {
+        Showfooter: {
+            type: Boolean,
+            default: true
+        }
     },
     data() {
         return {
-    
+
         };
     },
 
@@ -100,29 +100,35 @@ export default {
 </script>
 
 <style lang="less" scoped>
-div{
+div {
     width: 100%;
-    .c-Audio{
-    width: 100%;
-}
-footer {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
 
-    div {
-        width: 60px;
-        height: 60px;
+    .c-Audio {
+        width: 100%;
+    }
+
+    footer {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        align-self: center;
+        flex-direction: row;
+        justify-content: space-around;
         align-items: center;
-        line-height: 26px;
+
+        div {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            align-items: center;
+            line-height: 26px;
+
+            div {
+
+                padding: 5px;
+
+            }
+        }
     }
 }
-}
-
-
 </style>

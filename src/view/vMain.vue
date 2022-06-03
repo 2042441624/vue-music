@@ -62,7 +62,6 @@ export default {
     .c-Footer {
         position: fixed;
         bottom: 0;
-        background-color: antiquewhite;
     }
 
 }

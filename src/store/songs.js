@@ -19,16 +19,16 @@ export default {
         addsongs(state, id) {
             // 变更状态
             song_detail(id).then((res) => {
-                state.nowSong.musicImg = res.data.songs[0].al.picUrl
-                state.nowSong.musicName = res.data.songs[0].name;
-                state.nowSong.Name = res.data.songs[0].ar[0].name
+                let song = res.songs[0]
+                state.nowSong.musicImg = song.al.picUrl
+                state.nowSong.musicName = song.name;
+                state.nowSong.Name = song.name
                 song_url(id).then(res => {
-                    state.nowSong.musicUrl = res.data.data[0].url
+                    state.nowSong.musicUrl = res.data[0].url
                 })
             })
             //全局添加单条歌曲
             state.songsList.push(state.nowSong)
-            console.log(state.songsList);
         }
     }
 }

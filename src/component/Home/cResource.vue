@@ -1,7 +1,7 @@
 <template>
-    <div class="c-Resource" :boxTitle='boxTitle'>
+    <div class="c-Resource">
         <div class="Resource-top">
-            <h3>{{ this.boxTitle }}</h3>
+            <h3>{{ this.title }}</h3>
             <div>更多</div>
         </div>
 
@@ -21,24 +21,19 @@
 
 <script>
 import { recommend_Resource, playlist_detail } from '@/api/home';
-import { mapState } from 'vuex';
 export default {
     name: 'c-Resource',
     mounted() {
         recommend_Resource().then((result) => {
-            this.recommendList = result.data.recommend
+            this.recommendList = result.recommend
         })
     },
     props: {
-        boxTitle: {
+        title: {
             type: String,
             // 与对象或数组的默认值不同，这不是一个工厂函数——这是一个用作默认值的函数
             default: '推荐歌单',
-
         },
-        componentTop: {
-            type: Object
-        }
 
     },
     data() {
@@ -48,16 +43,11 @@ export default {
         }
     },
     computed: {
-        ...mapState({
-            playlist: 'playlist'
-        })
     },
     methods: {
         watchPlayList(nowPlaylist) {
             playlist_detail(nowPlaylist.id).then(res => {
-                if (res.data.code === 200) {
-                    this.$store.state.songs.playList = res.data.playlist
-                }
+                    this.$store.state.songs.playList = res.playlist
             })
         }
     },

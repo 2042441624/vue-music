@@ -1,4 +1,4 @@
-import axios from '@/axios/index';
+import axios from '@/uitl/index';
 
 //手机登录的接口请求
 export const cellphone = () => {

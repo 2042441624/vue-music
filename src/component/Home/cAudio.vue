@@ -54,14 +54,12 @@ export default {
 
         const song = this.isSong
         this.Img = song.musicImg
-        console.log(this.Img);
         var audio = document.querySelector("#ado");
         audio.src = song.musicUrl
         audio.controls = false;
         audio.loop = true;
         audio.volume = 0.3;
         var rBox = document.querySelector(".radioBox");
-        console.log(rBox);
         // var voice = document.querySelector(".voice");
         // voice.addEventListener("click", function () {
         //     if (audio.muted) {
@@ -223,7 +221,6 @@ export default {
     .time {
         font-size: 0.2rem;
         -moz-user-select: none;
-
         -webkit-user-select: none;
         user-select: none;
     }

@@ -1,6 +1,6 @@
 <template>
 
-    <c-Resource :boxTitle='boxTitle' class="padding">
+    <c-Resource :title='title' class="padding">
         <template slot="componentBottom">
             <div class="topListbox">
                 <!-- //五条数据 -->
@@ -53,7 +53,7 @@ export default {
     name: 'c-Toplist',
     data() {
         return {
-            boxTitle: '排行榜',
+            title: '排行榜',
             //获取排行榜的所有歌单
             topList: [],
             //所有歌单的歌曲
@@ -66,14 +66,16 @@ export default {
 
         topList().then((result) => {
             //获取排行榜的所有歌单
-            this.topList = result.data.list.slice(0, 5)
+            
+            this.topList = result.list.slice(0, 5)
             // 19723756
             //获取所有歌单的详情
             this.topList.forEach(e => {
                 playlist_detail(e.id).then(
                     res => {
                         //当前歌单的前三条
-                        this.playlist.push(res.data.playlist.tracks.slice(0, 3))
+                      
+                        this.playlist.push(res.playlist.tracks.slice(0, 3))
                     }
                 )
             })
@@ -81,19 +83,10 @@ export default {
 
 
     },
-    computed: {
-
-
-
-    },
-
     methods: {
         addSong(id) {
             this.$store.commit('addsongs', id)
         }
-
-
-
     },
     components: {
         cResource

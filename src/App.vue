@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    
-      <router-view></router-view>
+
+    <router-view></router-view>
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
     height: 100vh;
     font-size: 1rem;
     background-color: #F6F6F6;
+
   }
 }
 </style>

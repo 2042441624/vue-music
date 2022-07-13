@@ -3,16 +3,15 @@
         <c-Header></c-Header>
         <div class="main">
             <c-Introduce></c-Introduce>
-            <c-Music></c-Music>
-        </div>
 
+        </div>
     </div>
 </template>
 
 <script>
 import cHeader from '@/component/PlayList/cHeader.vue';
 import cIntroduce from '@/component/PlayList/cIntroduce.vue';
-import cMusic from '@/component/PlayList/cMusic.vue';
+
 export default {
     name: 'v-PlayList',
 
@@ -32,7 +31,6 @@ export default {
     components: {
         cHeader,
         cIntroduce,
-        cMusic
     }
 };
 </script>
@@ -43,7 +41,8 @@ export default {
     z-index: 9999999;
     top: 0;
 }
-.main{
+
+.main {
     position: relative;
     top: 40px;
 }

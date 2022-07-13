@@ -1,168 +1,174 @@
 <template>
-    <div v-if="isSong.musicUrl" class="nowSongs">
+    <div class="nowSongs" v-if="song.name">
 
         <div class="mp3Box">
-            <div class="songImg"><img :src='isSong.musicImg' /></div>
+            <div class="songImg"><img ref='songimg' /></div>
             <!-- 播放开关 -->
-
-            <div class="radioBox" onclick="">
-
-                <audio id="ado"></audio>
-            </div>
+            <img class="radioBox" />
+            <audio id="ado"></audio>
 
             <div class="songDei">
-                <p>{{ isSong.musicName }}</p><span>{{ isSong.Name }}</span>
+                <p>{{ song.name }}</p><span>{{ song.singer }}</span>
             </div>
             <!-- 时间 -->
             <div class="time">
                 <span class="currentTime">00:00</span> /
                 <span class="duraTime">00:00</span>
             </div>
-            <!-- 是否静音
-            <div class="voice"></div> -->
         </div>
+
+        <div class="voice"></div>
         <!-- 进度条盒子 -->
         <div class="progress">
             <div class="slide"></div>
             <div class="fill"></div>
         </div>
+
     </div>
 </template>
 
 <script>
-
+import { mapState } from 'vuex';
 export default {
     name: 'c-Audio',
-    data() {
-        return {
-            isSong: this.song,
-            showsongsList: false,
-            Img: 'null',
+    computed: {
+        song() {
+            return this.$store.state.songs.nowSong
+        },
+        ...mapState([
+            "nowSong"
+        ]),
 
-        };
     },
-    props: {
-        song: {
-            musicName: '',
-            Name: '',
-            musicUrl: '',
-            musicImg: ''
+    watch: {
+        "song.name": {
+            handler(newD, oldD) {
+                if (newD !== oldD) {
+                    this.cDom()
+                }
+            },
+            deep: true,
+            immediate: true
+        }
+    },
+    methods: {
+        cDom() {
+
+            this.$nextTick(() => {
+
+                var audio = document.querySelector("#ado");
+                audio.src = this.song.url
+                audio.controls = false;
+                audio.loop = true;
+                audio.volume = 0.3;
+                var rBox = document.querySelector(".radioBox");
+                // var voice = document.querySelector(".voice");
+                // voice.addEventListener("click", function () {
+                //     if (audio.muted) {
+                //         audio.muted = false;
+                //         console.log('打开音量');
+                //     } else {
+                //         audio.muted = true;
+                //         console.log('关闭音量');
+                //     }
+                // });
+                audio.addEventListener("canplay", () => {
+                    this.$refs.songimg.src = this.song.picUrl
+                    audio.play()
+                    audio.loading = false;
+                });
+                var radioBox = document.querySelector(".radioBox");
+                radioBox.addEventListener("click", function bofan() {
+                    if (audio.paused) {
+                        audio.play();
+                        rBox.className = "radioBox";
+                    } else {
+                        audio.pause();
+                        rBox.className = "zanting";
+                    }
+                });
+                function transTime(time) {
+                    let duration = parseInt(time);
+                    let minute = parseInt(duration / 60);
+                    let sec = (duration % 60) + "";
+                    let isM0 = ":";
+                    if (minute == 0) {
+                        minute = "00";
+                    } else if (minute < 10) {
+                        minute = "0" + minute;
+                    }
+                    if (sec.length == 1) {
+                        sec = "0" + sec;
+                    }
+                    return minute + isM0 + sec;
+                }
+                //   获取音频总时长
+                if (audio) {
+                    audio.load();
+                    audio.oncanplay = function () {
+
+                        var duraTime = document.querySelector(".duraTime");
+                        duraTime.innerHTML = transTime(audio.duration);
+                    }
+                }
+                var progress = document.querySelector(".progress");
+                var slide = document.querySelector(".slide");
+                var fill = document.querySelector(".fill");
+                audio.ontimeupdate = function () {
+                    var l = (audio.currentTime / audio.duration) * 100;
+                    slide.style.left = l + "%";
+                    fill.style.width = l + "%";
+                    if (audio.currentTime == 0) {
+                        slide.style.left = "0%";
+                    }
+                    var currentTime = document.querySelector(".currentTime");
+                    currentTime.innerHTML = transTime(parseInt(audio.currentTime));
+                    var duraTime = document.querySelector(".duraTime");
+                    duraTime.innerHTML = transTime(audio.duration);
+                };
+                progress.onmousedown = function (e) {
+                    var rate = (e.clientX - progress.offsetLeft) / this.clientWidth * audio.duration
+                    audio.currentTime = rate - (progress.clientWidth * 0.005)
+                };
+                slide.addEventListener('mousedown', function (e) {
+                    var x = e.clientX - this.offsetLeft; //240
+                    document.onmousemove = function (e) {
+                        let cx = e.clientX
+                        var jlx = ((cx - x) / progress.clientWidth) * 100;
+                        if (jlx <= 100 && jlx >= 0) {
+                            slide.style.left = jlx + "%";
+                        }
+                        audio.currentTime = (jlx / 100) * audio.duration;
+                    };
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    };
+                })
+                slide.ontouchstart = function (e) {
+                    var x = e.targetTouches[0].clientX - this.offsetLeft; //240
+                    document.ontouchmove = function (e) {
+                        var jlx = ((e.targetTouches[0].clientX - x) / progress.clientWidth) * 100;
+                        if (jlx <= 100 && jlx >= 0) {
+                            slide.style.left = jlx + "%";
+                        }
+                        audio.currentTime = (jlx / 100) * audio.duration;
+                    };
+                    document.ontouchend = function () {
+                        document.ontouchmove = null;
+                        document.ontouchend = null;
+                    };
+
+                }
+            })
+
         }
 
     },
     updated() {
 
-        const song = this.isSong
-        this.Img = song.musicImg
-        var audio = document.querySelector("#ado");
-        audio.src = song.musicUrl
-        audio.controls = false;
-        audio.loop = true;
-        audio.volume = 0.3;
-        var rBox = document.querySelector(".radioBox");
-        // var voice = document.querySelector(".voice");
-        // voice.addEventListener("click", function () {
-        //     if (audio.muted) {
-        //         audio.muted = false;
-        //         console.log('打开音量');
-        //     } else {
-        //         audio.muted = true;
-        //         console.log('关闭音量');
-        //     }
-        // });
-        audio.addEventListener("canplay", function () {
-            audio.play()
-            audio.loading = false;
-        });
-        var radioBox = document.querySelector(".radioBox");
-        radioBox.addEventListener("click", function bofan() {
-            if (audio.paused) {
-                audio.play();
-                rBox.style.backgroundImage = "url(./bofang.jpg)";
-            } else {
-                audio.pause();
-                rBox.style.backgroundImage = "url(./zanting.jpg)";
-            }
-        });
-        function transTime(time) {
-            let duration = parseInt(time);
-            let minute = parseInt(duration / 60);
-            let sec = (duration % 60) + "";
-            let isM0 = ":";
-            if (minute == 0) {
-                minute = "00";
-            } else if (minute < 10) {
-                minute = "0" + minute;
-            }
-            if (sec.length == 1) {
-                sec = "0" + sec;
-            }
-            return minute + isM0 + sec;
-        }
-        //   获取音频总时长
-        if (audio) {
-            audio.load();
-            audio.oncanplay = function () {
 
-                var duraTime = document.querySelector(".duraTime");
-                duraTime.innerHTML = transTime(audio.duration);
-            }
-        }
-        var progress = document.querySelector(".progress");
-        var slide = document.querySelector(".slide");
-        var fill = document.querySelector(".fill");
-        audio.ontimeupdate = function () {
-            var l = (audio.currentTime / audio.duration) * 100;
-            slide.style.left = l + "%";
-            fill.style.width = l + "%";
-            if (audio.currentTime == 0) {
-                slide.style.left = "0%";
-            }
-            var currentTime = document.querySelector(".currentTime");
-            currentTime.innerHTML = transTime(parseInt(audio.currentTime));
-            var duraTime = document.querySelector(".duraTime");
-            duraTime.innerHTML = transTime(audio.duration);
-        };
-        progress.onmousedown = function (e) {
-            var rate = (e.clientX - progress.offsetLeft) / this.clientWidth * audio.duration
-            audio.currentTime = rate - (progress.clientWidth * 0.005)
-        };
-        slide.addEventListener('mousedown', function (e) {
-            var x = e.clientX - this.offsetLeft; //240
-            document.onmousemove = function (e) {
-                let cx = e.clientX
-                var jlx = ((cx - x) / progress.clientWidth) * 100;
-                if (jlx <= 100 && jlx >= 0) {
-                    slide.style.left = jlx + "%";
-                }
-                audio.currentTime = (jlx / 100) * audio.duration;
-            };
-            document.onmouseup = function () {
-                document.onmousemove = null;
-                document.onmouseup = null;
-            };
-        })
-        slide.ontouchstart = function (e) {
-            var x = e.targetTouches[0].clientX - this.offsetLeft; //240
-            document.ontouchmove = function (e) {
-                var jlx = ((e.targetTouches[0].clientX - x) / progress.clientWidth) * 100;
-                if (jlx <= 100 && jlx >= 0) {
-                    slide.style.left = jlx + "%";
-                }
-                audio.currentTime = (jlx / 100) * audio.duration;
-            };
-            document.ontouchend = function () {
-                document.ontouchmove = null;
-                document.ontouchend = null;
-            };
-        };
-    },
-
-    methods: {
-        showsongs() {
-            this.showsongsList = !this.showsongsList;
-        }
-    },
+    }
 };
 </script>
 
@@ -182,9 +188,10 @@ export default {
 
         .songImg {
             width: 48px;
-            height:48px;
+            height: 48px;
             border-radius: 50%;
             overflow: hidden;
+
             img {
                 height: 100%;
             }
@@ -193,12 +200,23 @@ export default {
     }
 
     /* 操作按钮 */
-    .radioBox {
+    .radioBox,
+    .zanting {
         width: 30px;
-        height:30px;
+        height: 30px;
         border-radius: 50%;
-        background: url(../../assets/img/bofang.jpg) no-repeat center center;
-        background-size:30px;
+        border: 1.5px black solid;
+        background: no-repeat center center;
+    }
+
+    .radioBox {
+        background-image: url(../../assets/img/bofang.jpg);
+        background-size: cover
+    }
+
+    .zanting {
+        background-image: url(../../assets/img/zanting.jpg);
+        background-size: cover
     }
 
     /* 音量操作按钮 */

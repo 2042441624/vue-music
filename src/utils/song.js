@@ -10,12 +10,12 @@ function filterSinger(singers) {
 //创建一个歌曲类
 export class Song {
     // 初始化歌曲ID，歌曲名字，歌手名字，音乐图片，歌曲详情，以及歌曲的audio的路径
-    constructor({ id, name, singer, album, image, duration, url }) {
+    constructor({ id, name, singer, album, picUrl, duration, url }) {
         this.id = id
         this.name = name
         this.singer = singer
         this.album = album
-        this.image = image
+        this.picUrl = picUrl
         this.duration = duration
         this.url = url
     }

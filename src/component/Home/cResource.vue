@@ -2,9 +2,8 @@
     <div class="c-Resource">
         <div class="Resource-top">
             <h3>{{ this.title }}</h3>
-            <div>更多</div>
+            <a>更多</a>
         </div>
-
         <slot name="componentBottom">
             <div class="Resource-bottom">
                 <div v-for=" (item, index) in recommendList" :key="item.id"
@@ -20,13 +19,11 @@
 </template>
 
 <script>
-import { recommend_Resource, playlist_detail } from '@/api/home';
+
 export default {
     name: 'c-Resource',
     mounted() {
-        recommend_Resource().then((result) => {
-            this.recommendList = result.recommend
-        })
+      
     },
     props: {
         title: {
@@ -34,22 +31,14 @@ export default {
             // 与对象或数组的默认值不同，这不是一个工厂函数——这是一个用作默认值的函数
             default: '推荐歌单',
         },
-
-    },
-    data() {
-        return {
-            recommendList: [],
-
+        recommendList:{
+            type:Array,
+            default:null
         }
     },
     computed: {
     },
     methods: {
-        watchPlayList(nowPlaylist) {
-            playlist_detail(nowPlaylist.id).then(res => {
-                    this.$store.state.songs.playList = res.playlist
-            })
-        }
     },
 };
 </script>

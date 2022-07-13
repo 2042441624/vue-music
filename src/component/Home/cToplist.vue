@@ -85,7 +85,7 @@ export default {
     },
     methods: {
         addSong(id) {
-            this.$store.commit('addsongs', id)
+            this.$store.dispatch('addsongs',id)
         }
     },
     components: {

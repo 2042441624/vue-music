@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { getPlaylistDetail } from "@/api/home";
 export default {
     name: 'c-Music',
     created() {
@@ -39,7 +40,7 @@ export default {
     },
 
     mounted() {
-
+        getPlaylistDetail()
     },
 
     methods: {

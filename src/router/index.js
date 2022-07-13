@@ -4,16 +4,14 @@ vue.use(vueRouter)
 const router = new vueRouter({
     mode: 'history',
     routes: [
-        { path: '/', redirect: '/main' },
         {
-            path: "/main", name: 'main', component: () => import('@/view/vMain.vue'),redirect: '/home',
-            children: [{ path: "/home", name: 'home', component: () => import('@/view/vHome.vue') }]
+            path: "/", name: '/', component: () => import('@/page/vMain.vue'), redirect: '/home',
+            children: [{ path: "/home", name: 'home', component: () => import('@/page/vHome.vue') },
+            { path: "/user", name: 'user', component: () => import('@/page/vUser.vue') }]
         },
         {
-            path: "/playlist", name: 'playlist', component: () => import('@/view/vPlayList.vue'),
+            path: "/playlist", name: 'playlist', component: () => import('@/page/vPlayList.vue'),
         },
     ]
 })
-
-
 export default router

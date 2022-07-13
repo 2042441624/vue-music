@@ -1,5 +1,4 @@
-import axios from '@/uitl/index';
-//  
+import  axios  from '@/utils/axios.js';
 //banner轮播图的接口请求 type---> 0:pc 1:android 2:iphone 3:ipad
 export const banner = () => {
     return axios.request({
@@ -11,13 +10,6 @@ export const banner = () => {
     })
 }
 
-//推荐的歌曲(需要登陆)
-export const recommend_Resource = () => {
-    return axios.request({
-        url: `recommend/resource`,
-        method: 'get'
-    })
-}
 
 //所以排行榜接口
 export const topList = () => {

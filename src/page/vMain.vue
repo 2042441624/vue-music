@@ -2,7 +2,10 @@
     <keep-alive>
         <div class="v-Mian">
             <v-PlayList v-if="isplaylist" class="v-PlayList"></v-PlayList>
-            <router-view class="v" v-else></router-view>
+            <keep-alive v-else>
+                <router-view class="v"></router-view>
+            </keep-alive>
+
             <c-Footer class="c-Footer" :Showfooter="!isplaylist"></c-Footer>
         </div>
     </keep-alive>
@@ -56,9 +59,10 @@ export default {
         z-index: 9999;
     }
 
-    .v{
+    .v {
         height: 100%;
     }
+
     .c-Footer {
         position: fixed;
         bottom: 0;

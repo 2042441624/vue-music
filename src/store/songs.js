@@ -1,34 +1,35 @@
 
-import { song_url, song_detail } from '@/api/home';
+import { song_detail } from '@/api/home';
+import { Song } from '@/utils/song';
 export default {
+
     state: {
         //打开的歌单
         playList: [],
         //当前的播放的歌单
         songsList: [],
         //正常播放的歌曲
-        nowSong: {
-            musicName: '',
-            Name: '',
-            musicUrl: '',
-            musicImg: ''
-        }
+        nowSong: {}
     },
 
-    mutations: {
+    actions: {
         addsongs(state, id) {
-            // 变更状态
             song_detail(id).then((res) => {
-                let song = res.songs[0]
-                state.nowSong.musicImg = song.al.picUrl
-                state.nowSong.musicName = song.name;
-                state.nowSong.Name = song.name
-                song_url(id).then(res => {
-                    state.nowSong.musicUrl = res.data[0].url
-                })
+                if (res.code === 200) {
+                    res = res.songs[0]
+                    console.log(res.name);
+                    state.commit('Add_SONG', new Song({ ...res.al, name: res.name, singer: res.ar[0].name, url: `https://music.163.com/song/media/outer/url?id=${id}.mp3` }))
+                }
             })
-            //全局添加单条歌曲
-            state.songsList.push(state.nowSong)
+
         }
+    },
+    mutations: {
+        Add_SONG(state, song) {
+            state.nowSong = song
+        }
+    },
+    getters:{
+
     }
 }

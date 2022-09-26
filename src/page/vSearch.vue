@@ -14,7 +14,11 @@
                 <div @click="search(sreachValue)">搜索</div>
             </slot>
         </cHeader>
-        <div> {{this.sreachList}}</div>
+        <div>
+            <ul v-if="this.sreachList.length">
+                <li v-for="list in this.sreachList" :key="list.id">{{list.name}}</li>
+            </ul>
+        </div>
 
     </div>
 </template>
@@ -30,8 +34,8 @@ export default {
     props: {},
     data() {
         return {
-            sreachValue: '',
-            sreachList: null
+            sreachValue: '周杰伦',
+            sreachList: []
         };
     },
     watch: {},
@@ -41,14 +45,12 @@ export default {
             console.log(this.sreachValue);
         },
         search(value) {
-            console.log(value);
             song_cloudsearch(value).then(res => {
-                this.sreachList = res
-                console.log(this.sreachList);
+
+                this.sreachList = res.result.songs
+
             })
         }
-
-
     },
     created() { },
     mounted() {

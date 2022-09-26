@@ -11,7 +11,6 @@
                 </div>
             </slot>
             <slot slot="right">
-
                 <div @click="search(sreachValue)">搜索</div>
             </slot>
         </cHeader>

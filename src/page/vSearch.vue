@@ -4,10 +4,7 @@
         <cHeader>
             <slot slot="centre">
                 <div class="search bar7">
-
                     <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue">
-
-
                 </div>
             </slot>
             <slot slot="right">
@@ -46,7 +43,7 @@ export default {
         },
         search(value) {
             song_cloudsearch(value).then(res => {
-
+                console.log('res');
                 this.sreachList = res.result.songs
 
             })

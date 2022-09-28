@@ -1,25 +1,29 @@
 <template>
-    <div class="c-Header">
+    <div>
+        <div class="c-Header">
+            <slot name="left">
+                <div>左边</div>
+
+            </slot>
 
 
-        <slot name="left">
-            <div>左边</div>
+            <slot name="centre">
+                <div>中间</div>
+            </slot>
+
+
+            <slot name="right">
+                <div>右边
+                </div>
+            </slot>
+
+
+        </div>
+        <slot name="search-content">
 
         </slot>
-
-
-        <slot name="centre">
-            <div>中间</div>
-        </slot>
-
-
-        <slot name="right">
-            <div>右边
-            </div>
-        </slot>
-
-
     </div>
+
 </template>
 
 <script>

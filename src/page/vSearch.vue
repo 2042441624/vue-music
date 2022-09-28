@@ -4,19 +4,21 @@
         <cHeader>
             <slot slot="centre">
                 <div class="search bar7">
-                    <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue">
+                    <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue" ref="InputSearch">
                 </div>
             </slot>
             <slot slot="right">
                 <div @click="search(sreachValue)">搜索</div>
             </slot>
-        </cHeader>
-        <div>
-            <ul v-if="this.sreachList.length">
-                <li v-for="list in this.sreachList" :key="list.id">{{list.name}}</li>
-            </ul>
-        </div>
+            <slot slot="search-content">
+         
+            </slot>
 
+
+        </cHeader>
+        <ul v-if="this.sreachList.length">
+            <li v-for="list in this.sreachList" :key="list.id">{{list.name}}</li>
+        </ul>
     </div>
 </template>
 
@@ -38,20 +40,27 @@ export default {
     watch: {},
     computed: {},
     methods: {
-        resSongs() {
-            console.log(this.sreachValue);
-        },
         search(value) {
-            song_cloudsearch(value).then(res => {
-                console.log('res');
-                this.sreachList = res.result.songs
+            this.$refs.InputSearch.focus()
+            if (value) {
+                song_cloudsearch(value).then(res => {
+                    this.sreachList = res.result.songs
+                })
+            } else {
+                //爱好推荐
+                console.log('推荐搜索');
+            }
 
-            })
         }
     },
     created() { },
     mounted() {
-
+        console.log(typeof this.$route.path);
+        if (this.$route.path === '/search') {
+            this.$refs.InputSearch.focus()
+        } else {
+            return
+        }
     }
 };
 </script>

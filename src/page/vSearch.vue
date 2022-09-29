@@ -1,24 +1,18 @@
 <template>
 
     <div>
-        <cHeader>
+        <cHeader :list="sreachList">
             <slot slot="centre">
                 <div class="search bar7">
-                    <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue" ref="InputSearch">
+                    <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue" ref="InputSearch"
+                        @input="search(sreachValue)">
                 </div>
             </slot>
             <slot slot="right">
                 <div @click="search(sreachValue)">搜索</div>
             </slot>
-            <slot slot="search-content">
-         
-            </slot>
-
-
         </cHeader>
-        <ul v-if="this.sreachList.length">
-            <li v-for="list in this.sreachList" :key="list.id">{{list.name}}</li>
-        </ul>
+
     </div>
 </template>
 
@@ -33,7 +27,7 @@ export default {
     props: {},
     data() {
         return {
-            sreachValue: '周杰伦',
+            sreachValue: '',
             sreachList: []
         };
     },
@@ -41,9 +35,11 @@ export default {
     computed: {},
     methods: {
         search(value) {
-            this.$refs.InputSearch.focus()
+            console.log(value.length, typeof value);
+
             if (value) {
                 song_cloudsearch(value).then(res => {
+                    console.log(res.result.songs);
                     this.sreachList = res.result.songs
                 })
             } else {

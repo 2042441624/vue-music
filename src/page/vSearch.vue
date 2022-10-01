@@ -1,15 +1,15 @@
 <template>
 
     <div>
-        <cHeader :list="sreachList">
+        <cHeader :searchlist="sreachList">
             <slot slot="centre">
                 <div class="search bar7">
                     <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue" ref="InputSearch"
-                        @input="search(sreachValue)">
+                        @input="search(sreachValue)" @keyup.enter="search(sreachValue)">
                 </div>
             </slot>
             <slot slot="right">
-                <div @click="search(sreachValue)">搜索</div>
+                <div @click="search(sreachValue)">取消</div>
             </slot>
         </cHeader>
 
@@ -35,18 +35,13 @@ export default {
     computed: {},
     methods: {
         search(value) {
-            console.log(value.length, typeof value);
-
-            if (value) {
-                song_cloudsearch(value).then(res => {
+            song_cloudsearch(value).then(res => {
+                if (value) {
                     console.log(res.result.songs);
                     this.sreachList = res.result.songs
-                })
-            } else {
-                //爱好推荐
-                console.log('推荐搜索');
-            }
+                } else { this.sreachList = [] }
 
+            })
         }
     },
     created() { },

@@ -20,8 +20,8 @@
 
         </div>
         <div class="search-content">
-            <ul v-if="this.list.length">
-                <li v-for="l in this.list" :key="l.id">
+            <ul v-if="this.searchlist.length">
+                <li v-for="l in this.searchlist.slice(0,10)" :key="l.id">
                     <router-link to="">{{l.name}} </router-link>
                 </li>
             </ul>
@@ -34,9 +34,10 @@
 export default {
     name: 'c-Header',
     props: {
-        list: {
-            type: Array
-        }
+        searchlist: {
+            type: Array,
+            default: () => []
+        },
     }
 };
 </script>
@@ -57,7 +58,7 @@ export default {
 
     .search-content {
         position: absolute;
-
+        
     }
 
     a {

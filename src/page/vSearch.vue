@@ -35,19 +35,29 @@ export default {
     computed: {},
     methods: {
         search(value) {
-            song_cloudsearch(value).then(res => {
-                if (value) {
-                    console.log(res.result.songs);
-                    this.sreachList = res.result.songs
-                } else { this.sreachList = [] }
 
-            })
-        }
+            if (this.$route.name === 'search') {
+                this.$router.back()
+            } else {
+                song_cloudsearch(value).then(res => {
+                    if (value) {
+                        console.log(res.result.songs);
+                        this.sreachList = res.result.songs
+                    } else { this.sreachList = [] }
+
+                })
+
+            }
+
+
+        },
+
     },
     created() { },
     mounted() {
-        console.log(typeof this.$route.path);
-        if (this.$route.path === '/search') {
+
+        if (this.$route.name === 'search') {
+
             this.$refs.InputSearch.focus()
         } else {
             return

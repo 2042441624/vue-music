@@ -11,7 +11,8 @@ export default {
         //正常播放的歌曲
         nowSong: {},
         nowDur: '',
-        nowindex:''
+        nowindex: '',
+
     },
 
     actions: {
@@ -31,13 +32,27 @@ export default {
                 }
             })
         },
-        addDur(state,str){
-            state.commit('Add_nowDur',str) 
+        addDur(state, str) {
+            state.commit('Add_nowDur', str)
+        },
+        addToSongsList() {
+
         }
     },
     mutations: {
         Add_SONG(state, song) {
             state.nowSong = song
+            state.songsList.push(state.nowSong)
+
+            var obj = {};
+            state.songsList = state.songsList.reduce(function (item, next) {
+                obj[next.key] ? '' : obj[next.key] = true && item.push(next);
+                return item;
+            }, []);
+
+
+            localStorage.setItem('songsList', JSON.stringify(state.songsList))
+
         },
         Add_nowDur(state, Str) {
             state.nowDur = Str

@@ -7,7 +7,10 @@ const router = new vueRouter({
         {
             path: "/", name: '/', component: () => import('@/page/vMain.vue'), redirect: '/home',
             children: [{ path: "/home", name: 'home', component: () => import('@/page/vHome.vue') },
-            { path: "/user", name: 'user', component: () => import('@/page/vUser.vue') }]
+            { path: "/user", name: 'user', component: () => import('@/page/vUser.vue') },
+            {
+                path: "/search", name: 'search', query: { keyword: '' }, component: () => import('@/page/vSearch.vue'),
+            },]
         },
         {
             path: "/playlist", name: 'playlist', component: () => import('@/page/vPlayList.vue'),
@@ -15,9 +18,7 @@ const router = new vueRouter({
         {
             path: "/musicpage", name: 'musicpage', query: { id: '' }, component: () => import('@/component/Home/cMusicPage.vue'),
         },
-        {
-            path: "/search", name: 'search', query: { keyword: '' }, component: () => import('@/page/vSearch.vue'),
-        },
+
 
     ]
 })

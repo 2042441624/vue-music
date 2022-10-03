@@ -42,17 +42,14 @@ export default {
     mutations: {
         Add_SONG(state, song) {
             state.nowSong = song
-            state.songsList.push(state.nowSong)
-
-            var obj = {};
-            state.songsList = state.songsList.reduce(function (item, next) {
-                obj[next.key] ? '' : obj[next.key] = true && item.push(next);
-                return item;
-            }, []);
-
-
+            state.songsList.unshift(state.nowSong)
+            let newobj = {};
+            state.songsList = state.songsList.reduce((preVal, curVal) => {
+                newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
+                return preVal
+            }, [])
+            console.log(state.songsList);
             localStorage.setItem('songsList', JSON.stringify(state.songsList))
-
         },
         Add_nowDur(state, Str) {
             state.nowDur = Str

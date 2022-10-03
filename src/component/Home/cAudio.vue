@@ -3,10 +3,11 @@
         <audio id="ado" ref="audio"></audio>
         <div class="nowSongs" v-show="song.name && !this.nowMusicPage">
             <div class="mp3Box">
+                <!-- 歌曲图片 -->
                 <div class="songImg"><img ref='songimg' /></div>
-
+                <!-- 歌名显示 -->
                 <div class="songDei" @click="toMusicPage()">
-                    <p>{{  song.name  }}-{{  song.singer  }}</p>
+                    <p>{{ song.name }}-{{ song.singer }}</p>
                 </div>
 
                 <!-- 控制播放 -->
@@ -15,6 +16,16 @@
                         <play-back :palyState="aState" class="minPlay" @resPlay="fPlay($event)"></play-back>
                     </slot>
                 </circularProgressBar>
+                <!-- 列表 -->
+                <div class="songsListIconf">
+                    <svg t="1664773103783" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="3133" width="24" height="24">
+                        <path
+                            d="M981.333333 917.333333a21.333333 21.333333 0 0 1-21.333333 21.333334H64a21.333333 21.333333 0 0 1 0-42.666667h896a21.333333 21.333333 0 0 1 21.333333 21.333333zM533.333333 170.666667h426.666667a21.333333 21.333333 0 0 0 0-42.666667H533.333333a21.333333 21.333333 0 0 0 0 42.666667z m426.666667 341.333333H533.333333a21.333333 21.333333 0 0 0 0 42.666667h426.666667a21.333333 21.333333 0 0 0 0-42.666667zM62.833333 593.12a37.213333 37.213333 0 0 0 38.713334-2.666667l309.333333-218.633333a37.333333 37.333333 0 0 0 0-60.973333l-309.333333-218.633334A37.333333 37.333333 0 0 0 42.666667 122.7V560a37.2 37.2 0 0 0 20.166666 33.12z"
+                            fill="#8a8a8a" p-id="3134"></path>
+                    </svg>
+                </div>
+
             </div>
 
         </div>
@@ -208,6 +219,10 @@ export default {
         padding: 0 0.4rem;
         margin: 2px 0;
 
+        .songsListIconf {
+            width: 24px;
+            height: 24px;
+        }
 
         .songImg {
             width: 30px;
@@ -224,6 +239,8 @@ export default {
 
 
     .songDei {
+        min-width: 200px;
+
         p {
             font-size: 0.5rem;
         }

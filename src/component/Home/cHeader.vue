@@ -2,7 +2,7 @@
     <div class="c-Header">
         <div class="search">
             <slot name="left">
-                <div>左边</div>
+                <div></div>
 
             </slot>
 
@@ -13,7 +13,7 @@
 
 
             <slot name="right">
-                <div>右边
+                <div>
                 </div>
             </slot>
 
@@ -54,11 +54,12 @@ export default {
         justify-content: space-around;
         align-items: center;
         position: relative;
+        
     }
 
     .search-content {
         position: absolute;
-        
+
     }
 
     a {

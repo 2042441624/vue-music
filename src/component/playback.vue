@@ -1,6 +1,11 @@
 <template>
-    <div class="palyback" ref="palyback" @click="rePlay">
+    <div class="Song-Controls">
+        <div v-if="yesOk" @click="pre">上一首</div>
+        <div class="palyback" ref="palyback" @click="rePlay"></div>
+        <div v-if="yesOk" @click="next">下一首</div>
     </div>
+
+
 </template>
 
 <script>
@@ -10,6 +15,11 @@ export default {
 
     },
     props: {
+        yesOk: {
+            type: Boolean,
+            require: true,
+            default: false
+        },
         palyState: {
             type: Boolean,
             require: true,
@@ -26,6 +36,12 @@ export default {
         rePlay() {
             this.ToPaly = !this.ToPaly;
             this.$emit('resPlay', this.ToPaly)
+        },
+        next(){
+            this.$emit('nextSong')
+        },
+        pre(){
+            this.$emit('preSong')
         }
     },
 
@@ -33,7 +49,43 @@ export default {
 
         ToPaly(newPlay) {
 
-            if (newPlay) {
+            if (this.yesOk) {
+                if (newPlay) {
+                    this.$refs.palyback.classList.remove('zantingMax')
+                    this.$refs.palyback.classList.add('bofangMax')
+                    return
+                } else {
+                    this.$refs.palyback.classList.remove('bofangMax')
+                    this.$refs.palyback.classList.add('zantingMax')
+                    return
+                }
+            } else {
+                if (newPlay) {
+                    this.$refs.palyback.classList.remove('zanting')
+                    this.$refs.palyback.classList.add('bofang')
+                    return
+                } else {
+                    this.$refs.palyback.classList.remove('bofang')
+                    this.$refs.palyback.classList.add('zanting')
+                    return
+                }
+
+            }
+        }
+    },
+    mounted() {
+        // 刚加载的样式
+        this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
+        if (this.yesOk) {
+            if (this.ToPaly) {
+                this.$refs.palyback.classList.remove('zantingMax')
+                this.$refs.palyback.classList.add('bofangMax')
+            } else {
+                this.$refs.palyback.classList.remove('bofangMax')
+                this.$refs.palyback.classList.add('zantingMax')
+            }
+        } else {
+            if (this.ToPaly) {
                 this.$refs.palyback.classList.remove('zanting')
                 this.$refs.palyback.classList.add('bofang')
             } else {
@@ -41,42 +93,59 @@ export default {
                 this.$refs.palyback.classList.add('zanting')
             }
         }
-    },
-    mounted() {
-        this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
-        if (this.ToPaly) {
-            this.$refs.palyback.classList.remove('zanting')
-            this.$refs.palyback.classList.add('bofang')
-        } else {
-            this.$refs.palyback.classList.remove('bofang')
-            this.$refs.palyback.classList.add('zanting')
-        }
+
     }
 };
 
 </script>
 <style lang="less">
-.palyback {
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    z-index: 99999;
-}
+.Song-Controls {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 
-.bofang {
-    background-image: url(../assets/img/bofang.jpg);
+    .palyback {
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        z-index: 99999;
+    }
 
-}
+    .bofang {
+        background-image: url(../assets/img/bofang.png);
 
-.zanting {
-    background-image: url(../assets/img/zanting.jpg);
-}
+    }
 
-.zanting,
-.bofang {
-    width: 29px;
-    height:29px;
-    transform: scale(1.5);
-    background-size: cover;
+    .zanting {
+        background-image: url(../assets/img/zanting.png);
+
+    }
+
+    .zanting,
+    .bofang {
+        width: 29px;
+        height: 29px;
+        background-size: cover;
+    }
+
+    .bofangMax {
+        width: 45px;
+        height: 45px;
+        background-image: url(../assets/img/bofang.png);
+
+        background-color: black;
+        background-size: cover;
+    }
+
+    .zantingMax {
+        width: 45px;
+        height: 45px;
+        background-image: url(../assets/img/zanting.png);
+        background-color: black;
+        background-size: cover;
+    }
 }
 </style>

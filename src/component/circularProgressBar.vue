@@ -1,4 +1,5 @@
 <template>
+    <!-- 播放按钮圆形滚动 -->
     <div class="circularProgressBar">
         <div class="ring-bg">
             <slot name="playback"></slot>
@@ -20,7 +21,9 @@ export default {
         circular: Number,
     },
     data() {
-        return {}
+        return {
+
+        }
     },
     watch: {
         circular(newPercentage) {
@@ -57,6 +60,7 @@ span {
     height: 30px;
 
     .ring-bg {
+
         position: absolute;
         display: flex;
         justify-content: center;
@@ -75,7 +79,6 @@ span {
     .rec-left,
     .rec-right {
         position: absolute;
-        top: 1px;
         width: 50%;
         height: 100%;
         margin: 0;
@@ -106,16 +109,16 @@ span {
 
 .circularProgressBar>.rec-left>.half-round {
     left: 1px;
-    border-top: 2px solid rgb(124, 124, 124);
+    border-top: 2px solid rgb(245, 82, 82);
     ;
-    border-right: 2px solid rgb(124, 124, 124);
+    border-right: 2px solid rgb(245, 82, 82);
     transform: rotate(45deg);
 }
 
 .circularProgressBar>.rec-right>.half-round {
     right: 1px;
-    border-bottom: 2px solid rgb(124, 124, 124);
-    border-left: 2px solid rgb(124, 124, 124);
+    border-bottom: 2px solid rgb(245, 82, 82);
+    border-left: 2px solid rgb(245, 82, 82);
     transform: rotate(45deg);
 }
 </style>

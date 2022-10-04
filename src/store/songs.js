@@ -35,11 +35,32 @@ export default {
         addDur(state, str) {
             state.commit('Add_nowDur', str)
         },
-        addToSongsList() {
-
+        nextSong(state) {
+            state.commit('Next_SONG')
+        },
+        preSong(state) {
+            state.commit('Pre_SONG')
         }
     },
     mutations: {
+        Next_SONG(state) {
+            let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
+            nowSongIndex += 1;
+            if (nowSongIndex >= state.songsList.length) {
+                nowSongIndex = 0
+            }
+            state.nowSong = state.songsList[nowSongIndex]
+
+        },
+        Pre_SONG(state) {
+            let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
+
+            nowSongIndex -= 1;
+            if (nowSongIndex < 0) {
+                nowSongIndex = state.songsList.length - 1
+            }
+            state.nowSong = state.songsList[nowSongIndex]
+        },
         Add_SONG(state, song) {
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
@@ -48,7 +69,7 @@ export default {
                 newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
                 return preVal
             }, [])
-            console.log(state.songsList);
+
             localStorage.setItem('songsList', JSON.stringify(state.songsList))
         },
         Add_nowDur(state, Str) {

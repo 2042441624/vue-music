@@ -1,23 +1,21 @@
 <template>
     <div class="c-Header">
         <div class="search">
-            <slot name="left">
-                <div></div>
-
-            </slot>
-
-
-            <slot name="centre">
-                <div>中间</div>
-            </slot>
-
-
-            <slot name="right">
-                <div>
-                </div>
-            </slot>
-
-
+            <div class="left">
+                <slot name="left">
+                    left
+                </slot>
+            </div>
+            <div class="centre">
+                <slot name="centre">
+                    <keep-alive><input type="text" placeholder="请输入您要搜索的内容..." @focus="toSearch()"></keep-alive>
+                </slot>
+            </div>
+            <div class="right">
+                <slot name="right">
+                    right
+                </slot>
+            </div>
         </div>
         <div class="search-content">
             <ul v-if="this.searchlist.length">
@@ -47,25 +45,31 @@ export default {
     width: 100%;
     height: 40px;
     position: relative;
+    padding: 0 3px;
 
     .search {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
-        position: relative;
-        
+
+        .centre {
+            min-width: 200px;
+            max-height: 100%;
+        }
+
+        .centre,
+        .left,
+        .right {
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+        }
     }
 
     .search-content {
         position: absolute;
-
     }
 
-    a {
-        list-style: none;
-        text-decoration: none;
-        color: black
-    }
 }
 </style>

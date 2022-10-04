@@ -12,9 +12,11 @@
 
                 <!-- 控制播放 -->
                 <circularProgressBar :circular="parseInt((fStr / 100) * 360)">
+
                     <slot slot="playback">
-                        <play-back :palyState="aState" class="minPlay" @resPlay="fPlay($event)"></play-back>
+                        <play-back :palyState="aState" @resPlay="fPlay($event)"></play-back>
                     </slot>
+
                 </circularProgressBar>
                 <!-- 列表 -->
                 <div class="songsListIconf">
@@ -34,7 +36,9 @@
                 <progress-bar :slide="sStr" :fill="fStr"></progress-bar>
             </slot>
             <slot slot="control">
-                <play-back :palyState="aState" class="maxPlay" @resPlay="fPlay($event)"></play-back>
+                <play-back :palyState="aState" @resPlay="fPlay($event)" :yesOk="true" class="max" @nextSong="nextSong"
+                    @preSong="preSong">
+                </play-back>
             </slot>
         </c-music-page>
     </div>
@@ -63,8 +67,9 @@ export default {
         circularProgressBar
 
     },
-    created() {
+    mounted() {
         this.song.lyric.then(res => this.nowLyric = res)
+        console.log();
     },
     computed: {
         song() {
@@ -83,6 +88,12 @@ export default {
         }
     },
     methods: {
+        nextSong() {
+            this.$store.dispatch('nextSong')
+        },
+        preSong() {
+            this.$store.dispatch('preSong')
+        },
         toMusicPage() {
             this.nowMusicPage = !this.nowMusicPage
         },
@@ -97,11 +108,9 @@ export default {
         },
         cDom() {
             this.$nextTick(() => {
-
                 var audio = document.querySelector("#ado");
                 audio.src = this.song.url
                 audio.controls = false;
-                audio.loop = true;
                 audio.volume = 0.3;
                 // var voice = document.querySelector(".voice");
                 // voice.addEventListener("click", function () {
@@ -113,7 +122,7 @@ export default {
                 //         console.log('关闭音量');
                 //     }
                 // });
-
+                //开始播放
                 audio.addEventListener("canplay", () => {
                     audio.loading = false;
                     this.$refs.songimg.src = this.song.picUrl
@@ -121,6 +130,11 @@ export default {
                         audio.play()
                     }
                 });
+                //结束播放
+                audio.addEventListener("ended", () => {
+                    this.nextSong()
+                });
+                //歌曲总长以及当前事件
                 function transTime(time) {
                     let duration = parseInt(time);
                     let minute = parseInt(duration / 60);
@@ -161,10 +175,12 @@ export default {
                     })
 
                 };
+                //进度盒子鼠标按下事件
                 progress.onmousedown = function (e) {
                     var rate = (e.clientX - progress.offsetLeft) / this.clientWidth * audio.duration
                     audio.currentTime = rate - (progress.clientWidth * 0.005)
                 };
+                //进度条鼠标按下事件
                 slide.addEventListener('mousedown', function (e) {
                     var x = e.clientX - this.offsetLeft; //240
                     document.onmousemove = function (e) {
@@ -180,6 +196,7 @@ export default {
                         document.onmouseup = null;
                     };
                 })
+                //进度条跟随事件
                 slide.ontouchstart = function (e) {
                     var x = e.targetTouches[0].clientX - this.offsetLeft; //240
                     document.ontouchmove = function (e) {
@@ -246,9 +263,9 @@ export default {
         }
     }
 
-    .minPlay {
-        width: 18px;
-        height: 18px;
+    .max {
+        width: 48px;
+        height: 48px;
         margin: 0;
     }
 
@@ -261,6 +278,10 @@ export default {
     //     background: url(../../assets/img/voiceon.jpg) no-repeat center center;
     //     background-size: 0.5rem 0.5rem;
     // }
+    .min {
+        width: 29px;
+        height: 29px;
+    }
 
     #yinliang {
         display: none;
@@ -277,5 +298,9 @@ export default {
         user-select: none;
     }
 
+    .control {
+        width: 100px;
+        background-color: aquamarine;
+    }
 }
 </style>

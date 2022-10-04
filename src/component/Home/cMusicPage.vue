@@ -4,7 +4,10 @@
             <slot slot="left">
                 <div @click="routerBack">回退</div>
             </slot>
-
+            <slot slot="centre">
+                <div>{{songs.nowSong.name}}</div>
+            </slot>
+            centre
         </c-header>
         <div class='lyric'>
             <div class="lyricConter" ref="lyricConter">
@@ -15,9 +18,13 @@
             </div>
             <div class="Onlyric"></div>
         </div>
+        <div class="song-progressBar">
+            <slot name="progressBar"></slot>
+        </div>
+        <div class="song-control">
+            <slot name="control"></slot>
+        </div>
 
-        <slot name="progressBar"></slot>
-        <slot name="control"></slot>
     </address>
 </template>
 
@@ -136,36 +143,51 @@ address {
 
     .lyric {
         position: relative;
-    }
 
-    .Onlyric {
-        position: absolute;
-        width: 100%;
-        height: 20px;
-        top: 300px;
-        background-color: aliceblue;
-        opacity: 0.5;
-    }
-
-    .lyricConter {
-        position: relative;
-        overflow: scroll;
-        height: 600px;
-
-        .lyricBox {
-
-            position: relative;
-            padding: 300px 0;
-
-            p {
-                text-align: center;
-                height: 20px;
-                font-size: 16px;
-                line-height: 20px;
-            }
+        .Onlyric {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            top: 300px;
+            background-color: aliceblue;
+            opacity: 0.5;
         }
 
+        .lyricConter {
+            position: relative;
+            overflow: scroll;
+            height: 600px;
 
+            .lyricBox {
+
+                position: relative;
+                padding: 300px 0;
+
+                p {
+                    text-align: center;
+                    height: 20px;
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+            }
+
+
+        }
+    }
+
+    .song-progressBar,
+    .song-control {
+        position: relative;
+
+    }
+
+    .song-progressBar {
+        margin: 10px 0;
+
+        .song-control {
+            height: 100%;
+            box-sizing: content-box;
+        }
     }
 
 

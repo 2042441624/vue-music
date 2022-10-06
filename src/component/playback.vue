@@ -1,18 +1,22 @@
 <template>
     <div class="Song-Controls">
+        <c-gren v-if="yesOk"></c-gren>
+
         <div v-if="yesOk" @click="pre">上一首</div>
         <div class="palyback" ref="palyback" @click="rePlay"></div>
         <div v-if="yesOk" @click="next">下一首</div>
+        <div v-if="yesOk" @click="songsList">歌单</div>
     </div>
 
 
 </template>
 
 <script>
+import cGren from '@/component/cGren.vue';
 export default {
     name: 'play-Back',
     components: {
-
+        cGren
     },
     props: {
         yesOk: {
@@ -37,14 +41,46 @@ export default {
             this.ToPaly = !this.ToPaly;
             this.$emit('resPlay', this.ToPaly)
         },
-        next(){
+        next() {
             this.$emit('nextSong')
         },
-        pre(){
+        pre() {
             this.$emit('preSong')
+        },
+        //事件回调
+        * loop(list, max = Infinity) {
+            for (let i = 0; i < max; i++) {
+                //循环索引
+                yield list[i % list.length];
+            }
+        },
+
+        songsList() {
+
         }
     },
+    mounted() {
+        // 刚加载的样式
+        this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
+        if (this.yesOk) {
+            if (this.ToPaly) {
+                this.$refs.palyback.classList.remove('zantingMax')
+                this.$refs.palyback.classList.add('bofangMax')
+            } else {
+                this.$refs.palyback.classList.remove('bofangMax')
+                this.$refs.palyback.classList.add('zantingMax')
+            }
+        } else {
+            if (this.ToPaly) {
+                this.$refs.palyback.classList.remove('zanting')
+                this.$refs.palyback.classList.add('bofang')
+            } else {
+                this.$refs.palyback.classList.remove('bofang')
+                this.$refs.palyback.classList.add('zanting')
+            }
+        }
 
+    },
     watch: {
 
         ToPaly(newPlay) {
@@ -73,29 +109,11 @@ export default {
             }
         }
     },
-    mounted() {
-        // 刚加载的样式
-        this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
-        if (this.yesOk) {
-            if (this.ToPaly) {
-                this.$refs.palyback.classList.remove('zantingMax')
-                this.$refs.palyback.classList.add('bofangMax')
-            } else {
-                this.$refs.palyback.classList.remove('bofangMax')
-                this.$refs.palyback.classList.add('zantingMax')
-            }
-        } else {
-            if (this.ToPaly) {
-                this.$refs.palyback.classList.remove('zanting')
-                this.$refs.palyback.classList.add('bofang')
-            } else {
-                this.$refs.palyback.classList.remove('bofang')
-                this.$refs.palyback.classList.add('zanting')
-            }
-        }
+}
 
-    }
-};
+
+
+
 
 </script>
 <style lang="less">

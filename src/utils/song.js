@@ -19,6 +19,7 @@ export class Song {
         this.duration = duration
         this.url = url
         this.lyric = lyric
+        this.time = new Date()
     }
 }
 

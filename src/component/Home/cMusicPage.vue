@@ -72,7 +72,7 @@ export default {
 
     },
     mounted() {
-        this.$refs.address.style.backgroundImage = `url(` + this.songs.nowSong.picUrl + `)`
+
         this.songs.nowSong.lyric.then(res => {
             this.nowLyric = res.filter(l => l != '')
             this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
@@ -82,6 +82,7 @@ export default {
     },
     updated() {
         this.songs.nowSong.lyric.then(res => this.nowLyric = res)
+        this.$refs.address.style.backgroundImage = `url(` + this.songs.nowSong.picUrl + `)`
 
     },
     computed: {
@@ -217,5 +218,17 @@ address {
     left: 0;
     content: '';
     filter: blur(6px);
+}
+
+.Random {
+    background-color: red;
+}
+
+.Single {
+    background-color: yellow;
+}
+
+.order {
+    background-color: green;
 }
 </style>

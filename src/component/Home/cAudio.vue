@@ -78,10 +78,8 @@ export default {
     },
     watch: {
         "song.name": {
-            handler(newD, oldD) {
-                if (newD !== oldD) {
-                    this.cDom()
-                }
+            handler() {
+                this.cDom()
             },
             deep: true,
             immediate: true
@@ -112,6 +110,8 @@ export default {
                 audio.src = this.song.url
                 audio.controls = false;
                 audio.volume = 0.3;
+                //单曲循环控件
+                this.$store.state.songs.songsList.length === 1 ? audio.loop = true : audio.loop = false
                 // var voice = document.querySelector(".voice");
                 // voice.addEventListener("click", function () {
                 //     if (audio.muted) {

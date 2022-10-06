@@ -46,11 +46,14 @@ export default {
         Next_SONG(state) {
             let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
             nowSongIndex += 1;
+
             if (nowSongIndex >= state.songsList.length) {
                 nowSongIndex = 0
             }
-            state.nowSong = state.songsList[nowSongIndex]
-
+            console.log(nowSongIndex);
+            let newobj = state.songsList[nowSongIndex]
+            state.nowSong = newobj
+            newobj = null
         },
         Pre_SONG(state) {
             let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);

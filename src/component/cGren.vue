@@ -1,5 +1,5 @@
 <template>
-    <div id="Generator">模式</div>
+    <div id="Generator"></div>
 </template>
 
 <script>
@@ -20,29 +20,31 @@ export default {
         function toggle(...actions) {
             //生成器不能new
             let gen = loop(actions);
-            //回调函数
-
             return function (...args) {
                 return gen.next().value.apply(this, args);
             }
         }
         //事件
-        div.onclick = () => {
-            console.log(this);
-            toggle(
-                $event => $event.target.className = 'Random',
-                $event => $event.target.className = 'Single',
-                $event => $event.target.className = 'order'
-            )
-        }
+        div.onclick = toggle(
+            $event => {
+                console.log(this);
+                $event.target.innerText = '随机'
+            },
+            $event => $event.target.innerText = '循环',
+            $event => $event.target.innerText = '顺序'
+        )
     }
+
+
+
 }
 </script>
 
 <style>
 #Generator {
-    width: 50;
-
+    width: 50px;
+    height: 45px;
+    line-height: 45px;
 }
 
 .Random {

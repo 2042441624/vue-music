@@ -132,6 +132,7 @@ export default {
                 });
                 //结束播放
                 audio.addEventListener("ended", () => {
+                    console.log();
                     this.nextSong()
                 });
                 //歌曲总长以及当前事件

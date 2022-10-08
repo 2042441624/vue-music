@@ -8,14 +8,16 @@ export default {
         playList: [],
         //当前的播放的歌单
         songsList: [],
-        //正常播放的歌曲
+        //正在播放的歌曲
         nowSong: {},
+        //当前歌曲的进度值
         nowDur: '',
-        nowindex: '',
-
+        //歌曲模式（顺序,循环，随机）
+        songmode: '',
     },
 
     actions: {
+        //添加单曲
         addsongs(state, id) {
             song_detail(id).then((res) => {
                 if (res.code === 200) {
@@ -32,6 +34,7 @@ export default {
                 }
             })
         },
+        //赋值进度条
         addDur(state, str) {
             state.commit('Add_nowDur', str)
         },
@@ -43,6 +46,7 @@ export default {
         }
     },
     mutations: {
+        //下一首歌曲
         Next_SONG(state) {
             let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
             nowSongIndex += 1;
@@ -55,6 +59,7 @@ export default {
             state.nowSong = newobj
             newobj = null
         },
+        //上一首歌曲
         Pre_SONG(state) {
             let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
 
@@ -64,6 +69,7 @@ export default {
             }
             state.nowSong = state.songsList[nowSongIndex]
         },
+        //添加单曲
         Add_SONG(state, song) {
             state.nowSong = song
             state.songsList.unshift(state.nowSong)

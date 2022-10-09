@@ -13,7 +13,7 @@ export default {
         //当前歌曲的进度值
         nowDur: '',
         //歌曲模式（顺序,循环，随机）
-        songmode: '',
+        songMode: '顺序',
     },
 
     actions: {

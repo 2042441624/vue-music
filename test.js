@@ -33,17 +33,21 @@ function RandomNum(Min, Max) {
     var num = Min + Math.round(Math.random() * (Max - Min));
     return num;
 }
-
+let songList = ['a', 'b', 'c', 'd']
+let newarr = []
 //不重复随机数
 function withoutRepetition(Min, Max) {
     let arr = []
-    for (let i = 0; arr.length !== (Max + 1); i++) {
-        let nowNum = RandomNum(Min, Max)
+    let newarr = []
+    for (let i = 0; arr.length !== Max; i++) {
+        let nowNum = RandomNum(Min, Max - 1)
         if (!arr.includes(nowNum)) {
             arr.push(nowNum)
+            newarr.push(songList[nowNum])
         }
-
     }
-    return arr;
+    return newarr;
 }
-console.log(withoutRepetition(0, 4)); 
+let ranArr = withoutRepetition(0, songList.length)
+//index.lock
+console.log(ranArr);

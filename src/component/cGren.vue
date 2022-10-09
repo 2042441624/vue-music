@@ -1,5 +1,5 @@
 <template>
-    <div id="Generator"></div>
+    <div id="Generator" @click="r"></div>
 </template>
 
 <script>
@@ -7,6 +7,9 @@
 export default {
     name: "c-Generator",
     methods: {
+        r() {
+            console.log(this.$store.dispatch('RandomSongList'));
+        }
 
     },
     mounted() {

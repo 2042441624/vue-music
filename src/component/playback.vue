@@ -1,6 +1,6 @@
 <template>
     <div class="Song-Controls">
-        <c-gren v-if="yesOk"></c-gren>
+        <c-gren v-if="yesOk" ></c-gren>
 
         <div v-if="yesOk" @click="pre">上一首</div>
         <div class="palyback" ref="palyback" @click="rePlay"></div>
@@ -37,6 +37,11 @@ export default {
     },
     computed: {},
     methods: {
+        rad() {
+            console.log('aa');
+            let arr = this.$store.dispatch('RandomSongList')
+            console.log(arr);
+        },
         rePlay() {
             this.ToPaly = !this.ToPaly;
             this.$emit('resPlay', this.ToPaly)
@@ -60,6 +65,7 @@ export default {
         }
     },
     mounted() {
+
         // 刚加载的样式
         this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
         if (this.yesOk) {

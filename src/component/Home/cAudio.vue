@@ -69,7 +69,7 @@ export default {
     },
     mounted() {
         this.song.lyric.then(res => this.nowLyric = res)
-        console.log();
+     
     },
     computed: {
         song() {
@@ -85,6 +85,7 @@ export default {
             immediate: true
         }
     },
+
     methods: {
         nextSong() {
             this.$store.dispatch('nextSong')

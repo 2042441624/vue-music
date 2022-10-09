@@ -43,6 +43,29 @@ export default {
         },
         preSong(state) {
             state.commit('Pre_SONG')
+        },
+        RandomSongList(state) {
+
+            function RandomNum(Min, Max) {
+                var num = Min + Math.round(Math.random() * (Max - Min));
+                return num;
+            }
+            let songList = state.songsList
+            //不重复随机数
+            function withoutRepetition(Min, Max) {
+                console.log(Max);
+                let arr = []
+                let newarr = []
+                for (let i = 0; arr.length !== Max; i++) {
+                    let nowNum = RandomNum(Min, Max - 1)
+                    if (!arr.includes(nowNum)) {
+                        arr.push(nowNum)
+                        newarr.push(songList[nowNum])
+                    }
+                }
+                return newarr;
+            }
+            return withoutRepetition(0, (state.songsList.length))
         }
     },
     mutations: {
@@ -83,7 +106,8 @@ export default {
         },
         Add_nowDur(state, Str) {
             state.nowDur = Str
-        }
+        },
+
     },
     getters: {
 

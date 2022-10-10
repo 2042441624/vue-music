@@ -1,6 +1,7 @@
 
 import { song_detail, song_lyric } from '@/api/home';
 import { Song } from '@/utils/song';
+import util from '@/utils/util';
 export default {
 
     state: {
@@ -19,6 +20,7 @@ export default {
     actions: {
         //添加单曲
         addsongs(state, id) {
+
             song_detail(id).then((res) => {
                 if (res.code === 200) {
                     res = res.songs[0]
@@ -44,40 +46,18 @@ export default {
         preSong(state) {
             state.commit('Pre_SONG')
         },
-        RandomSongList(state) {
 
-            function RandomNum(Min, Max) {
-                var num = Min + Math.round(Math.random() * (Max - Min));
-                return num;
-            }
-            let songList = state.songsList
-            //不重复随机数
-            function withoutRepetition(Min, Max) {
-                console.log(Max);
-                let arr = []
-                let newarr = []
-                for (let i = 0; arr.length !== Max; i++) {
-                    let nowNum = RandomNum(Min, Max - 1)
-                    if (!arr.includes(nowNum)) {
-                        arr.push(nowNum)
-                        newarr.push(songList[nowNum])
-                    }
-                }
-                return newarr;
-            }
-            return withoutRepetition(0, (state.songsList.length))
-        }
     },
     mutations: {
         //下一首歌曲
         Next_SONG(state) {
+            console.log(util.withoutRepetition(0, state.songsList));
             let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
             nowSongIndex += 1;
 
             if (nowSongIndex >= state.songsList.length) {
                 nowSongIndex = 0
             }
-            console.log(nowSongIndex);
             let newobj = state.songsList[nowSongIndex]
             state.nowSong = newobj
             newobj = null

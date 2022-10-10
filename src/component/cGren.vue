@@ -1,16 +1,19 @@
 <template>
-    <div id="Generator" @click="r"></div>
+    <div id="Generator"></div>
 </template>
 
 <script>
 
+import { mapGetters } from 'vuex'
+
 export default {
     name: "c-Generator",
     methods: {
-        r() {
-            console.log(this.$store.dispatch('RandomSongList'));
-        }
 
+
+    },
+    computed: {
+        ...mapGetters(['countAdd'])
     },
     mounted() {
         let div = document.getElementById('Generator')

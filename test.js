@@ -28,26 +28,21 @@ for (let index = START; index < ENDMaxINT; index++) {
 
 }
 console.log(count, now, Math.pow(2, 53));
-//单个随机数
-function RandomNum(Min, Max) {
-    var num = Min + Math.round(Math.random() * (Max - Min));
-    return num;
-}
-let songList = ['a', 'b', 'c', 'd']
-let newarr = []
+
 //不重复随机数
-function withoutRepetition(Min, Max) {
+function withoutRepetition(Min, List) {
     let arr = []
     let newarr = []
-    for (let i = 0; arr.length !== Max; i++) {
-        let nowNum = RandomNum(Min, Max - 1)
+    for (let i = 0; arr.length !== List.length; i++) {
+        let nowNum = RandomNum(Min, List.length - 1)
         if (!arr.includes(nowNum)) {
             arr.push(nowNum)
-            newarr.push(songList[nowNum])
+            newarr.push(List[nowNum])
         }
     }
-    return newarr;
+    return newarr.length ? newarr : [];
 }
-let ranArr = withoutRepetition(0, songList.length)
+let songList = ['a', 'b', 'c', 'd']
+let ranArr = withoutRepetition(0, songList)
 //index.lock
 console.log(ranArr);

@@ -56,6 +56,7 @@ export default {
         Switching_MODE(state, mode) {
             state.songMode = mode
         },
+
         //下一首歌曲
         Next_SONG(state) {
             console.log();

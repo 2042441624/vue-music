@@ -1,5 +1,5 @@
 <template>
-    <div id="Generator"></div>
+    <div id="Generator" @click="switchingMode($event)"></div>
 </template>
 
 <script>
@@ -9,7 +9,11 @@ import { mapGetters } from 'vuex'
 export default {
     name: "c-Generator",
     methods: {
+        switchingMode(e) {
+            console.log(e);
+            this.$store.dispatch('switchingMode', e.innerText)
 
+        }
 
     },
     computed: {
@@ -32,12 +36,9 @@ export default {
         }
         //事件
         div.onclick = toggle(
-            $event => {
-                console.log(this);
-                $event.target.innerText = '随机'
-            },
+            $event => $event.target.innerText = '顺序',
             $event => $event.target.innerText = '循环',
-            $event => $event.target.innerText = '顺序'
+            $event => $event.target.innerText = '随机'
         )
     }
 

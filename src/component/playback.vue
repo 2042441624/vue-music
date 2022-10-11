@@ -37,11 +37,7 @@ export default {
     },
     computed: {},
     methods: {
-        rad() {
-            console.log('aa');
-            let arr = this.$store.dispatch('RandomSongList')
-            console.log(arr);
-        },
+
         rePlay() {
             this.ToPaly = !this.ToPaly;
             this.$emit('resPlay', this.ToPaly)

@@ -18,6 +18,10 @@ export default {
     },
 
     actions: {
+        // 切换模式
+        switchingMode(state, mode) {
+            state.commit('Switching_MODE', mode)
+        },
         //添加单曲
         addsongs(state, id) {
 
@@ -49,18 +53,28 @@ export default {
 
     },
     mutations: {
+        Switching_MODE(state, mode) {
+            state.songMode = mode
+        },
         //下一首歌曲
         Next_SONG(state) {
-            console.log(util.withoutRepetition(0, state.songsList));
-            let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
-            nowSongIndex += 1;
+            console.log();
+            if (state.songMode === '顺序') {
+                let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
+                nowSongIndex += 1;
 
-            if (nowSongIndex >= state.songsList.length) {
-                nowSongIndex = 0
+                if (nowSongIndex >= state.songsList.length) {
+                    nowSongIndex = 0
+                }
+                let newobj = state.songsList[nowSongIndex]
+                state.nowSong = newobj
+                newobj = null
+            } else if (state.songMode === '循环') {
+                console.log('循环');
+            } else {
+                state.songsList = util.withoutRepetition(0, state.songsList)
             }
-            let newobj = state.songsList[nowSongIndex]
-            state.nowSong = newobj
-            newobj = null
+
         },
         //上一首歌曲
         Pre_SONG(state) {

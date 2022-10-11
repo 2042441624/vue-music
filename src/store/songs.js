@@ -19,8 +19,9 @@ export default {
 
     actions: {
         // 切换模式
-        switchingMode(state, mode) {
-            state.commit('Switching_MODE', mode)
+        switchingMode(state) {
+
+            state.commit('Switching_MODE',)
         },
         //添加单曲
         addsongs(state, id) {
@@ -53,9 +54,14 @@ export default {
 
     },
     mutations: {
-        Switching_MODE(state, mode) {
-            console.log(mode);
-            state.songMode = mode
+        Switching_MODE(state) {
+            let ModeList = ['顺序', '循环', '随机']
+            console.log(typeof state.songMode)
+            let ModeIndex = ModeList.indexOf(state.songMode) + 1
+            if (ModeIndex > ModeList.length - 1) {
+                ModeIndex = 0
+            }
+            state.songMode = ModeList[ModeIndex]
         },
         //下一首歌曲
         Next_SONG(state) {
@@ -71,8 +77,10 @@ export default {
                 state.nowSong = newobj
                 newobj = null
             } else if (state.songMode === '循环') {
-                console.log(state.songMode);
-                return
+                let loop = state.nowSong
+                state.nowSong = {}
+                state.nowSong = loop
+
             } else if (state.songMode === '随机') {
 
                 state.nowSong = state.songsList[util.RandomNum(0, (state.songsList.length - 1))]

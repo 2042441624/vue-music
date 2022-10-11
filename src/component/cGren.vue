@@ -10,9 +10,8 @@ export default {
     name: "c-Generator",
     methods: {
         switchingMode(e) {
-            console.log(e);
-            this.$store.dispatch('switchingMode', e.innerText)
-
+            console.log(e.toElement.innerText);
+            this.$store.dispatch('switchingMode', e.toElement.innerText)
         }
 
     },
@@ -21,6 +20,7 @@ export default {
     },
     mounted() {
         let div = document.getElementById('Generator')
+        div.innerText = this.$store.state.songs.songMode
         function* loop(list, max = Infinity) {
             for (let i = 0; i < max; i++) {
                 //循环索引

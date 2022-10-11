@@ -54,13 +54,13 @@ export default {
     },
     mutations: {
         Switching_MODE(state, mode) {
+            console.log(mode);
             state.songMode = mode
         },
-
         //下一首歌曲
         Next_SONG(state) {
-            console.log();
             if (state.songMode === '顺序') {
+                console.log(state.songMode);
                 let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
                 nowSongIndex += 1;
 
@@ -71,9 +71,12 @@ export default {
                 state.nowSong = newobj
                 newobj = null
             } else if (state.songMode === '循环') {
-                console.log('循环');
-            } else {
-                state.songsList = util.withoutRepetition(0, state.songsList)
+                console.log(state.songMode);
+                return
+            } else if (state.songMode === '随机') {
+
+                state.nowSong = state.songsList[util.RandomNum(0, (state.songsList.length - 1))]
+                console.log(state.songMode, state.nowSong);
             }
 
         },

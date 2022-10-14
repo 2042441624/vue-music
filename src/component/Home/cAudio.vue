@@ -14,7 +14,7 @@
                 <circularProgressBar :circular="parseInt((fStr / 100) * 360)">
 
                     <slot slot="playback">
-                        <play-back :palyState="aState" @resPlay="fPlay($event)"></play-back>
+                        <play-back :palyState="aState" @resPlay="fPlay()"></play-back>
                     </slot>
 
                 </circularProgressBar>
@@ -36,7 +36,7 @@
                 <progress-bar :slide="sStr" :fill="fStr"></progress-bar>
             </slot>
             <slot slot="control">
-                <play-back :palyState="aState" @resPlay="fPlay($event)" :yesOk="true" class="max" @nextSong="nextSong"
+                <play-back :palyState="aState" @resPlay="fPlay()" :yesOk="true" class="max" @nextSong="nextSong"
                     @preSong="preSong">
                 </play-back>
             </slot>
@@ -57,7 +57,8 @@ export default {
             nowLyric: [],
             sStr: 0,
             fStr: 0,
-            aState: true
+            aState: true,
+
         }
     },
     components: {
@@ -69,7 +70,7 @@ export default {
     },
     mounted() {
         this.song.lyric.then(res => this.nowLyric = res)
-     
+
     },
     computed: {
         song() {
@@ -96,8 +97,8 @@ export default {
         toMusicPage() {
             this.nowMusicPage = !this.nowMusicPage
         },
-        fPlay(isPlay) {
-            this.aState = isPlay
+        fPlay() {
+            this.aState = !this.aState
             var audio = document.querySelector("#ado");
             if (this.aState) {
                 audio.play()

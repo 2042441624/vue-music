@@ -1,6 +1,6 @@
 <template>
     <div class="Song-Controls">
-        <c-gren v-if="yesOk" ></c-gren>
+        <c-gren v-if="yesOk"></c-gren>
 
         <div v-if="yesOk" @click="pre">上一首</div>
         <div class="palyback" ref="palyback" @click="rePlay"></div>
@@ -29,11 +29,6 @@ export default {
             require: true,
             default: true
         }
-    },
-    data() {
-        return {
-            ToPaly: this.palyState
-        };
     },
     computed: {},
     methods: {
@@ -65,7 +60,7 @@ export default {
         // 刚加载的样式
         this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
         if (this.yesOk) {
-            if (this.ToPaly) {
+            if (this.palyState) {
                 this.$refs.palyback.classList.remove('zantingMax')
                 this.$refs.palyback.classList.add('bofangMax')
             } else {
@@ -73,7 +68,7 @@ export default {
                 this.$refs.palyback.classList.add('zantingMax')
             }
         } else {
-            if (this.ToPaly) {
+            if (this.palyState) {
                 this.$refs.palyback.classList.remove('zanting')
                 this.$refs.palyback.classList.add('bofang')
             } else {
@@ -85,7 +80,7 @@ export default {
     },
     watch: {
 
-        ToPaly(newPlay) {
+        palyState(newPlay) {
 
             if (this.yesOk) {
                 if (newPlay) {

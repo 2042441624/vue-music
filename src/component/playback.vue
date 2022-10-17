@@ -51,7 +51,7 @@ export default {
         },
 
         songsList() {
-
+            this.$emit('songsList')
         }
     },
     mounted() {
@@ -125,7 +125,7 @@ export default {
         border-radius: 50%;
         overflow: hidden;
         position: relative;
-        z-index: 99999;
+     
     }
 
     .bofang {

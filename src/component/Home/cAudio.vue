@@ -19,7 +19,7 @@
 
                 </circularProgressBar>
                 <!-- 列表 -->
-                <div class="songsListIconf">
+                <div class="songsListIconf" @click='()=>{this.table=true}'>
                     <svg t="1664773103783" class="icon" viewBox="0 0 1024 1024" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" p-id="3133" width="24" height="24">
                         <path
@@ -41,7 +41,7 @@
                 </play-back>
             </slot>
         </c-music-page>
-        <songsingletable></songsingletable>
+        <songsingletable v-if="table" @songList="()=>{this.table=false}"></songsingletable>
     </div>
 </template>
 
@@ -60,7 +60,7 @@ export default {
             sStr: 0,
             fStr: 0,
             aState: true,
-
+            table: false
         }
     },
     components: {
@@ -90,6 +90,10 @@ export default {
     },
 
     methods: {
+        songsList() {
+            console.log(this);
+            this.$refs.table.style.visibility = 'visible'
+        },
         nextSong() {
             this.$store.dispatch('nextSong')
         },
@@ -283,10 +287,6 @@ export default {
     //     background: url(../../assets/img/voiceon.jpg) no-repeat center center;
     //     background-size: 0.5rem 0.5rem;
     // }
-    .min {
-        width: 29px;
-        height: 29px;
-    }
 
     #yinliang {
         display: none;
@@ -295,17 +295,11 @@ export default {
         left: -2.14rem;
     }
 
-    /* 歌曲的时间 */
-    .time {
-        font-size: 0.2rem;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
-    }
 
-    .control {
-        width: 100px;
-        background-color: aquamarine;
+
+
+    .songsingletable {
+        z-index: 999999999999;
     }
 }
 </style>

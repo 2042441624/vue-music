@@ -41,10 +41,12 @@
                 </play-back>
             </slot>
         </c-music-page>
+        <songsingletable></songsingletable>
     </div>
 </template>
 
 <script>
+import songsingletable from '@/component/Songsingletable.vue';
 import progressBar from '@/component/progressBar.vue';
 import cMusicPage from '@/component/Home/cMusicPage.vue';
 import playBack from '@/component/playback.vue';
@@ -65,8 +67,8 @@ export default {
         progressBar,
         cMusicPage,
         playBack,
-        circularProgressBar
-
+        circularProgressBar,
+        songsingletable
     },
     mounted() {
         this.song.lyric.then(res => this.nowLyric = res)

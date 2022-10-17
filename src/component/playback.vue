@@ -1,7 +1,6 @@
 <template>
     <div class="Song-Controls">
         <c-gren v-if="yesOk"></c-gren>
-
         <div v-if="yesOk" @click="pre">上一首</div>
         <div class="palyback" ref="palyback" @click="rePlay"></div>
         <div v-if="yesOk" @click="next">下一首</div>

@@ -7,7 +7,7 @@
             <ul>
                 <h2>当前播放{{this.$store.state.songs.songsList.length}}</h2>
                 <li v-for=" (song,index) in this.$store.state.songs.songsList" :key="song.name" :index="index">
-                    <a @click="switchSong(index)">{{song.name}}</a><span></span>
+                    <span @click="switchSong(index)" ref="span">{{song.name}}</span>
                 </li>
             </ul>
 
@@ -32,6 +32,10 @@ export default {
 
     },
     mounted() {
+        // let aList = 
+        const aList = document.getElementsByTagName('li')
+        const arr = Array.prototype.slice.call(aList);
+        arr.map(e => { console.log(e); })
         this.$refs.songlist.onmouseup = (e) => {
 
             e.target === this.$el ? this.songList() : ''

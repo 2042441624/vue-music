@@ -1,21 +1,35 @@
 <template>
     <!-- 全局歌单 -->
     <div id="view-the-background" ref="songlist">
+
         <div class="songListContainer">
-            <div>
-                <li v-for=" song  in this.$store.state.songs.songsList" :key="song.name">{{song.name}}</li>
-            </div>
+
+            <ul>
+                <h2>当前播放{{this.$store.state.songs.songsList.length}}</h2>
+                <li v-for=" (song,index) in this.$store.state.songs.songsList" :key="song.name" :index="index">
+                    <a @click="switchSong(index)">{{song.name}}</a><span></span>
+                </li>
+            </ul>
 
         </div>
     </div>
 </template>
 <script>
+
 export default {
     name: 'song-list',
     methods: {
         songList() {
             this.$emit('songList')
+        },
+        switchSong(index) {
+            console.log(index);
+            this.$store.dispatch('nextSong', index)
+
         }
+    },
+    computed: {
+
     },
     mounted() {
         this.$refs.songlist.onmouseup = (e) => {
@@ -32,6 +46,7 @@ export default {
 * {
     padding: 0;
     margin: 0;
+    list-style: none;
 }
 
 
@@ -44,7 +59,7 @@ export default {
 }
 
 .songListContainer {
-
+    padding: 5px;
     position: relative;
     top: 49%;
     bottom: 0;
@@ -54,11 +69,12 @@ export default {
     z-index: 999999999999999999;
 }
 
-.songListContainer>div {
-    min-width: 100vw;
+.songListContainer>ul {
+    min-width: 100%;
     margin: 5px;
     height: 50vh;
-    background-color: rgb(191, 108, 108);
+    padding: 8px;
+    background-color: rgb(255, 255, 255);
     border-radius: 15px;
 }
 </style>

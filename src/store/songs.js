@@ -45,8 +45,11 @@ export default {
         addDur(state, str) {
             state.commit('Add_nowDur', str)
         },
-        nextSong(state) {
-            state.commit('Next_SONG')
+        nextSong(state, songData = "") {
+            songData ? state.commit('Next_SONG', songData) : state.commit('Next_SONG')
+
+
+
         },
         preSong(state) {
             state.commit('Pre_SONG')
@@ -64,29 +67,34 @@ export default {
             state.songMode = ModeList[ModeIndex]
         },
         //下一首歌曲
-        Next_SONG(state) {
-            if (state.songMode === '顺序') {
-                console.log(state.songMode);
-                let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
-                nowSongIndex += 1;
+        Next_SONG(state, songData = "") {
+            if (songData) {
+                state.nowSong = state.songsList[Number(songData)]
+            } else {
+                if (state.songMode === '顺序') {
+                    console.log(state.songMode);
+                    let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
+                    nowSongIndex += 1;
 
-                if (nowSongIndex >= state.songsList.length) {
-                    nowSongIndex = 0
+                    if (nowSongIndex >= state.songsList.length) {
+                        nowSongIndex = 0
+                    }
+                    let newobj = state.songsList[nowSongIndex]
+                    state.nowSong = newobj
+                    newobj = null
+                } else if (state.songMode === '循环') {
+                    let loop = state.nowSong
+                    state.nowSong = {}
+                    state.nowSong = loop
+
+                } else if (state.songMode === '随机') {
+
+                    state.nowSong = state.songsList[util.RandomNum(0, (state.songsList.length - 1))]
+                    console.log(state.songMode, state.nowSong);
                 }
-                let newobj = state.songsList[nowSongIndex]
-                state.nowSong = newobj
-                newobj = null
-            } else if (state.songMode === '循环') {
-                let loop = state.nowSong
-                state.nowSong = {}
-                state.nowSong = loop
-
-            } else if (state.songMode === '随机') {
-
-                state.nowSong = state.songsList[util.RandomNum(0, (state.songsList.length - 1))]
-                console.log(state.songMode, state.nowSong);
             }
 
+            return
         },
         //上一首歌曲
         Pre_SONG(state) {

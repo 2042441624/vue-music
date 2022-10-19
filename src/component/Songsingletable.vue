@@ -4,10 +4,19 @@
 
         <div class="songListContainer">
 
+
             <ul>
                 <h2>当前播放{{this.$store.state.songs.songsList.length}}</h2>
+
                 <li v-for=" (song,index) in this.$store.state.songs.songsList" :key="song.name" :index="index">
-                    <span @click="switchSong(index)" ref="span">{{song.name}}</span>
+                    <span @click="switchSong(index)" ref="span">{{song.name}}</span><a><svg t="1666187621325"
+                            class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            p-id="1944" width="16" height="16">
+                            <path d="M704.28672 309.20704l28.95872 28.9792L334.6432 736.78848l-28.95872-28.9792z"
+                                fill="#707070" p-id="1945"></path>
+                            <path d="M341.03296 315.5968l398.60224 398.60224-28.95872 28.95872-398.60224-398.60224z"
+                                fill="#707070" p-id="1946"></path>
+                        </svg></a>
                 </li>
             </ul>
 
@@ -70,7 +79,7 @@ export default {
     display: flex;
     overflow: scroll;
     flex-direction: row;
-    z-index: 999999999999999999;
+    z-index: 99999;
 }
 
 .songListContainer>ul {
@@ -80,5 +89,21 @@ export default {
     padding: 8px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
+
+    li {
+        width: 100%;
+        height: 25px;
+        line-height: 25px;
+
+        a {
+
+            height: 25px;
+            line-height: 25px;
+        }
+    }
+
+    h2 {
+        margin-bottom: 15px;
+    }
 }
 </style>

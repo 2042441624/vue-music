@@ -7,11 +7,12 @@ export default {
     state: {
         //打开的歌单
         playList: [],
-        //历史播放歌单
+        //历史播放
         historySongsList: [],
+
         //喜欢的歌单
         FavoritePlaylist: [],
-        //当前的播放的歌单
+                //当前的播放的歌单
         songsList: [],
         //正在播放的歌曲
         nowSong: {},

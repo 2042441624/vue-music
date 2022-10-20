@@ -110,18 +110,21 @@ export default {
         },
         //添加单曲
         Add_SONG(state, song) {
+            let str = localStorage.getItem('songsList')
+
+            state.songsList = JSON.parse(str)
             state.nowSong = song
-            state.historySongsList.unshift(state.nowSong)
-            state.songsList.push(state.nowSong)
+            state.songsList.unshift(state.nowSong)
+            state.historySongsList.push(state.nowSong)
             let newobj = {};
-            state.historySongsList = state.historySongsList.reduce((preVal, curVal) => {
+            state.songsList = state.songsList.reduce((preVal, curVal) => {
                 newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
                 return preVal
             }, [])
 
-            localStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
-            sessionStorage.setItem('songsList', JSON.stringify(state.songsList))
 
+            sessionStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
+            localStorage.setItem('songsList', JSON.stringify(state.songsList))
         },
         Add_nowDur(state, Str) {
             state.nowDur = Str
@@ -129,6 +132,9 @@ export default {
 
     },
     getters: {
-    
+        historySongsListData() {
+            return
+
+        },
     }
 }

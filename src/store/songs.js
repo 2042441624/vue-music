@@ -56,9 +56,14 @@ export default {
         preSong(state) {
             state.commit('Pre_SONG')
         },
-
+        removeSong(state, index, type) {
+            state.commit('Remove_SONG', index, type)
+        }
     },
     mutations: {
+        Remove_SONG(state, index, type) {
+            type ? console.log(state.songsList.splice(index, 1)) : console.log(state.historySongsList = state.historySongsList.splice(index, 1));
+        },
         Switching_MODE(state) {
             let ModeList = ['顺序', '循环', '随机']
             console.log(typeof state.songMode)

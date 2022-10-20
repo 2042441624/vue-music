@@ -81,9 +81,7 @@ export default {
 
     },
     updated() {
-        this.songs.nowSong.lyric.then(res => this.nowLyric = res)
         this.$refs.address.style.backgroundImage = `url(` + this.songs.nowSong.picUrl + `)`
-
     },
     computed: {
         ...mapState(['songs']),
@@ -93,18 +91,14 @@ export default {
         "songs.nowDur": {
             handler(newD) {
                 let resNowTimeLyric = this.nowTimeLyric
-
                 resNowTimeLyric.forEach((t) => {
                     let min = Number(t.split(':')[0]) > 0 ? Number(t.split(':')[0]) * 60 : 0
                     let sec = Number(t.split(':')[1].split('.')[0]) > 0 ? Number(t.split(':')[1].split('.')[0]) : 0
-
                     if ((min + sec) === Number(String(newD).split('.')[0])) {
-
                         this.$refs.nowP.filter(p => !this.nowLyric[this.nowTimeLyric.indexOf(t)].includes(p.innerHtml)).map(p => p.style.color = '')
                         this.$refs.nowP[this.nowTimeLyric.indexOf(t)].style.color = 'white'
                         this.pIndex = this.nowTimeLyric.indexOf(t)
                     }
-
                 })
 
             },
@@ -140,11 +134,8 @@ address {
     width: 100%;
     height: 100%;
     z-index: 999;
-
-
     .lyric {
         position: relative;
-
         .Onlyric {
             position: absolute;
             width: 100%;

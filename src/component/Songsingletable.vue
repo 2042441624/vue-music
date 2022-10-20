@@ -55,7 +55,7 @@ export default {
 
         },
         removeSong(index) {
-            console.log(index);
+      
             this.$store.dispatch('removeSong', index, '历史')
         }
     },

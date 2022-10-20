@@ -7,6 +7,8 @@ export default {
     state: {
         //打开的歌单
         playList: [],
+        //历史播放
+        historySongsList: [],
         //当前的播放的歌单
         songsList: [],
         //正在播放的歌曲
@@ -109,14 +111,17 @@ export default {
         //添加单曲
         Add_SONG(state, song) {
             state.nowSong = song
-            state.songsList.unshift(state.nowSong)
+            state.historySongsList.unshift(state.nowSong)
+            state.songsList.push(state.nowSong)
             let newobj = {};
-            state.songsList = state.songsList.reduce((preVal, curVal) => {
+            state.historySongsList = state.historySongsList.reduce((preVal, curVal) => {
                 newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
                 return preVal
             }, [])
 
-            localStorage.setItem('songsList', JSON.stringify(state.songsList))
+            localStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
+            sessionStorage.setItem('songsList', JSON.stringify(state.songsList))
+
         },
         Add_nowDur(state, Str) {
             state.nowDur = Str
@@ -124,6 +129,6 @@ export default {
 
     },
     getters: {
-
+    
     }
 }

@@ -115,7 +115,7 @@ export default {
             state.songsList = JSON.parse(str)
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
-            state.historySongsList.push(state.nowSong)
+            state.historySongsList.unshift(state.nowSong)
             let newobj = {};
             state.songsList = state.songsList.reduce((preVal, curVal) => {
                 newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);

@@ -7,8 +7,10 @@ export default {
     state: {
         //打开的歌单
         playList: [],
-        //历史播放
+        //历史播放歌单
         historySongsList: [],
+        //喜欢的歌单
+        FavoritePlaylist: [],
         //当前的播放的歌单
         songsList: [],
         //正在播放的歌曲
@@ -56,13 +58,14 @@ export default {
         preSong(state) {
             state.commit('Pre_SONG')
         },
-        removeSong(state, index, type) {
-            state.commit('Remove_SONG', index, type)
+        removeSong(state, obj) {
+            console.log(obj);
+            state.commit('Remove_SONG', obj)
         }
     },
     mutations: {
-        Remove_SONG(state, index, type) {
-            type ? console.log(state.songsList.splice(index, 1)) : console.log(state.historySongsList = state.historySongsList.splice(index, 1));
+        Remove_SONG(state, obj) {
+            obj.str === '历史' ? state.songsList = state.songsList.filter(s => s.name !== obj.name) : state.historySongsList = state.historySongsList.filter(s => s.name !== obj.name)
         },
         Switching_MODE(state) {
             let ModeList = ['顺序', '循环', '随机']

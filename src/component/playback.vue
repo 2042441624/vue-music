@@ -33,8 +33,8 @@ export default {
     methods: {
 
         rePlay() {
-            this.ToPaly = !this.ToPaly;
-            this.$emit('resPlay', this.ToPaly)
+   
+            this.$emit('resPlay')
         },
         next() {
             this.$emit('nextSong')
@@ -125,7 +125,7 @@ export default {
         border-radius: 50%;
         overflow: hidden;
         position: relative;
-     
+
     }
 
     .bofang {

@@ -1,14 +1,15 @@
 <template>
     <!-- 播放按钮圆形滚动 -->
-    <div class="circularProgressBar">
+    <div class="circularProgressBar" @click="rePlay">
+
         <div class="ring-bg">
             <slot name="playback"></slot>
         </div>
         <div class="rec-left">
-            <div class="half-round" ref="circularleft"></div>
+            <div class="half-round" ref="circularleft" @click="()=>{console.log('left') }"></div>
         </div>
         <div class="rec-right">
-            <div class="half-round" ref="circularright"></div>
+            <div class="half-round" ref="circularright" @click="()=>{console.log('right') }"></div>
         </div>
     </div>
 </template>
@@ -42,7 +43,13 @@ export default {
     computed: {
 
     },
-    methods: {},
+    methods: {
+
+        rePlay() {
+
+            this.$emit('resPlay')
+        },
+    },
     created() {
 
     },
@@ -60,7 +67,7 @@ span {
     height: 30px;
 
     .ring-bg {
-
+        z-index: 9999999;
         position: absolute;
         display: flex;
         justify-content: center;

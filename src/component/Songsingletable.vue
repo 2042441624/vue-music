@@ -4,9 +4,9 @@
 
         <div class="songListContainer">
             <div>
-                <h2>当前播放{{this.$store.state.songs.songsList.length}}</h2>
+                <h2>当前播放{{this.$store.state.songs.historySongsList.length}}</h2>
                 <div v-for=" (song,index) in this.$store.state.songs.historySongsList" :key="song.name" :index="index">
-                    <div @click="switchSong(index)">{{song.name}}</div>
+                    <div @click="switchSong(index)" class="list">{{song.name}}</div>
                     <div @click="removeSong(song.name,'当前')">
                         <svg t="1666230845553" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="1952" width="25" height="25">
@@ -24,7 +24,7 @@
                 <h2>历史播放{{this.$store.state.songs.songsList.length}}</h2>
 
                 <div v-for=" (song,index) in this.$store.state.songs.songsList" :key="song.name" :index="index">
-                    <div @click="switchSong(index)">{{song.name}}</div>
+                    <div @click="switchSong(index)" class="his">{{song.name}}</div>
                     <div @click="removeSong(song.name,'历史')">
                         <svg t="1666230845553" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="1952" width="25" height="25">
@@ -63,15 +63,18 @@ export default {
 
     },
     mounted() {
-        const aList = document.getElementsByTagName('li')
+        const aList = document.getElementsByClassName('list')
+
         const arr = Array.prototype.slice.call(aList);
-        arr.map(e => { console.log(e); })
+        arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : '' })
         this.$refs.songlist.onmouseup = (e) => {
             e.target === this.$el ? this.songList() : ''
         }
     },
     updated() {
-
+        const aList = document.getElementsByClassName('list')
+        const arr = Array.prototype.slice.call(aList);
+        arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : '' })
 
     },
 };</script>

@@ -11,10 +11,10 @@
                 </div>
 
                 <!-- 控制播放 -->
-                <circularProgressBar :circular="parseInt((fStr / 100) * 360)">
+                <circularProgressBar :circular="parseInt((fStr / 100) * 360)" @resPlay="fPlay()">
 
                     <slot slot="playback">
-                        <play-back :palyState="aState" @resPlay="fPlay()"></play-back>
+                        <play-back :palyState="aState"></play-back>
                     </slot>
 
                 </circularProgressBar>
@@ -31,6 +31,7 @@
             </div>
 
         </div>
+        <!-- 音乐播放页面 -->
         <c-music-page v-show="this.nowMusicPage" @resMusicPage="toMusicPage">
             <slot slot="progressBar">
                 <progress-bar :slide="sStr" :fill="fStr"></progress-bar>
@@ -90,6 +91,9 @@ export default {
     },
 
     methods: {
+        a() {
+            console.log('s');
+        },
         songsList() {
             console.log(this);
             this.$refs.table.style.visibility = 'visible'
@@ -104,6 +108,7 @@ export default {
             this.nowMusicPage = !this.nowMusicPage
         },
         fPlay() {
+
             this.aState = !this.aState
             var audio = document.querySelector("#ado");
             if (this.aState) {
@@ -298,7 +303,7 @@ export default {
 
 
 
-    .songsingletable {
+    .index {
         z-index: 999999999999;
     }
 }

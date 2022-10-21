@@ -15,13 +15,13 @@
                             <div><img :src="item.al.picUrl"></div>
                             <div class="nameBox" v-if='item.name.length > 14'>
                                 <p>{{ item.name }}-<span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
-                                                                        ${item.originSongSimpleData.artists[0].name}` : ''
+                                ${item.originSongSimpleData.artists[0].name}` : ''
                                 }} </span></p>
                             </div>
                             <div class="nameBox" v-else>
                                 <p>{{ item.name }}</p>
                                 <span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
-                                                                    ${item.originSongSimpleData.artists[0].name}` : ''
+                                ${item.originSongSimpleData.artists[0].name}` : ''
                                 }} </span>
                             </div>
                             <div>
@@ -55,7 +55,7 @@ export default {
     mounted() {
         topList().then((result) => {
             //获取排行榜的所有歌单
-            this.topList = result.list.slice(0, 5)
+            this.topList = result.list.slice(0, 10)
             // 19723756
             //获取所有歌单的详情
             this.topList.forEach(e => {

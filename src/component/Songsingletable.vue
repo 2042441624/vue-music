@@ -46,6 +46,7 @@ export default {
         ...mapState(['songs']),
         allSongsList() {
             let all = []
+
             for (const key in this.songs) {
                 if (this.songs[key] instanceof Array) {
                     const element = this.songs[key];
@@ -60,6 +61,9 @@ export default {
             const aList = document.getElementsByClassName('list')
             const arr = Array.prototype.slice.call(aList);
             arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : '' })
+
+
+
             return all
         }
     },

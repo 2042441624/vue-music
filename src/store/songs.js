@@ -68,7 +68,7 @@ export default {
         Remove_SONG(state, obj) {
             // state.songsList = state.songsList.filter(s => s.name != obj.name) 
 
-            state[obj.mode] = state[obj.mode].filter((s) => s.name !== obj.name)
+            state[obj.mode] = state[obj.mode].filter(s => s.name !== obj.name)
             console.log(state[obj.mode]);
         },
         Switching_MODE(state) {
@@ -122,9 +122,7 @@ export default {
         },
         //添加单曲
         Add_SONG(state, song) {
-            let str = localStorage.getItem('songsList')
 
-            state.songsList = JSON.parse(str)
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
             state.historySongsList.unshift(state.nowSong)
@@ -133,10 +131,10 @@ export default {
                 newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
                 return preVal
             }, [])
-
-
-            sessionStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
-            localStorage.setItem('songsList', JSON.stringify(state.songsList))
+            //当前会话歌单缓存
+            sessionStorage.setItem('songsList', JSON.stringify(state.songsList))
+            //历史本地会话歌单缓存
+            localStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
         },
         Add_nowDur(state, Str) {
             state.nowDur = Str
@@ -144,9 +142,6 @@ export default {
 
     },
     getters: {
-        historySongsListData() {
-            return
 
-        },
     }
 }

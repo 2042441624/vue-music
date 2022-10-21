@@ -303,8 +303,5 @@ export default {
 
 
 
-    .index {
-        z-index: 999999999999;
-    }
 }
 </style>

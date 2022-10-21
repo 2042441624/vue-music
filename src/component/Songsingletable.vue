@@ -87,6 +87,7 @@ export default {
 
 
 #view-the-background {
+    z-index: 99999;
     width: 100vw;
     height: 100vh;
     background-color: rgba(102, 102, 102, 0.3);
@@ -101,7 +102,7 @@ export default {
     display: flex;
     overflow: scroll;
     flex-direction: row;
-    z-index: 99999;
+
     height: 100%;
 }
 

@@ -123,6 +123,9 @@ export default {
         //添加单曲
         Add_SONG(state, song) {
 
+            const historySongsStr = localStorage.getItem('historySongsList')
+            state.historySongsList = JSON.parse(historySongsStr) ? JSON.parse(historySongsStr) : []
+
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
             state.historySongsList.unshift(state.nowSong)

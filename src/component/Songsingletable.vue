@@ -45,6 +45,11 @@
 
 export default {
     name: 'song-list',
+    data() {
+        return {
+            
+        }
+    },
     methods: {
         songList() {
             this.$emit('songList')

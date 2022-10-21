@@ -33,7 +33,7 @@ export default {
     methods: {
 
         rePlay() {
-   
+
             this.$emit('resPlay')
         },
         next() {

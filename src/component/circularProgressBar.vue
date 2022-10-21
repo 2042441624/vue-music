@@ -67,7 +67,6 @@ span {
     height: 30px;
 
     .ring-bg {
-        z-index: 9999999;
         position: absolute;
         display: flex;
         justify-content: center;

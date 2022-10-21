@@ -63,6 +63,18 @@ export default {
 
     },
     mounted() {
+        // 获取所以有歌曲的歌单进行跟踪样式
+        let allList = []
+        for (const key in this.$store.state.songs) {
+            if (Object.hasOwnProperty.call(this.$store.state.songs, key)) {
+                const element = this.$store.state.songs[key];
+                if (element instanceof Array && element.length) {
+
+                    allList.push(this.$store.state.songs[key])
+                }
+            }
+        }
+        console.log(allList);
         const aList = document.getElementsByClassName('list')
 
         const arr = Array.prototype.slice.call(aList);

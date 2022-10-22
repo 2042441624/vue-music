@@ -64,7 +64,7 @@ export default {
         }
     },
     mounted() {
-        const aList = document.getElementsByClassName('list')
+ 
 
         //不是点击歌单就隐藏
         this.$refs.songlist.onmouseup = (e) => {

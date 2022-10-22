@@ -6,10 +6,10 @@
             <slot name="playback"></slot>
         </div>
         <div class="rec-left">
-            <div class="half-round" ref="circularleft" @click="()=>{console.log('left') }"></div>
+            <div class="half-round" ref="circularleft"></div>
         </div>
         <div class="rec-right">
-            <div class="half-round" ref="circularright" @click="()=>{console.log('right') }"></div>
+            <div class="half-round" ref="circularright"></div>
         </div>
     </div>
 </template>

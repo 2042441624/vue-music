@@ -52,9 +52,6 @@ export default {
         },
         nextSong(state, songData = "") {
             songData ? state.commit('Next_SONG', songData) : state.commit('Next_SONG')
-
-
-
         },
         preSong(state) {
             state.commit('Pre_SONG')

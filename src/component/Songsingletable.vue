@@ -68,12 +68,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.songs);
-
-        console.log(this.allSongsList);
-
-
-        //不是点击歌单就隐藏
+        //不是点击歌单就隐藏(事件)
         this.$refs.songlist.onmouseup = (e) => {
             e.target === this.$el ? this.songList() : ''
         }

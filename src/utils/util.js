@@ -25,8 +25,18 @@ const RandomNum = function RandomNum(Min, Max = 0) {
     var num = Min + Math.round(Math.random() * (Max - Min));
     return num;
 }
+const exclude = function exclude(arr) {
+    console.log('工具类>排除' + arr);
+    let newobj = {};
+    return arr.reduce((preVal, curVal) => {
+        newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
+        return preVal
+    }, [])
+}
+
 
 export default {
     RandomNum,
-    withoutRepetition
+    withoutRepetition,
+    exclude
 }

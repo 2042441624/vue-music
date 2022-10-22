@@ -1,6 +1,6 @@
 <template>
     <div>
-        <c-Audio class="c-Audio" v-if="song.url"></c-Audio>
+        <c-Audio class="c-Audio" v-if="song.name"></c-Audio>
         <footer v-if="Showfooter">
             <div @click="toRoute('home', $event)" ref="home">
                 <svg t="1653928043786" class="icon" viewBox="0 0 1042 1024" version="1.1" ref="color" p-id="2991"

@@ -6,7 +6,7 @@
             <div v-for=" (list) in this.allSongsList" :key="list.name">
                 <h2>{{list.name}}{{list[list.name].length}}</h2>
                 <div v-for=" (song,index) in list[list.name]" :key="song.name" :index="index">
-                    <div @click="switchSong(index)" class="list">{{song.name}}</div>
+                    <div @click="switchSong(song.name,list.name,index)" class="list">{{song.name}}</div>
                     <div @click="removeSong(song.name,list.name)">
                         <svg t="1666230845553" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="1952" width="25" height="25">
@@ -34,9 +34,9 @@ export default {
         songList() {
             this.$emit('songList')
         },
-        switchSong(index) {
-            console.log(index);
-            this.$store.dispatch('nextSong', index)
+        switchSong(name, mode, index) {
+            console.log({ name, mode });
+            this.$store.dispatch('nextSong', { name, mode, index })
         },
         removeSong(name, mode) {
             this.$store.dispatch('removeSong', { name, mode })
@@ -60,7 +60,8 @@ export default {
             }
             const aList = document.getElementsByClassName('list')
             const arr = Array.prototype.slice.call(aList);
-            arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : '' })
+
+            arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'balck' })
 
 
 

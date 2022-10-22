@@ -1,6 +1,7 @@
 
 import { song_detail, song_lyric } from '@/api/home';
 import { Song } from '@/utils/song';
+
 import util from '@/utils/util';
 export default {
 
@@ -9,7 +10,6 @@ export default {
         playList: [],
         //历史播放
         historySongsList: [],
-
         //喜欢的歌单
         FavoritePlaylist: [],
         //当前的播放的歌单
@@ -50,8 +50,8 @@ export default {
         addDur(state, str) {
             state.commit('Add_nowDur', str)
         },
-        nextSong(state, songData = "") {
-            songData ? state.commit('Next_SONG', songData) : state.commit('Next_SONG')
+        nextSong(state, obj = {}) {
+            obj ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
         },
         preSong(state) {
             state.commit('Pre_SONG')
@@ -63,10 +63,14 @@ export default {
     },
     mutations: {
         Remove_SONG(state, obj) {
-            // state.songsList = state.songsList.filter(s => s.name != obj.name) 
-
+            const nowIndex = state[obj.mode].findIndex(obj => obj.name == state.nowSong.name)
             state[obj.mode] = state[obj.mode].filter(s => s.name !== obj.name)
-            console.log(state[obj.mode]);
+            // 获取当前歌曲索引
+            console.log(state[obj.mode].length, state[obj.mode][nowIndex - 1], nowIndex);
+            if (obj.name === state.nowSong.name) {
+                // 获取当前歌曲减1后的的歌曲
+                state.nowSong = state[obj.mode][nowIndex] ? state[obj.mode][nowIndex] : { id: 0, name: '无音乐', singer: '请添加', album: '', picUrl: '', duration: 0, url: '', lyric: [] }
+            }
         },
         Switching_MODE(state) {
             let ModeList = ['顺序', '循环', '随机']
@@ -78,13 +82,14 @@ export default {
             state.songMode = ModeList[ModeIndex]
         },
         //下一首歌曲
-        Next_SONG(state, songData = "") {
-            if (songData) {
-                state.nowSong = state.songsList[Number(songData)]
+        Next_SONG(state, obj = {}) {
+            if (obj.name) {
+                state.nowSong = state[obj.mode][obj.index]
+                console.log(state.nowSong);
             } else {
                 if (state.songMode === '顺序') {
                     console.log(state.songMode);
-                    let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
+                    let nowSongIndex = state.songsList.obj.name == state.nowSong.name
                     nowSongIndex += 1;
 
                     if (nowSongIndex >= state.songsList.length) {
@@ -126,11 +131,8 @@ export default {
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
             state.historySongsList.unshift(state.nowSong)
-            let newobj = {};
-            state.songsList = state.songsList.reduce((preVal, curVal) => {
-                newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
-                return preVal
-            }, [])
+            state.songsList = new util.exclude(state.songsList)
+            state.historySongsList = new util.exclude(state.historySongsList)
             //当前会话歌单缓存
             sessionStorage.setItem('songsList', JSON.stringify(state.songsList))
             //历史本地会话歌单缓存

@@ -5,10 +5,10 @@
         <div class="ring-bg">
             <slot name="playback"></slot>
         </div>
-        <div class="rec-left">
+        <div class="rec-left" v-show="circular">
             <div class="half-round" ref="circularleft"></div>
         </div>
-        <div class="rec-right">
+        <div class="rec-right" v-show="circular">
             <div class="half-round" ref="circularright"></div>
         </div>
     </div>
@@ -66,6 +66,16 @@ span {
     width: 30px;
     height: 30px;
 
+    .rec-left,
+    .rec-right {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
     .ring-bg {
         position: absolute;
         display: flex;
@@ -82,15 +92,7 @@ span {
         /*很重要*/
     }
 
-    .rec-left,
-    .rec-right {
-        position: absolute;
-        width: 50%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
+
 }
 
 

@@ -5,7 +5,6 @@
             <keep-alive v-else>
                 <router-view class="v"></router-view>
             </keep-alive>
-
             <c-Footer class="c-Footer" :Showfooter="!isplaylist"></c-Footer>
         </div>
     </keep-alive>

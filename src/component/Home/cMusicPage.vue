@@ -88,6 +88,7 @@ export default {
 
     },
     watch: {
+
         "songs.nowDur": {
             handler(newD) {
                 let resNowTimeLyric = this.nowTimeLyric
@@ -134,8 +135,10 @@ address {
     width: 100%;
     height: 100%;
     z-index: 999;
+
     .lyric {
         position: relative;
+
         .Onlyric {
             position: absolute;
             width: 100%;

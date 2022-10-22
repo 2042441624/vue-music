@@ -65,8 +65,21 @@ export default {
         Remove_SONG(state, obj) {
             // state.songsList = state.songsList.filter(s => s.name != obj.name) 
 
-            state[obj.mode] = state[obj.mode].filter((s) => s.name !== obj.name)
-            console.log(state[obj.mode]);
+
+            if (obj.name === state.nowSong.name) {
+                let nowSongIndex = state.songsList.findIndex((obj) => state.nowSong.name === obj.name);
+                nowSongIndex += 1;
+
+                if (nowSongIndex >= state.songsList.length - 1) {
+                    nowSongIndex = 0
+                }
+
+                state.nowSong = state[obj.mode][nowSongIndex]
+                state[obj.mode] = state[obj.mode].filter((s) => s.name !== obj.name)
+
+            } else {
+                state[obj.mode] = state[obj.mode].filter((s) => s.name !== obj.name)
+            }
         },
         Switching_MODE(state) {
             let ModeList = ['顺序', '循环', '随机']

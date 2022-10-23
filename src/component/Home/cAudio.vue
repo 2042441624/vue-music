@@ -169,7 +169,7 @@ export default {
                     audio.load();
                     audio.oncanplay = function () {
                         var duraTime = document.querySelector(".duraTime");
-                        duraTime.innerHTML = transTime(audio.duration);
+                        duraTime.innerHTML = transTime(audio.duration) ? transTime(audio.duration) : 0;
                     }
                 }
                 //进度条的时长百分比
@@ -184,8 +184,8 @@ export default {
                     var currentTime = document.querySelector(".currentTime");
                     var duraTime = document.querySelector(".duraTime");
                     _this.$nextTick(() => {
-                        currentTime.innerHTML = transTime(parseInt(audio.currentTime));
-                        duraTime.innerHTML = transTime(audio.duration);
+                        currentTime.innerHTML = transTime(parseInt(audio.currentTime)) ? transTime(parseInt(audio.currentTime)) : '';
+                        duraTime.innerHTML = transTime(audio.duration) ? transTime(audio.duration) : '';
                     })
 
                 };

@@ -10,11 +10,12 @@ const router = new vueRouter({
             { path: "/user", name: 'user', component: () => import('@/page/vUser.vue') },
             {
                 path: "/search", name: 'search', query: { keyword: '' }, component: () => import('@/page/vSearch.vue'),
+            },
+            {
+                path: "/playlist", name: 'playlist', component: () => import('@/page/vPlayList.vue'),
             },]
         },
-        {
-            path: "/playlist", name: 'playlist', component: () => import('@/page/vPlayList.vue'),
-        },
+
         {
             path: "/musicpage", name: 'musicpage', query: { id: '' }, component: () => import('@/component/Home/cMusicPage.vue'),
         },

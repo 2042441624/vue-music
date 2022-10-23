@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="c-Footer">
         <c-Audio class="c-Audio" v-if="song.name"></c-Audio>
-        <footer v-if="Showfooter">
+        <footer v-show="Showfooter && hasRoutefont" id="animationFooter">
             <div @click="toRoute('home', $event)" ref="home">
                 <svg t="1653928043786" class="icon" viewBox="0 0 1042 1024" version="1.1" ref="color" p-id="2991"
                     width="24" height="24" v-on:click.self.prevent>
@@ -78,31 +78,48 @@ export default {
     },
     data() {
         return {
-            navList: [
-                { name: 'home', }
-            ]
-        };
+            hasRoutefont: true
+        }
     },
     methods: {
         toRoute(route = this.$route.name) {
             //初始化nav样式
-            let footer = this.$refs[route].parentNode;
-            for (let index = 0; index < footer.children.length; index++) {
-                footer.children[index].children[0].classList.remove('color')
-                footer.children[index].children[1].classList.remove('pcolor')
-            }
-            if (this.$route.name === route) {
+
+
+            if (this.$refs[route]) {
+
+                this.hasRoutefont = true
+                let footer = this.$refs[route].parentNode
+                for (let index = 0; index < footer.children.length; index++) {
+                    footer.children[index].children[0].classList.remove('color')
+                    footer.children[index].children[1].classList.remove('pcolor')
+                }
+                if (this.$route.name === route) {
+                    this.$refs[route].children[0].classList.add('color')
+                    this.$refs[route].children[1].classList.add('pcolor')
+                    return
+                }
                 this.$refs[route].children[0].classList.add('color')
                 this.$refs[route].children[1].classList.add('pcolor')
-                return
+                this.$router.push({ name: route })
+                footer = null;
+            } else {
+                this.$nextTick(() => {
+                    this.hasRoutefont = false
+
+                })
             }
-            this.$refs[route].children[0].classList.add('color')
-            this.$refs[route].children[1].classList.add('pcolor')
-            this.$router.push({ name: route })
-            footer = null;
+
+
+
+
         }
     },
     mounted() {
+        console.log(document.getElementById("animationFooter").offsetTop);
+
+        document.getElementById("animationFooter").offsetTop === 0 ? document.getElementById("animationFooter").classList.add('test') : document.getElementById("animationFooter").classList.add('test2')
+
         this.toRoute()
     },
     computed: {
@@ -112,10 +129,28 @@ export default {
         ...mapState([
             "nowSong"
         ]),
+        nowRouter() {
+            return this.$route.name
+        }
+    },
+    watch: {
+        'nowRouter': {
+            handler(a, n) {
+                if (a !== n) {
+                    this.toRoute()
+                }
+
+            },
+            deep: true,
+            immediate: true
+        }
     },
     components: {
         cAudio,
     },
+    beforeUpdate() {
+
+    }
 };
 </script>
 
@@ -131,24 +166,54 @@ export default {
     background-image: linear-gradient(45deg, @runColor , @endColot);
 }
 
-div {
-    width: 100%;
-
-
-    .c-Audio {
-        width: 100%;
+@keyframes example {
+    from {
+        top: 40px;
     }
+
+    to {
+        top: 0px;
+    }
+}
+
+@keyframes example2 {
+    from {
+        top: 0px;
+    }
+
+    to {
+        top: 40px;
+    }
+}
+
+.test {
+    animation-name: example;
+    animation-duration: 0.5s;
+    top: 0;
+}
+
+.test2 {
+    animation-name: example2;
+    animation-duration: 0.5s;
+    top: 40px;
+}
+
+div.c-Footer {
+    width: 100%;
 
     footer {
         width: 100%;
         display: flex;
+        height: 100%;
+        overflow: hidden;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+        position: relative;
+
 
         div {
             width: 40px;
-
             height: 40px;
             display: flex;
             flex-direction: column;

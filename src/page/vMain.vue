@@ -1,13 +1,12 @@
 <template>
-    <keep-alive>
-        <div class="v-Mian">
-            <v-PlayList v-if="isplaylist" class="v-PlayList"></v-PlayList>
-            <keep-alive v-else>
-                <router-view class="v"></router-view>
-            </keep-alive>
-            <c-Footer class="c-Footer" :Showfooter="!isplaylist"></c-Footer>
-        </div>
-    </keep-alive>
+    <div class="v-Mian">
+
+
+        <router-view class="v"></router-view>
+
+        <c-Footer class="c-Footer" :Showfooter="!isplaylist"></c-Footer>
+    </div>
+
 
 </template>
 
@@ -15,7 +14,6 @@
 
 import cFooter from '@/component/Home/cFooter.vue';
 
-import vPlayList from './vPlayList.vue';
 
 export default {
     name: 'v-Mian',
@@ -28,7 +26,6 @@ export default {
 
         cFooter,
 
-        vPlayList
     },
     methods: {
 
@@ -43,7 +40,7 @@ export default {
         }
     },
     watch: {
-
+        
     }
 }
 </script>

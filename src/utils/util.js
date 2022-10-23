@@ -25,8 +25,8 @@ const RandomNum = function RandomNum(Min, Max = 0) {
     var num = Min + Math.round(Math.random() * (Max - Min));
     return num;
 }
+//排除
 const exclude = function exclude(arr) {
-    console.log('工具类>排除' + arr);
     let newobj = {};
     return arr.reduce((preVal, curVal) => {
         newobj[curVal.id] ? '' : newobj[curVal.id] = preVal.push(curVal);
@@ -41,7 +41,7 @@ export default {
     exclude,
     allSongsList
 }
-
+//筛选有长度的list
 const allSongsList = function allSongsList() {
     let all = []
     for (const key in this.songs) {

@@ -4,12 +4,11 @@
 
         <router-view class="v"></router-view>
 
-        <c-Footer class="c-Footer" :Showfooter="!isplaylist"></c-Footer>
+        <c-Footer class="c-Footer" :Showfooter="isplaylist"></c-Footer>
     </div>
 
 
 </template>
-
 <script>
 
 import cFooter from '@/component/Home/cFooter.vue';
@@ -34,13 +33,14 @@ export default {
 
         //获取当前打开的歌单
         isplaylist() {
+            console.log(this.$store.state.songs.playList.length ? false : true);
+            return this.$store.state.songs.playList.length ? false : true
 
-            return this.$store.state.songs.playList.name
 
         }
     },
     watch: {
-        
+
     }
 }
 </script>

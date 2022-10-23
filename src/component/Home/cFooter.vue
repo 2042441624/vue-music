@@ -1,7 +1,8 @@
 <template>
     <div class="c-Footer">
         <c-Audio class="c-Audio" v-if="song.name"></c-Audio>
-        <footer v-show="Showfooter && hasRoutefont" id="animationFooter">
+        <!-- 改进，不晓得监听当前路由 -->
+        <footer id="animationFooter">
             <div @click="toRoute('home', $event)" ref="home">
                 <svg t="1653928043786" class="icon" viewBox="0 0 1042 1024" version="1.1" ref="color" p-id="2991"
                     width="24" height="24" v-on:click.self.prevent>
@@ -73,12 +74,12 @@ export default {
     props: {
         Showfooter: {
             type: Boolean,
-            default: true
+            require: true
         }
     },
     data() {
         return {
-            hasRoutefont: true
+
         }
     },
     methods: {
@@ -88,7 +89,7 @@ export default {
 
             if (this.$refs[route]) {
 
-                this.hasRoutefont = true
+
                 let footer = this.$refs[route].parentNode
                 for (let index = 0; index < footer.children.length; index++) {
                     footer.children[index].children[0].classList.remove('color')
@@ -116,9 +117,9 @@ export default {
         }
     },
     mounted() {
-        console.log(document.getElementById("animationFooter").offsetTop);
 
-        document.getElementById("animationFooter").offsetTop === 0 ? document.getElementById("animationFooter").classList.add('test') : document.getElementById("animationFooter").classList.add('test2')
+        console.log(this.Showfooter);
+
 
         this.toRoute()
     },
@@ -131,6 +132,12 @@ export default {
         ]),
         nowRouter() {
             return this.$route.name
+        },
+        isRoute() {
+
+            return this.$refs[this.$route.name] ? true : false
+
+
         }
     },
     watch: {
@@ -149,8 +156,11 @@ export default {
         cAudio,
     },
     beforeUpdate() {
-
-    }
+        console.log(this.Showfooter);
+    },
+    beforeDestroy() {
+        this.hasRoutefont = true
+    },
 };
 </script>
 

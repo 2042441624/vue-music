@@ -63,14 +63,16 @@ export default {
     },
     mutations: {
         Remove_SONG(state, obj) {
-
             const nowIndex = state[obj.mode].findIndex(obj => obj.name == state.nowSong.name)
             state[obj.mode] = state[obj.mode].filter(s => s.name !== obj.name)
             // 获取当前歌曲索引
             console.log(state[obj.mode].length, state[obj.mode][nowIndex - 1], nowIndex);
             if (obj.name === state.nowSong.name) {
                 // 获取当前歌曲减1后的的歌曲
-                state.nowSong = state[obj.mode][nowIndex] ? state[obj.mode][nowIndex] : { id: 0, name: '无音乐', singer: '请添加', album: '', picUrl: '', duration: 0, url: '', lyric: [] }
+
+                let nowAllList = util.allSongsList(state)
+
+                state.nowSong = state[obj.mode][nowIndex] ? state[obj.mode][nowIndex] : nowAllList[0][nowAllList[0].name][0] ? nowAllList[0][nowAllList[0].name][0] : { id: 0, name: '无音乐', singer: '请添加', album: '', picUrl: '', duration: 0, url: '', lyric: [] }
             }
         },
         Switching_MODE(state) {

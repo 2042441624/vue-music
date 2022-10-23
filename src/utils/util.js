@@ -34,30 +34,28 @@ const exclude = function exclude(arr) {
     }, [])
 }
 
-
-export default {
-    RandomNum,
-    withoutRepetition,
-    exclude,
-    allSongsList
-}
 //筛选有长度的list
-const allSongsList = function allSongsList() {
+const allSongsList = function allSongsList(obj) {
     let all = []
-    for (const key in this.songs) {
-        if (this.songs[key] instanceof Array) {
-            const element = this.songs[key];
+    for (const key in obj) {
+        if (obj[key] instanceof Array) {
+            const element = obj[key];
             const objList = { name: key }
-            objList[key] = this.songs[key]
+            objList[key] = obj[key]
             if (element.length) {
                 // 加载页面需求的歌单
                 all.push(objList)
             }
         }
     }
-    const aList = document.getElementsByClassName('list')
-    const arr = Array.prototype.slice.call(aList);
-    arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'black' })
+
     return all
 }
+export default {
+    RandomNum,
+    withoutRepetition,
+    exclude,
+    allSongsList
+}
+
 

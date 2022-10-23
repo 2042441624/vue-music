@@ -3,10 +3,10 @@
         <!-- 全局歌单 -->
         <div class="songListContainer">
             <div v-for=" (list) in this.allSongsList" :key="list.name">
-                <h2>{{list.name}}{{list[list.name].length}}</h2>
-                <div v-for=" (song,index) in list[list.name]" :key="song.name" :index="index">
-                    <div @click="switchSong(song.name,list.name,index)" class="list">{{song.name}}</div>
-                    <div @click="removeSong(song.name,list.name)">
+                <h2>{{ list.name }}{{ list[list.name].length }}</h2>
+                <div v-for=" (song, index) in list[list.name]" :key="song.name" :index="index">
+                    <div @click="switchSong(song.name, list.name, index)" class="list">{{ song.name }}</div>
+                    <div @click="removeSong(song.name, list.name)">
                         <svg t="1666230845553" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="1952" width="25" height="25">
                             <path
@@ -46,6 +46,7 @@ export default {
         allSongsList() {
             let all = []
             for (const key in this.songs) {
+
                 if (this.songs[key] instanceof Array) {
                     const element = this.songs[key];
                     const objList = { name: key }
@@ -56,6 +57,8 @@ export default {
                     }
                 }
             }
+            console.log(this.songs);
+            console.log(all);
             const aList = document.getElementsByClassName('list')
             const arr = Array.prototype.slice.call(aList);
             arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'black' })

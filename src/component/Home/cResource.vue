@@ -59,7 +59,7 @@ export default {
                 //引入工具类进行歌曲列表初始化
                 this.playlist = data.playlist.trackIds
             }).then(() => {
-                console.log(this.playlist);
+
                 this.$store.dispatch('addPlayList', this.playlist)
                 this.$router.push({ name: 'playlist' })
             })

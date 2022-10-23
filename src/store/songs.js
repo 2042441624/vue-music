@@ -24,8 +24,8 @@ export default {
     },
 
     actions: {
-        addPlayList(state, List) {
-            state.playlist = List
+        addPlayList(state, list) {
+            state.commit('Add_PALYLIST', list)
         },
         // 切换模式
         switchingMode(state) {
@@ -66,6 +66,9 @@ export default {
         }
     },
     mutations: {
+        Add_PALYLIST(state, list) {
+            state.playList = list
+        },
         Remove_SONG(state, obj) {
             const nowIndex = state[obj.mode].findIndex(obj => obj.name == state.nowSong.name)
             state[obj.mode] = state[obj.mode].filter(s => s.name !== obj.name)

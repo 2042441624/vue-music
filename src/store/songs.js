@@ -3,6 +3,7 @@ import { song_detail, song_lyric } from '@/api/home';
 import { Song } from '@/utils/song';
 
 import util from '@/utils/util';
+
 export default {
 
     state: {
@@ -23,6 +24,9 @@ export default {
     },
 
     actions: {
+        addPlayList(state, List) {
+            state.playlist = List
+        },
         // 切换模式
         switchingMode(state) {
 

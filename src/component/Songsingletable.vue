@@ -1,5 +1,4 @@
 <template>
-
     <div id="view-the-background" ref="songlist" v-show="this.allSongsList.length">
         <!-- 全局歌单 -->
         <div class="songListContainer">

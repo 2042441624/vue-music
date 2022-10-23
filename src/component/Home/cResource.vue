@@ -1,29 +1,42 @@
 <template>
-    <div class="c-Resource">
-        <div class="Resource-top">
-            <h3>{{ this.title }}</h3>
-            <a>更多</a>
-        </div>
-        <slot name="componentBottom">
-            <div class="Resource-bottom">
-                <div v-for=" (item, index) in recommendList" :key="item.id"
-                    @click="watchPlayList(recommendList[index])">
-                    <div><img :src='item.picUrl'></div>
-                    <p>{{ item.name.slice(0, 12) }}...</p>
-                </div>
+    <div>
+        <div class="c-Resource">
+            <div class="Resource-top">
+                <h3>{{ this.title }}</h3>
+                <a>更多</a>
             </div>
+            <slot name="componentBottom">
+                <div class="Resource-bottom">
+                    <div v-for=" (item, index) in recommendList" :key="item.id"
+                        @click="watchPlayList(recommendList[index])">
+                        <div><img :src='item.picUrl'></div>
+                        <p>{{ item.name.slice(0, 12) }}...</p>
+                    </div>
+                </div>
 
-        </slot>
+            </slot>
 
+        </div>
+        <songsingletable v-if="table" @songList="() => { this.table = false }"></songsingletable>
     </div>
+
 </template>
 
 <script>
+import songsingletable from '@/component/Songsingletable.vue';
 import { playlist_detail } from '@/api/home'
+
+
 export default {
     name: 'c-Resource',
-    mounted() {
-
+    data() {
+        return {
+            table: false,
+            playlist: []
+        }
+    },
+    components: {
+        songsingletable
     },
     props: {
         title: {
@@ -41,10 +54,14 @@ export default {
     },
     methods: {
         watchPlayList(index) {
+            this.table = !this.table
             console.log(index.id);
             playlist_detail(index.id).then((data) => {
                 //引入工具类进行歌曲列表初始化
-                console.log(data.playlist.trackIds);
+                this.playlist = data.playlist.trackIds
+            }).then(() => {
+                console.log(this.playlist);
+                this.$store.dispatch('addPlayList', this.playlist)
             })
         }
     },

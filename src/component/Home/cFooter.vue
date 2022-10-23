@@ -83,13 +83,9 @@ export default {
         }
     },
     methods: {
+        //初始化nav样式
         toRoute(route = this.$route.name) {
-            //初始化nav样式
-
-
             if (this.$refs[route]) {
-
-
                 let footer = this.$refs[route].parentNode
                 for (let index = 0; index < footer.children.length; index++) {
                     footer.children[index].children[0].classList.remove('color')
@@ -104,11 +100,6 @@ export default {
                 this.$refs[route].children[1].classList.add('pcolor')
                 this.$router.push({ name: route })
                 footer = null;
-            } else {
-                this.$nextTick(() => {
-                    this.hasRoutefont = false
-
-                })
             }
 
 

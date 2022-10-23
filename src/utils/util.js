@@ -38,5 +38,26 @@ const exclude = function exclude(arr) {
 export default {
     RandomNum,
     withoutRepetition,
-    exclude
+    exclude,
+    allSongsList
 }
+
+const allSongsList = function allSongsList() {
+    let all = []
+    for (const key in this.songs) {
+        if (this.songs[key] instanceof Array) {
+            const element = this.songs[key];
+            const objList = { name: key }
+            objList[key] = this.songs[key]
+            if (element.length) {
+                // 加载页面需求的歌单
+                all.push(objList)
+            }
+        }
+    }
+    const aList = document.getElementsByClassName('list')
+    const arr = Array.prototype.slice.call(aList);
+    arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'black' })
+    return all
+}
+

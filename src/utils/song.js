@@ -61,7 +61,9 @@ const formatSongs = function formatPlayList(list) {
     return Songs
 }
 
-export default formatSongs
+export default { formatSongs }
+
+
 
 export const formatTopSongs = function formatTopList(list) {
     let Songs = []

@@ -1,6 +1,6 @@
 <template>
 
-    <div id="view-the-background" ref="songlist">
+    <div id="view-the-background" ref="songlist" v-show="this.allSongsList.length">
         <!-- 全局歌单 -->
         <div class="songListContainer">
             <div v-for=" (list) in this.allSongsList" :key="list.name">
@@ -46,7 +46,6 @@ export default {
         ...mapState(['songs']),
         allSongsList() {
             let all = []
-
             for (const key in this.songs) {
                 if (this.songs[key] instanceof Array) {
                     const element = this.songs[key];
@@ -60,11 +59,7 @@ export default {
             }
             const aList = document.getElementsByClassName('list')
             const arr = Array.prototype.slice.call(aList);
-
-            arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'balck' })
-
-
-
+            arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'black' })
             return all
         }
     },

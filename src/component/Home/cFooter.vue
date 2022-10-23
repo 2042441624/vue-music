@@ -2,7 +2,7 @@
     <div class="c-Footer">
         <c-Audio class="c-Audio" v-if="song.name"></c-Audio>
         <!-- 改进，不晓得监听当前路由 -->
-        <footer id="animationFooter">
+        <footer id="animationFooter" v-show="this.isShowFooter">
             <div @click="toRoute('home', $event)" ref="home">
                 <svg t="1653928043786" class="icon" viewBox="0 0 1042 1024" version="1.1" ref="color" p-id="2991"
                     width="24" height="24" v-on:click.self.prevent>
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import cAudio from './cAudio.vue';
 export default {
     name: 'c-Footer',
@@ -79,7 +78,7 @@ export default {
     },
     data() {
         return {
-
+            isShowFooter: true
         }
     },
     methods: {
@@ -109,8 +108,7 @@ export default {
     },
     mounted() {
 
-        console.log(this.Showfooter);
-
+        document.getElementById('animationFooter').classList.add('test')
 
         this.toRoute()
     },
@@ -118,40 +116,27 @@ export default {
         song() {
             return this.$store.state.songs.nowSong
         },
-        ...mapState([
-            "nowSong"
-        ]),
         nowRouter() {
             return this.$route.name
         },
-        isRoute() {
 
-            return this.$refs[this.$route.name] ? true : false
-
-
-        }
     },
     watch: {
         'nowRouter': {
-            handler(a, n) {
-                if (a !== n) {
-                    this.toRoute()
-                }
+            handler(newRoute, oldRoute) {
+                if (oldRoute !== newRoute) {
+                    this.isShowFooter = this.$refs[newRoute] ? true : false
 
+                }
             },
             deep: true,
-            immediate: true
+
         }
     },
     components: {
         cAudio,
     },
-    beforeUpdate() {
-        console.log(this.Showfooter);
-    },
-    beforeDestroy() {
-        this.hasRoutefont = true
-    },
+
 };
 </script>
 

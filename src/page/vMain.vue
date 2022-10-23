@@ -33,7 +33,7 @@ export default {
 
         //获取当前打开的歌单
         isplaylist() {
-            console.log(this.$store.state.songs.playList.length ? false : true);
+
             return this.$store.state.songs.playList.length ? false : true
 
 

@@ -2,8 +2,9 @@
     <div class="v-Mian">
 
 
-        <router-view class="v"></router-view>
-
+        <keep-alive>
+            <router-view class="v"></router-view>
+        </keep-alive>
         <c-Footer class="c-Footer" :Showfooter="isplaylist"></c-Footer>
     </div>
 

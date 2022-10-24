@@ -3,7 +3,7 @@
         <div class="search">
             <div class="left">
                 <slot name="left">
-                    left
+
                 </slot>
             </div>
             <div class="centre">
@@ -13,14 +13,13 @@
             </div>
             <div class="right">
                 <slot name="right">
-                    right
                 </slot>
             </div>
         </div>
         <div class="search-content">
             <ul v-if="this.searchlist.length">
-                <li v-for="l in this.searchlist.slice(0,10)" :key="l.id">
-                    <router-link to="">{{l.name}} </router-link>
+                <li v-for="l in this.searchlist.slice(0, 10)" :key="l.id">
+                    <router-link to="">{{ l.name }} </router-link>
                 </li>
             </ul>
         </div>
@@ -55,7 +54,9 @@ export default {
 
         .centre {
             min-width: 200px;
-            max-height: 100%;
+            max-width: 100%;
+            flex: 1;
+            padding: 0 3px;
         }
 
         .centre,

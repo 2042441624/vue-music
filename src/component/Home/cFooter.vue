@@ -12,7 +12,7 @@
                 </svg>
                 <p v-on:click.self.prevent>发现</p>
             </div>
-            <div>
+            <!-- <div>
                 <svg t="1653929206141" class="icon" viewBox="0 0 1024 1024" version="1.1" ref="color" p-id="5984"
                     width="24" height="24">
                     <path
@@ -29,7 +29,7 @@
                         p-id="5988" fill="#ffffff" v-on:click.self.prevent></path>
                 </svg>
                 <p v-on:click.self.prevent>博客</p>
-            </div>
+            </div> -->
             <div @click.stop="toRoute('user', $event)" ref="user">
                 <svg t="1653929420650" class="icon" viewBox="0 0 1024 1024" version="1.1" ref="color" p-id="9780"
                     width="24" height="24" v-on:click.self.prevent>
@@ -39,7 +39,7 @@
                 </svg>
                 <p v-on:click.self.prevent>我的</p>
             </div>
-            <div>
+            <!-- <div>
                 <svg t="1653929275956" class="icon" viewBox="0 0 1024 1024" version="1.1" ref="color" p-id="6887"
                     width="24" height="24" v-on:click.self.prevent>
                     <path
@@ -50,16 +50,16 @@
                         fill="#B5B5B5" p-id="6889" v-on:click.self.prevent></path>
                 </svg>
                 <p v-on:click.self.prevent>发现</p>
-            </div>
-            <div>
+            </div> -->
+            <!-- <div>
                 <svg t="1653929361217" class="icon" viewBox="0 0 1024 1024" version="1.1" ref="color" p-id="8715"
                     width="24" height="24" v-on:click.self.prevent>
                     <path
                         d="M507.904 391.168q-72.704 0-129.024-16.896t-86.016-33.28q-1.024-1.024-1.024-5.12l0-8.192q0-2.048 0.512-0.512t0.512 13.824l0 523.264-115.712 0 0-614.4q0-20.48 7.168-43.52t34.816-34.304q14.336-6.144 28.16-4.608t24.576 6.144 18.432 10.24 10.752 7.68q19.456 15.36 39.936 28.672t44.544 24.064 53.76 16.896 67.584 6.144l4.096 0 1.024 0 4.096 0q37.888 0 67.584-6.144t54.272-16.896 45.056-24.064 38.912-28.672q3.072-2.048 10.752-7.68t18.944-10.24 25.088-6.144 28.16 4.608q26.624 11.264 34.304 34.304t7.68 43.52l0 614.4-116.736 0 0-523.264q0-12.288 1.024-13.312 1.024 3.072 0.512 7.68t-1.536 5.632q-14.336 8.192-36.864 16.896t-50.688 16.384-60.928 12.288-66.56 4.608l-7.168 0z"
                         p-id="8716" fill="#B5B5B5" v-on:click.self.prevent></path>
                 </svg>
-                <p v-on:click.self.prevent>云村</p>
-            </div>
+                <p v-on:click.self.prevent>云村</p> -->
+            <!-- </div> -->
         </footer>
     </div>
 
@@ -102,8 +102,6 @@ export default {
             }
 
 
-
-
         }
     },
     mounted() {
@@ -112,6 +110,7 @@ export default {
 
         this.toRoute()
     },
+
     computed: {
         song() {
             return this.$store.state.songs.nowSong
@@ -126,7 +125,7 @@ export default {
             handler(newRoute, oldRoute) {
                 if (oldRoute !== newRoute) {
                     this.isShowFooter = this.$refs[newRoute] ? true : false
-
+                    this.toRoute()
                 }
             },
             deep: true,
@@ -136,6 +135,7 @@ export default {
     components: {
         cAudio,
     },
+
 
 };
 </script>

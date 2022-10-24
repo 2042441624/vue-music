@@ -57,8 +57,7 @@ export default {
                     }
                 }
             }
-            console.log(this.songs);
-            console.log(all);
+
             const aList = document.getElementsByClassName('list')
             const arr = Array.prototype.slice.call(aList);
             arr.map(e => { e.innerText === this.$store.state.songs.nowSong.name ? e.style.color = 'red' : e.style.color = 'black' })
@@ -113,6 +112,7 @@ export default {
     box-sizing: border-box;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
+    overflow: scroll;
 
     div {
 

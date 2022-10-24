@@ -59,7 +59,7 @@ export default {
     .v {
         height: 100%;
     }
-
+//ok
     .c-Footer {
         position: fixed;
         bottom: 0;

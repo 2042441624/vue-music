@@ -90,8 +90,9 @@ export const resSong_lyric = function resSong_lyric(key, id) {
                 if (res === null) {
                     alert("数据请求失败");
                 }
+                let obj = { l: res.lrc.lyric.split('\n') }
                 localStorage.setItem(key, JSON.stringify(res.lrc.lyric.split('\n')));
-                resolve(res.lrc.lyric.split('\n'));
+                resolve(obj);
             });
         }));
         return new Promise(resolve => {
@@ -99,9 +100,9 @@ export const resSong_lyric = function resSong_lyric(key, id) {
                 if (res === null) {
                     alert("数据请求失败");
                 }
-
+                let obj = { l: res.lrc.lyric.split('\n') }
                 localStorage.setItem(key, JSON.stringify(res.lrc.lyric.split('\n')));
-                resolve(res.lrc.lyric.split('\n'));
+                resolve(obj);
             });
         })
     }

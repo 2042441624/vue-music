@@ -72,10 +72,10 @@ export default {
 
     },
     mounted() {
-        console.log(this.songs.nowSong.lyric);
-        if (this.songs.nowSong.lyric.then) {
-            this.songs.nowSong.lyric.then(res => {
-      
+        console.log(this.songs.lyric);
+        if (this.songs.lyric.then) {
+            this.songs.lyric.then(res => {
+       
                 this.nowLyric = res.filter(l => l != '')
                 this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
                 // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);

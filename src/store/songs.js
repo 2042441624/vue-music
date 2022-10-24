@@ -1,7 +1,7 @@
 
-import { song_detail, song_lyric } from '@/api/home';
-import { Song } from '@/utils/song';
-
+import { song_detail } from '@/api/home';
+import { Song, resSong_lyric } from '@/utils/song';
+// , song_lyric 
 import util from '@/utils/util';
 
 export default {
@@ -19,6 +19,7 @@ export default {
         nowSong: {},
         //当前歌曲的进度值
         nowDur: '',
+        lyric: [],
         //歌曲模式（顺序,循环，随机）
         songMode: '顺序',
     },
@@ -39,18 +40,21 @@ export default {
         //添加单曲
         addsongs(state, id) {
 
-            return new song_detail(id).then((res) => {
+            return song_detail(id).then((res) => {
                 if (res.code === 200) {
                     res = res.songs[0]
-                    state.commit('Add_SONG', new Song({
+                    let resSong = new Song({
                         ...res.al,
                         name: res.name,
                         singer: res.ar[0].name,
                         //获取歌曲路径
                         url: `https://music.163.com/song/media/outer/url?id=${id}.mp3`,
                         //获取歌词
-                        lyric: song_lyric(id).then(res => res.lrc.lyric.split('\n')) 
-                    }))
+                        lyric: resSong_lyric('lyric', id)
+                    })
+                    state.commit('Add_SONG', resSong)
+             
+                    state.commit('Add_LYRIC', resSong_lyric('lyric', id))
                 }
             })
         },
@@ -70,6 +74,9 @@ export default {
         }
     },
     mutations: {
+        Add_LYRIC(state, p) {
+            state.lyric = p
+        },
         Add_HISTORY(state, list) {
             state.historySongsList = list
         },
@@ -103,7 +110,7 @@ export default {
 
             if (obj.name) {
                 state.nowSong = state[obj.mode][obj.index]
-         
+
             } else {
                 if (state.songMode === '顺序') {
                     console.log(state.songMode);

@@ -57,7 +57,7 @@ export default {
     },
     mounted() {
         this.playList = this.songs.playList
-        console.log(this.playList);
+        
     }
 };
 </script>

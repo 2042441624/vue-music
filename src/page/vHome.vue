@@ -51,6 +51,7 @@ import cResource from '@/component/Home/cResource.vue';
 import cToplist from '@/component/Home/cToplist.vue';
 import { banner } from '@/api/home';
 import { getPersonalized } from "@/api/index.js";
+import { mapState } from 'vuex';
 export default {
   name: 'v-home',
   data() {
@@ -62,13 +63,26 @@ export default {
   mounted() {
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
+    //刚加载页面需要确认所有歌单是否有歌曲
+
+    let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
+    if (historySongsList.length) {
+      this.$store.dispatch('addhistorySongsList', historySongsList)
+      
+      // let obj = { name: historySongsList[0].name, mode: 'historySongsList', index: 0 }
+      // console.log(historySongsList[0]);
+      // this.$store.dispatch('nextSong', obj)
+    }
+
   },
   methods: {
     toSearch() {
       this.$router.push({ name: 'search' })
-    }
+    },
+
   },
   computed: {
+    ...mapState(['songs'])
   },
   components: {
     cHeader,

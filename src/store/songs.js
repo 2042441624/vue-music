@@ -7,14 +7,14 @@ import util from '@/utils/util';
 export default {
 
     state: {
-        //打开的歌单
-        playList: [],
         //历史播放
         historySongsList: [],
-        //喜欢的歌单
-        FavoritePlaylist: [],
         //当前的播放的歌单
         songsList: [],
+        //打开的歌单
+        playList: [],
+        //喜欢的歌单
+        FavoritePlaylist: [],
         //正在播放的歌曲
         nowSong: {},
         //当前歌曲的进度值
@@ -27,6 +27,10 @@ export default {
         addPlayList(state, list) {
             state.commit('Add_PALYLIST', list)
         },
+        addhistorySongsList(state, list) {
+            console.log(list);
+            state.commit('Add_HISTORY', list)
+        },
         // 切换模式
         switchingMode(state) {
 
@@ -35,7 +39,7 @@ export default {
         //添加单曲
         addsongs(state, id) {
 
-            song_detail(id).then((res) => {
+            return new song_detail(id).then((res) => {
                 if (res.code === 200) {
                     res = res.songs[0]
                     state.commit('Add_SONG', new Song({
@@ -45,7 +49,7 @@ export default {
                         //获取歌曲路径
                         url: `https://music.163.com/song/media/outer/url?id=${id}.mp3`,
                         //获取歌词
-                        lyric: song_lyric(id).then(res => res.lrc.lyric.split('\n'))
+                        lyric: song_lyric(id).then(res => res.lrc.lyric.split('\n')) 
                     }))
                 }
             })
@@ -66,6 +70,9 @@ export default {
         }
     },
     mutations: {
+        Add_HISTORY(state, list) {
+            state.historySongsList = list
+        },
         Add_PALYLIST(state, list) {
             state.playList = list
         },
@@ -93,9 +100,10 @@ export default {
         },
         //下一首歌曲
         Next_SONG(state, obj = {}) {
+
             if (obj.name) {
                 state.nowSong = state[obj.mode][obj.index]
-                console.log(state.nowSong);
+         
             } else {
                 if (state.songMode === '顺序') {
                     console.log(state.songMode);
@@ -134,10 +142,6 @@ export default {
         },
         //添加单曲
         Add_SONG(state, song) {
-
-            const historySongsStr = localStorage.getItem('historySongsList')
-            state.historySongsList = JSON.parse(historySongsStr) ? JSON.parse(historySongsStr) : []
-
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
             state.historySongsList.unshift(state.nowSong)

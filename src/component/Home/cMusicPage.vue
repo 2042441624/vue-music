@@ -5,7 +5,7 @@
                 <div @click="routerBack">回退</div>
             </slot>
             <slot slot="centre">
-                <div>{{songs.nowSong.name}}</div>
+                <div>{{ songs.nowSong.name }}</div>
             </slot>
             centre
         </c-header>
@@ -72,16 +72,22 @@ export default {
 
     },
     mounted() {
+        console.log(this.songs.nowSong.lyric);
+        if (this.songs.nowSong.lyric.then) {
+            this.songs.nowSong.lyric.then(res => {
+      
+                this.nowLyric = res.filter(l => l != '')
+                this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
+                // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);
+            })
+        }
 
-        this.songs.nowSong.lyric.then(res => {
-            this.nowLyric = res.filter(l => l != '')
-            this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
-            // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);
-        })
+
 
     },
     updated() {
         this.$refs.address.style.backgroundImage = `url(` + this.songs.nowSong.picUrl + `)`
+
     },
     computed: {
         ...mapState(['songs']),
@@ -91,8 +97,8 @@ export default {
 
         "songs.nowDur": {
             handler(newD) {
-                let resNowTimeLyric = this.nowTimeLyric
-                resNowTimeLyric.forEach((t) => {
+
+                this.nowTimeLyric.forEach((t) => {
                     let min = Number(t.split(':')[0]) > 0 ? Number(t.split(':')[0]) * 60 : 0
                     let sec = Number(t.split(':')[1].split('.')[0]) > 0 ? Number(t.split(':')[1].split('.')[0]) : 0
                     if ((min + sec) === Number(String(newD).split('.')[0])) {

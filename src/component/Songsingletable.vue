@@ -44,6 +44,7 @@ export default {
     computed: {
         ...mapState(['songs']),
         allSongsList() {
+            
             let all = []
             for (const key in this.songs) {
 

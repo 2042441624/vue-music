@@ -53,7 +53,7 @@ export default {
                         lyric: resSong_lyric('lyric', id)
                     })
                     state.commit('Add_SONG', resSong)
-             
+
                     state.commit('Add_LYRIC', resSong_lyric('lyric', id))
                 }
             })
@@ -64,7 +64,7 @@ export default {
         },
         nextSong(state, obj = {}) {
             console.log(obj);
-            obj ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
+            obj.name ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
         },
         preSong(state) {
             state.commit('Pre_SONG')
@@ -113,6 +113,7 @@ export default {
                 state.nowSong = state[obj.mode][obj.index]
 
             } else {
+                
                 if (state.songMode === '顺序') {
                     console.log(state.songMode);
                     let nowSongIndex = state.songsList.obj.name == state.nowSong.name

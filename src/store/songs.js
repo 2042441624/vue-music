@@ -63,6 +63,7 @@ export default {
             state.commit('Add_nowDur', str)
         },
         nextSong(state, obj = {}) {
+            console.log(obj);
             obj ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
         },
         preSong(state) {

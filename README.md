@@ -22,3 +22,5 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+这是基于node——webpack——vue3——html5——css3——javaScript——Es6——axios——

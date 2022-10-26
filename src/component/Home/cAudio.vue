@@ -140,7 +140,7 @@ export default {
                     audio.loading = false;
                     this.$refs.songimg.src = this.song.picUrl
                     if (this.aState) {
-                        audio.play()
+                        audio.pause()
                     }
                 });
                 //结束播放

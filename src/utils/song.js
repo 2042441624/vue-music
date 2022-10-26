@@ -76,25 +76,14 @@ export const resSong_lyric = function resSong_lyric(key, id) {
 
         let p = localStorage.getItem(key);
         let parse = JSON.parse(p);
-        console.log("key = " + key)
-        console.log(parse)
+
         //当localStorage中有数据，且在有效期内时，直接返回当中的数据
         if (p !== null) {
             return new Promise(resolve => {
                 resolve(parse);
             });
         }
-        //当localStorage中无数据，或数据过期时，执行请求方法获取数据，并将获取到的数据存储到localStorage中
-        console.log(new Promise(resolve => {
-            requestMethod(id).then(res => {
-                if (res === null) {
-                    alert("数据请求失败");
-                }
-                let obj = { l: res.lrc.lyric.split('\n') }
-                localStorage.setItem(key, JSON.stringify(res.lrc.lyric.split('\n')));
-                resolve(obj);
-            });
-        }));
+    
         return new Promise(resolve => {
             requestMethod(id).then(res => {
                 if (res === null) {

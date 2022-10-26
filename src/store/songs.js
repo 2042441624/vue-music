@@ -18,6 +18,7 @@ export default {
         //正在播放的歌曲
         nowSong: {},
         //当前歌曲的进度值
+        nowListName: '',
         nowDur: '',
         lyric: [],
         //歌曲模式（顺序,循环，随机）
@@ -25,6 +26,9 @@ export default {
     },
 
     actions: {
+        nowListName(state, name) {
+            state.commit('Add_NOWLISTNAME', name)
+        },
         addPlayList(state, list) {
             state.commit('Add_PALYLIST', list)
         },
@@ -75,6 +79,9 @@ export default {
         }
     },
     mutations: {
+        Add_NOWLISTNAME(state, name) {
+            state.nowListName = name
+        },
         Add_LYRIC(state, p) {
             state.lyric = p
         },
@@ -113,16 +120,16 @@ export default {
                 state.nowSong = state[obj.mode][obj.index]
 
             } else {
-                
+
                 if (state.songMode === '顺序') {
                     console.log(state.songMode);
-                    let nowSongIndex = state.songsList.obj.name == state.nowSong.name
+                    let nowSongIndex = state[state.nowListName].obj.name == state.nowSong.name
                     nowSongIndex += 1;
 
-                    if (nowSongIndex >= state.songsList.length) {
+                    if (nowSongIndex >= state[state.nowListName].length) {
                         nowSongIndex = 0
                     }
-                    let newobj = state.songsList[nowSongIndex]
+                    let newobj = state[state.nowListName][nowSongIndex]
                     state.nowSong = newobj
                     newobj = null
                 } else if (state.songMode === '循环') {
@@ -132,7 +139,7 @@ export default {
 
                 } else if (state.songMode === '随机') {
 
-                    state.nowSong = state.songsList[util.RandomNum(0, (state.songsList.length - 1))]
+                    state.nowSong = state[state.nowListName][util.RandomNum(0, (state[state.nowListName].length - 1))]
                     console.log(state.songMode, state.nowSong);
                 }
             }

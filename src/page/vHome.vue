@@ -71,8 +71,10 @@ export default {
       this.$store.dispatch('addhistorySongsList', historySongsList)
 
       let obj = { name: historySongsList[0].name, mode: 'historySongsList', index: 0 }
-      this.$store.dispatch('nextSong', obj)
       this.$store.commit('Add_LYRIC', resSong_lyric('lyric', historySongsList[0].id))
+      this.$store.dispatch('nextSong', obj)
+
+      this.$store.dispatch('nowListName', 'historySongsList')
     }
 
   },

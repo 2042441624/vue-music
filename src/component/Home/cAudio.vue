@@ -82,8 +82,14 @@ export default {
     },
     watch: {
         "song.name": {
-            handler() {
+            handler(n, old) {
                 this.cDom()
+                if (old === undefined && n !== old) {
+                    this.$nextTick(() => { this.$refs.audio.pause() })
+                } else {
+                    this.$nextTick(() => { this.$refs.audio.play() })
+                }
+
             },
             deep: true,
             immediate: true

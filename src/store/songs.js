@@ -166,7 +166,7 @@ export default {
         },
         //添加单曲
         Add_SONG(state, song) {
-
+            
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
             state.historySongsList.unshift(state.nowSong)

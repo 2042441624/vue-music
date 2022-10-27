@@ -15,13 +15,13 @@
                             <div><img :src="item.al.picUrl"></div>
                             <div class="nameBox" v-if='item.name.length > 14'>
                                 <p>{{ item.name }}-<span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
-                                ${item.originSongSimpleData.artists[0].name}` : ''
+                                                                        ${item.originSongSimpleData.artists[0].name}` : ''
                                 }} </span></p>
                             </div>
                             <div class="nameBox" v-else>
                                 <p>{{ item.name }}</p>
                                 <span>{{ item.ar[0].name }} {{ item.originSongSimpleData ? ` | 原唱:
-                                ${item.originSongSimpleData.artists[0].name}` : ''
+                                                                    ${item.originSongSimpleData.artists[0].name}` : ''
                                 }} </span>
                             </div>
                             <div>
@@ -73,6 +73,7 @@ export default {
     methods: {
         addSong(id) {
             this.$store.dispatch('addsongs', id)
+            this.$store.dispatch('switchingPlayStatus', true)
         }
     },
     components: {

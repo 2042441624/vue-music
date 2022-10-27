@@ -12,6 +12,7 @@
 
 <script>
 import cGren from '@/component/cGren.vue';
+import { mapState } from 'vuex';
 export default {
     name: 'play-Back',
     components: {
@@ -23,12 +24,10 @@ export default {
             require: true,
             default: false
         },
-        palyState: {
-            type: Boolean,
-            require: true,
-        }
     },
-    computed: {},
+    computed: {
+        ...mapState(['songs'])
+    },
     methods: {
 
         rePlay() {
@@ -40,22 +39,14 @@ export default {
         pre() {
             this.$emit('preSong')
         },
-        //事件回调
-        * loop(list, max = Infinity) {
-            for (let i = 0; i < max; i++) {
-                //循环索引
-                yield list[i % list.length];
-            }
-        },
 
         songsList() {
             this.$emit('songsList')
         }
     },
     mounted() {
-        console.log(this.yesOk);
         if (this.yesOk) {
-            if (this.palyState) {
+            if (this.songs.playStatus) {
                 this.$refs.palyback.classList.remove('zantingMax')
                 this.$refs.palyback.classList.add('bofangMax')
             } else {
@@ -63,7 +54,7 @@ export default {
                 this.$refs.palyback.classList.add('zantingMax')
             }
         } else {
-            if (this.palyState) {
+            if (this.songs.playStatus) {
                 this.$refs.palyback.classList.remove('zanting')
                 this.$refs.palyback.classList.add('bofang')
             } else {
@@ -75,29 +66,23 @@ export default {
     },
     watch: {
 
-        palyState(newPlay) {
-
+        'songs.playStatus'(newPlay) {
             if (this.yesOk) {
                 if (newPlay) {
                     this.$refs.palyback.classList.remove('zantingMax')
                     this.$refs.palyback.classList.add('bofangMax')
-                    return
                 } else {
                     this.$refs.palyback.classList.remove('bofangMax')
                     this.$refs.palyback.classList.add('zantingMax')
-                    return
                 }
             } else {
                 if (newPlay) {
                     this.$refs.palyback.classList.remove('zanting')
                     this.$refs.palyback.classList.add('bofang')
-                    return
                 } else {
                     this.$refs.palyback.classList.remove('bofang')
                     this.$refs.palyback.classList.add('zanting')
-                    return
                 }
-
             }
         }
     },

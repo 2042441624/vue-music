@@ -62,6 +62,7 @@ export default {
     }
   },
   mounted() {
+  
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
     //刚加载页面需要确认所有歌单是否有歌曲
@@ -82,6 +83,7 @@ export default {
     toSearch() {
       this.$router.push({ name: 'search' })
     },
+
 
   },
   computed: {

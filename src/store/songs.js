@@ -38,7 +38,7 @@ export default {
             state.commit('Add_PALYLIST', list)
         },
         addhistorySongsList(state, list) {
-            console.log(list);
+
             state.commit('Add_HISTORY', list)
         },
         // 切换模式
@@ -73,7 +73,10 @@ export default {
         },
         nextSong(state, obj = {}) {
 
-            obj.name ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
+            obj.name ?state.commit('Next_SONG', obj):state.commit('Next_SONG')
+
+
+
         },
         preSong(state) {
             state.commit('Pre_SONG')
@@ -85,6 +88,7 @@ export default {
     },
     mutations: {
         Switching_PLAYSTATUS(state, boolean) {
+            console.log(boolean);
             boolean ? state.playStatus = Boolean(boolean) : state.playStatus = !state.playStatus
 
 

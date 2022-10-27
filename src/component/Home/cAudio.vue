@@ -10,7 +10,7 @@
                     <p>{{ song.name }}-{{ song.singer }}</p>
                 </div>
 
-                <!-- 控制播放 -->
+                <!-- 圆形滚动条 -->
                 <circularProgressBar :circular="parseInt((fStr / 100) * 360)" @resPlay="fPlay()">
 
                     <slot slot="playback">
@@ -37,8 +37,7 @@
                 <progress-bar :slide="sStr" :fill="fStr"></progress-bar>
             </slot>
             <slot slot="control">
-                <play-back :palyState="aState" @resPlay="fPlay()" :yesOk="true" class="max" @nextSong="nextSong"
-                    @preSong="preSong">
+                <play-back @resPlay="fPlay()" :yesOk="true" class="max" @nextSong="nextSong" @preSong="preSong">
                 </play-back>
             </slot>
         </c-music-page>
@@ -52,6 +51,7 @@ import progressBar from '@/component/progressBar.vue';
 import cMusicPage from '@/component/Home/cMusicPage.vue';
 import playBack from '@/component/playback.vue';
 import circularProgressBar from '@/component/circularProgressBar.vue';
+import { mapState } from 'vuex';
 export default {
     name: 'c-Audio',
     data() {
@@ -79,6 +79,7 @@ export default {
         song() {
             return this.$store.state.songs.nowSong
         },
+        ...mapState(['songs'])
     },
     watch: {
         "song.name": {
@@ -87,7 +88,10 @@ export default {
                 if (old === undefined && n !== old) {
                     this.$nextTick(() => { this.$refs.audio.pause() })
                 } else {
-                    this.$nextTick(() => { this.$refs.audio.play() })
+                    this.$nextTick(() => {
+                        this.$store.dispatch('switchingPlayStatus', true)
+                        this.$refs.audio.play()
+                    })
                 }
 
             },
@@ -97,9 +101,7 @@ export default {
     },
 
     methods: {
-        a() {
-            console.log('s');
-        },
+
         songsList() {
             console.log(this);
             this.$refs.table.style.visibility = 'visible'
@@ -114,10 +116,10 @@ export default {
             this.nowMusicPage = !this.nowMusicPage
         },
         fPlay() {
-
-            this.aState = !this.aState
+            console.log('ww');
+            this.$store.dispatch('switchingPlayStatus')
             var audio = document.querySelector("#ado");
-            if (this.aState) {
+            if (this.songs.playStatus) {
                 audio.play()
             } else {
                 audio.pause()
@@ -129,8 +131,6 @@ export default {
                 audio.src = this.song.url
                 audio.controls = false;
                 audio.volume = 0.3;
-                //单曲循环控件
-                this.$store.state.songs.songsList.length === 1 ? audio.loop = true : audio.loop = false
                 // var voice = document.querySelector(".voice");
                 // voice.addEventListener("click", function () {
                 //     if (audio.muted) {
@@ -145,13 +145,13 @@ export default {
                 audio.addEventListener("canplay", () => {
                     audio.loading = false;
                     this.$refs.songimg.src = this.song.picUrl
-                    if (this.aState) {
-                        audio.pause()
+                    if (this.songs.playStatus) {
+                        audio.play()
                     }
                 });
                 //结束播放
                 audio.addEventListener("ended", () => {
-                    console.log();
+
                     this.nextSong()
                 });
                 //歌曲总长以及当前事件

@@ -26,7 +26,6 @@ export default {
         palyState: {
             type: Boolean,
             require: true,
-            default: true
         }
     },
     computed: {},
@@ -55,9 +54,7 @@ export default {
         }
     },
     mounted() {
-
-        // 刚加载的样式
-        this.$refs.palyback.classList.contains('palyback') ? '' : this.$refs.palyback.classList.add('palyback')
+        console.log(this.yesOk);
         if (this.yesOk) {
             if (this.palyState) {
                 this.$refs.palyback.classList.remove('zantingMax')

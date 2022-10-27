@@ -60,7 +60,7 @@ export default {
             nowLyric: [],
             sStr: 0,
             fStr: 0,
-            aState: true,
+            aState: false,
             table: false
         }
     },

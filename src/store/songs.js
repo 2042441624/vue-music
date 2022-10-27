@@ -73,7 +73,7 @@ export default {
         },
         nextSong(state, obj = {}) {
 
-            obj.name ?state.commit('Next_SONG', obj):state.commit('Next_SONG')
+            obj.name ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
 
 
 
@@ -88,7 +88,7 @@ export default {
     },
     mutations: {
         Switching_PLAYSTATUS(state, boolean) {
-            console.log(boolean);
+            boolean ? console.log('添加赋值播放') : console.log('播放反转')
             boolean ? state.playStatus = Boolean(boolean) : state.playStatus = !state.playStatus
 
 

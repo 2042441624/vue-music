@@ -7,7 +7,6 @@
             <slot slot="centre">
                 <div>{{ songs.nowSong.name }}</div>
             </slot>
-            centre
         </c-header>
         <div class='lyric'>
             <div class="lyricConter" ref="lyricConter">
@@ -38,7 +37,6 @@ export default {
             nowLyric: [],
             nowTimeLyric: [],
             pIndex: 0
-
         }
     },
     props: {
@@ -48,9 +46,17 @@ export default {
         fillStr: {
             type: String,
         },
+        playState: {
+            type: Boolean,
+            default: true,
+            require: true
+        }
     },
 
     methods: {
+        rePlay() {
+            this.$emit('resPlay')
+        },
         routerBack() {
             this.$emit('resMusicPage')
         },
@@ -72,10 +78,11 @@ export default {
 
     },
     mounted() {
+
         console.log(this.songs.lyric);
         if (this.songs.lyric.then) {
             this.songs.lyric.then(res => {
-       
+
                 this.nowLyric = res.filter(l => l != '')
                 this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
                 // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);

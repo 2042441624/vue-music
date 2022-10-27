@@ -32,7 +32,7 @@
 
         </div>
         <!-- 音乐播放页面 -->
-        <c-music-page v-show="this.nowMusicPage" @resMusicPage="toMusicPage">
+        <c-music-page v-show="this.nowMusicPage" @resMusicPage="toMusicPage" @resPlay="fPlay()">
             <slot slot="progressBar">
                 <progress-bar :slide="sStr" :fill="fStr"></progress-bar>
             </slot>

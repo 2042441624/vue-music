@@ -7,6 +7,8 @@ import util from '@/utils/util';
 export default {
 
     state: {
+        //是否播放
+        playStatus: false,
         //历史播放
         historySongsList: [],
         //当前的播放的歌单
@@ -26,6 +28,9 @@ export default {
     },
 
     actions: {
+        switchingPlayStatus(state, boolean) {
+            boolean ? state.commit('Switching_PLAYSTATUS', boolean) : state.commit('Switching_PLAYSTATUS')
+        },
         nowListName(state, name) {
             state.commit('Add_NOWLISTNAME', name)
         },
@@ -79,6 +84,11 @@ export default {
         }
     },
     mutations: {
+        Switching_PLAYSTATUS(state, boolean) {
+            boolean ? state.playStatus = Boolean(boolean) : state.playStatus = !state.playStatus
+
+
+        },
         Add_NOWLISTNAME(state, name) {
             state.nowListName = name
         },
@@ -166,7 +176,7 @@ export default {
         },
         //添加单曲
         Add_SONG(state, song) {
-            
+
             state.nowSong = song
             state.songsList.unshift(state.nowSong)
             state.historySongsList.unshift(state.nowSong)

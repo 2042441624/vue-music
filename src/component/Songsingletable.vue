@@ -34,7 +34,7 @@ export default {
             this.$emit('songList')
         },
         switchSong(name, mode, index) {
-            console.log({ name, mode });
+            console.log({ name, mode, index });
             this.$store.dispatch('nextSong', { name, mode, index })
         },
         removeSong(name, mode) {
@@ -44,7 +44,7 @@ export default {
     computed: {
         ...mapState(['songs']),
         allSongsList() {
-            
+
             let all = []
             for (const key in this.songs) {
 

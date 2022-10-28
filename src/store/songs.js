@@ -48,7 +48,9 @@ export default {
         },
         //添加单曲
         addsongs(state, id) {
-
+            // 1988532821
+            // 1984488522
+            // 1987986734
             return song_detail(id).then((res) => {
                 if (res.code === 200) {
                     res = res.songs[0]
@@ -103,7 +105,18 @@ export default {
             state.historySongsList = list
         },
         Add_PALYLIST(state, list) {
-            state.playList = list
+
+            list = list.map(s => {
+                return s = s.id
+            })
+            song_detail(String(list)).then(res => {
+
+                state.playList = res.songs
+                console.log(state.playList);
+            }
+            )
+
+
         },
         Remove_SONG(state, obj) {
             const nowIndex = state[obj.mode].findIndex(obj => obj.name == state.nowSong.name)

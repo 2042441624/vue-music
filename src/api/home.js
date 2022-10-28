@@ -31,6 +31,7 @@ export const playlist_detail = (id) => {
 
 //获取歌曲详情(歌曲id的多个引用)
 export const song_detail = (ids) => {
+
     // const {id} = params;
     return axios.request({
         url: `/song/detail`,

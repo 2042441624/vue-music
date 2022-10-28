@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id='c-Audio'>
         <audio id="ado" ref="audio"></audio>
         <div class="nowSongs" v-show="song.name && !this.nowMusicPage">
             <div class="mp3Box">
@@ -90,7 +90,7 @@ export default {
                 } else {
                     this.$nextTick(() => {
                         this.$store.dispatch('switchingPlayStatus', true)
-              
+
                     })
                 }
 
@@ -243,6 +243,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+#c-Audio {
+    z-index: 999999;
+    background-color: yellow;
+}
+
 .nowSongs {
     width: 100%;
     display: flex;

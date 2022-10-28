@@ -13,9 +13,9 @@
             </slot>
         </c-Header>
 
-        <div v-for=" (song, index) in this.playList" :key="song.id" :index="index">
-            <div @click="switchSong(song.name, list.name, index)" class="list">{{ song.id }}</div>
-            <div @click="removeSong(song.name, list.name)">
+        <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
+            <div @click="addSong(song.id)" class="list">{{ song.name }}</div>
+            <div @click="removeSong(song.name, 'playList')">
                 <svg t="1666230845553" class="icon" viewBox="0 0 1024 1024" version="1.1"
                     xmlns="http://www.w3.org/2000/svg" p-id="1952" width="25" height="25">
                     <path
@@ -53,15 +53,41 @@ export default {
     methods: {
         routerBack() {
             this.$router.back()
+        },
+        songList() {
+            this.$emit('songList')
+        },
+        addSong(id) {
+            this.$store.dispatch('addsongs', id)
+            this.$store.dispatch('switchingPlayStatus', true)
+        },
+        removeSong(name, mode) {
+            this.$store.dispatch('removeSong', { name, mode })
         }
     },
     mounted() {
-        this.playList = this.songs.playList
-        
+
+
     }
 };
 </script>
 
 <style lang="less" scoped>
+.v-PlayList {
 
+  
+
+}
+
+.songList {
+
+    height: 25px;
+    line-height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    font-size: 1.25rem;
+
+
+}
 </style>

@@ -90,7 +90,7 @@ export default {
                 } else {
                     this.$nextTick(() => {
                         this.$store.dispatch('switchingPlayStatus', true)
-                        this.$refs.audio.play()
+              
                     })
                 }
 
@@ -128,6 +128,7 @@ export default {
         cDom() {
             this.$nextTick(() => {
                 var audio = document.querySelector("#ado");
+                audio.src = '';
                 audio.src = this.song.url
                 audio.controls = false;
                 audio.volume = 0.3;

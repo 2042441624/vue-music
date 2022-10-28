@@ -4,11 +4,12 @@ import Vuex from 'vuex';
 Vue.use(Vuex)
 import songs from './songs';
 
-
+import user from './user';
 
 const store = new Vuex.Store({
-    modules:{
-        songs
+    modules: {
+        songs,
+        user
     }
 
 

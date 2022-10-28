@@ -170,13 +170,13 @@ export default {
         },
         //上一首歌曲
         Pre_SONG(state) {
-            let nowSongIndex = state.songsList.findIndex((obj) => obj.name == state.nowSong.name);
+            let nowSongIndex = state[state.nowListName].findIndex((obj) => obj.name == state.nowSong.name);
 
             nowSongIndex -= 1;
             if (nowSongIndex < 0) {
-                nowSongIndex = state.songsList.length - 1
+                nowSongIndex = state[state.nowListName].length - 1
             }
-            state.nowSong = state.songsList[nowSongIndex]
+            state.nowSong = state[state.nowListName][nowSongIndex]
         },
         //添加单曲
         Add_SONG(state, song) {

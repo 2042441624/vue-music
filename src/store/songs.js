@@ -199,8 +199,6 @@ export default {
             state.historySongsList.unshift(state.nowSong)
             state.songsList = new util.exclude(state.songsList)
             state.historySongsList = new util.exclude(state.historySongsList)
-            //当前会话歌单缓存
-            sessionStorage.setItem('songsList', JSON.stringify(state.songsList))
             //历史本地会话歌单缓存
             localStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
         },

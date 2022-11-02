@@ -6,6 +6,9 @@ Vue.use(VueAwesomeSwiper)
 import router from './router/index';
 Vue.config.productionTip = false
 import store from './store/index';
+
+import animated from 'animate.css'
+Vue.use(animated)
 new Vue({
   render: h => h(App),
   router,

@@ -1,5 +1,7 @@
 <template>
   <div class="c-user">
+
+
     <c-Header class="c-Header">
       <slot slot="left">
         <div @click="routerBack">返回</div>
@@ -12,8 +14,18 @@
       <div class="userName" ref="userName">用户名称</div>
       <div class="uservl" ref="uservl">等级关注粉丝</div>
     </div>
-    <div class="userSongList">我喜欢的音乐</div>
     <div class="userSongList">我收藏的歌单</div>
+    <div class="userSongList">我的历史播放</div>
+
+
+    <transition name="fade">
+
+      <div class="userSongList">我喜欢的音乐</div>
+
+
+    </transition>
+
+
   </div>
 </template>
 
@@ -53,11 +65,24 @@ export default {
       }
     });
   },
-  mounted() {},
+  mounted() {
+    const selector = document.querySelector('.userSongList')
+    selector.classList.add('magictime', 'puffIn')
+  },
 };
 </script>
 
 <style lang="less">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .userData {
   width: 100%;
   height: 20%;
@@ -71,6 +96,7 @@ export default {
     width: 100px;
     height: 100px;
     background-color: antiquewhite;
+
     img {
       width: 100%;
       height: 100%;

@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted() {
-  
+
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
     //刚加载页面需要确认所有歌单是否有歌曲
@@ -111,8 +111,11 @@ export default {
     input {
       width: 100%;
       outline: none;
-      border: none;
+      border: 3px solid white;
       border-radius: 45px;
+      border-bottom-color: red;
+      border-left-color: red;
+      border-right-color: red;
       text-align: center;
       height: 100%;
     }

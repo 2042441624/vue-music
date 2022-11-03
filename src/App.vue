@@ -1,7 +1,7 @@
 <template>
 
   <div id="app">
-    
+
     <router-view></router-view>
   </div>
 </template>
@@ -16,6 +16,13 @@ export default {
 </script>
 
 <style lang="less">
+@runColor: rgba(239, 236, 236, 0);
+@endColot: rgb(244, 40, 40);
+
+.pcolor {
+  color: @endColot;
+}
+
 * {
   margin: 0;
   padding: 0;

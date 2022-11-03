@@ -14,8 +14,8 @@
         </c-Header>
 
         <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
-            <div @click="addSong(song.id)" class="list">{{ song.name }}</div>
-        
+            <div @click="addSong(song.id,)" class="list">{{ song.name }}</div>
+
         </div>
     </div>
 
@@ -53,9 +53,10 @@ export default {
             this.$store.dispatch('addsongs', id)
             this.$store.dispatch('switchingPlayStatus', true)
         },
-        removeSong(name, mode) {
-            this.$store.dispatch('removeSong', { name, mode })
-        }
+        switchSong(name, mode, index) {
+            console.log({ name, mode, index });
+            this.$store.dispatch('nextSong', { name, mode, index })
+        },
     },
     mounted() {
 
@@ -65,11 +66,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.v-PlayList {
-
-  
-
-}
+.v-PlayList {}
 
 .songList {
 

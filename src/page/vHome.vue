@@ -100,6 +100,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
+@runColor: rgba(239, 236, 236, 0);
+@endColot: rgb(244, 40, 40);
+
 .v-home {
   position: relative;
 
@@ -109,13 +112,14 @@ export default {
 
 
     input {
+
       width: 100%;
       outline: none;
       border: 3px solid white;
       border-radius: 45px;
-      border-bottom-color: red;
-      border-left-color: red;
-      border-right-color: red;
+      border-bottom-color: @endColot;
+      border-left-color: @endColot;
+      border-right-color: @endColot;
       text-align: center;
       height: 100%;
     }

@@ -50,8 +50,9 @@ export default {
             this.$emit('songList')
         },
         addSong(id) {
+            //点击播放
             this.$store.dispatch('addsongs', id)
-            this.$store.dispatch('switchingPlayStatus', true)
+
         },
         switchSong(name, mode, index) {
             console.log({ name, mode, index });

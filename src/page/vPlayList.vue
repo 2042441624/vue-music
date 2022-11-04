@@ -14,7 +14,7 @@
         </c-Header>
 
         <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
-            <div @click="addSong(song.id,)" class="list">{{ song.name }}</div>
+            <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name }}</div>
 
         </div>
     </div>
@@ -60,17 +60,15 @@ export default {
         songList() {
             this.$emit('songList')
         },
-        addSong(id) {
-            //点击播放
-            this.$store.dispatch('addsongs', id)
 
-        },
-        switchSong(name, mode, index) {
-            console.log({ name, mode, index });
+        switchSong(id, name, mode, index) {
+            this.$store.dispatch('addsongs', id)
+            console.log('打开歌单的mode：' + mode);
             this.$store.dispatch('nextSong', { name, mode, index })
+            this.$store.dispatch('nowListName', mode)
         },
     },
-    mounted() {
+    created() {
         if (this.songs.playList.length === 0) {
             this.$router.back()
         }
@@ -80,8 +78,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.v-PlayList {}
-
 .songList {
 
     height: 25px;

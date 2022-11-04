@@ -35,7 +35,15 @@ export default {
             state.commit('Add_NOWLISTNAME', name)
         },
         addPlayList(state, list) {
-            state.commit('Add_PALYLIST', list)
+            list = list.map(s => {
+                return s = s.id
+            })
+            list = list.map((id) => {
+                return id = state.dispatch('addsongs', id)
+            })
+
+            console.log(list);
+
         },
         addhistorySongsList(state, list) {
 
@@ -74,8 +82,14 @@ export default {
             state.commit('Add_nowDur', str)
         },
         nextSong(state, obj = {}) {
+            if (state.nowListName === 'playList') {
+                let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
+                console.log('打开歌单的INDEX：' + nowSongIndex);
+            } else {
+                obj.name ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
 
-            obj.name ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
+            }
+
 
 
 
@@ -106,15 +120,12 @@ export default {
         },
         Add_PALYLIST(state, list) {
 
-            list = list.map(s => {
-                return s = s.id
-            })
+
             song_detail(String(list)).then(res => {
 
                 state.playList = res.songs
-                console.log(state.playList);
-            }
-            )
+
+            })
 
 
         },
@@ -144,6 +155,10 @@ export default {
         Next_SONG(state, obj = {}) {
 
             if (obj.name) {
+                if (obj.mode === 'playList') {
+                    let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
+                    console.log('打开歌单的INDEX：' + nowSongIndex);
+                }
                 state.nowSong = state[obj.mode][obj.index]
 
             } else {

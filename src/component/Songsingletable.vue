@@ -5,7 +5,8 @@
             <div v-for=" (list) in this.allSongsList" :key="list.name">
                 <h2>{{ list.name }}{{ list[list.name].length }}</h2>
                 <div v-for=" (song, index) in list[list.name]" :key="song.id" :index="index">
-                    <div @click="switchSong(song.id, song.name, list.name, index)" class="list">{{ song.name }}</div>
+                    <div @click="switchSong(song.id, song.name, list.name, index)" class="list">{{ song.name.slice(0, 10)
+                    }}</div>
                     <div @click="removeSong(song.id, song.name, list.name)">
                         <svg t="1666230845553" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="1952" width="25" height="25">

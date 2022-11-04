@@ -7,7 +7,9 @@
                 <div class="songImg"><img ref='songimg' /></div>
                 <!-- 歌名显示 -->
                 <div class="songDei" @click="toMusicPage()">
-                    <p>{{ song.name }}-{{ song.singer }}</p>
+                    <p>{{ song.name.slice(0, 30) + '...' }}</p>
+
+                    <p> {{ song.singer }}</p>
                 </div>
 
                 <!-- 圆形滚动条 -->

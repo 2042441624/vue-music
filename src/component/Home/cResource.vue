@@ -54,13 +54,14 @@ export default {
     },
     methods: {
         watchPlayList(index) {
-
+            this.$store.dispatch('nowListName', 'playList')
             playlist_detail(index.id).then((data) => {
                 //引入工具类进行歌曲列表初始化
                 this.playlist = data.playlist.trackIds
             }).then(() => {
 
                 this.$store.dispatch('addPlayList', this.playlist)
+
                 this.$router.push({ name: 'playlist' })
             })
         }

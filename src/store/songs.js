@@ -56,9 +56,7 @@ export default {
         },
         //添加单曲
         addsongs(state, id) {
-            // 1988532821
-            // 1984488522
-            // 1987986734
+
             return song_detail(id).then((res) => {
                 if (res.code === 200) {
                     res = res.songs[0]
@@ -71,9 +69,9 @@ export default {
                         //获取歌词
                         lyric: resSong_lyric('lyric', id)
                     })
+
                     state.commit('Add_SONG', resSong)
 
-                    state.commit('Add_LYRIC', resSong_lyric('lyric', id))
                 }
             })
         },

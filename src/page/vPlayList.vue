@@ -14,7 +14,8 @@
         </c-Header>
 
         <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
-            <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name }}</div>
+            <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name.slice(0, 10) }}
+            </div>
 
         </div>
     </div>
@@ -72,7 +73,7 @@ export default {
         if (this.songs.playList.length === 0) {
             this.$router.back()
         }
-
+        this.$store.dispatch('nowListName', 'playList')
     }
 };
 </script>

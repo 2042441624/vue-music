@@ -42,6 +42,17 @@ export default {
         ...mapState(['songs']),
 
     },
+    watch: {
+        'songs.playList.length': {
+            handler(n) {
+                console.log(n);
+
+                if (n.length === 0) {
+                    this.$router.back()
+                }
+            }
+        }
+    },
     methods: {
         routerBack() {
             this.$router.back()
@@ -60,7 +71,9 @@ export default {
         },
     },
     mounted() {
-
+        if (this.songs.playList.length === 0) {
+            this.$router.back()
+        }
 
     }
 };

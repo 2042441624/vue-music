@@ -39,9 +39,9 @@ export default {
         }
     },
     computed: {
-        ...mapState(['songs'])
-    },
+        ...mapState(['songs']),
 
+    },
     methods: {
         routerBack() {
             this.$router.back()

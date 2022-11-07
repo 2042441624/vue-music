@@ -14,12 +14,8 @@
         </c-Header>
         <div v-if="this.songs.playList.length">
             <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
-                <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name.slice(0, 10)
-                }}
-                </div>
-
+                <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name.slice(0, 10)}}</div>
             </div>
-
         </div>
         <div v-else>加载</div>
     </div>

@@ -73,10 +73,6 @@ export default {
         circularProgressBar,
         songsingletable
     },
-    mounted() {
-
-
-    },
     computed: {
         song() {
             return this.$store.state.songs.nowSong
@@ -105,7 +101,6 @@ export default {
     methods: {
 
         songsList() {
-            console.log(this);
             this.$refs.table.style.visibility = 'visible'
         },
         nextSong() {

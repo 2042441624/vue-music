@@ -66,17 +66,19 @@ export default {
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
     //刚加载页面需要确认所有歌单是否有歌曲
+    this.$nextTick(() => {
+      let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
+      if (historySongsList.length) {
+        this.$store.dispatch('addhistorySongsList', historySongsList)
 
-    let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
-    if (historySongsList.length) {
-      this.$store.dispatch('addhistorySongsList', historySongsList)
+        let obj = { name: historySongsList[0].name, mode: 'historySongsList', index: 0 }
+        this.$store.commit('Add_LYRIC', resSong_lyric('lyric', historySongsList[0].id))
+        this.$store.dispatch('nextSong', obj)
 
-      let obj = { name: historySongsList[0].name, mode: 'historySongsList', index: 0 }
-      this.$store.commit('Add_LYRIC', resSong_lyric('lyric', historySongsList[0].id))
-      this.$store.dispatch('nextSong', obj)
+        this.$store.dispatch('nowListName', 'historySongsList')
+      }
+    })
 
-      this.$store.dispatch('nowListName', 'historySongsList')
-    }
 
   },
   methods: {

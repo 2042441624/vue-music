@@ -1,6 +1,6 @@
 <template>
     <div class="c-Footer">
-        <c-Audio class="c-Audio" v-show="song.name"></c-Audio>
+        <c-Audio class="c-Audio" v-if="song.name"></c-Audio>
         <!-- 改进，不晓得监听当前路由 -->
         <footer id="animationFooter" v-show="this.isShowFooter">
             <div @click="toRoute('home', $event)" ref="home">

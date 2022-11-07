@@ -18,8 +18,8 @@
         </div>
         <div class="search-content">
             <ul v-if="this.searchlist.length">
-                <li v-for="l in this.searchlist.slice(0, 10)" :key="l.id">
-                    <router-link to="">{{ l.name }} </router-link>
+                <li v-for="l in this.searchlist.slice(0, 10)" :key="l.id" @click="addSong(l.id)">
+                    {{ l.name }}
                 </li>
             </ul>
         </div>
@@ -35,6 +35,11 @@ export default {
             type: Array,
             default: () => []
         },
+    },
+    methods: {
+        addSong(id) {
+            this.$store.dispatch('addsongs', id)
+        }
     }
 };
 </script>
@@ -57,7 +62,7 @@ export default {
             max-width: 100%;
             flex: 1;
             padding: 0 3px;
-   
+
         }
 
         .centre,

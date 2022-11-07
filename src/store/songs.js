@@ -68,7 +68,7 @@ export default {
                     })
                     console.log(resSong);
                     state.commit('Add_SONG', resSong)
-
+                    state.commit('Add_LYRIC', resSong_lyric('lyric', id))
                 }
             })
         },

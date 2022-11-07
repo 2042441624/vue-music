@@ -65,12 +65,15 @@ export default { formatSongs, resSong_lyric }
 
 export const resSong_lyric = function resSong_lyric(key, id) {
     function requestMethod(id) {
-        return new Promise(resolve => {
+        let arr = []
+        new Promise(resolve => {
             song_lyric(id).then(res => {
                 /*do something*/
+                arr = res
                 resolve(res)
             })
         })
+        return arr
     }
     let getData = function (key, id) {
 
@@ -83,7 +86,7 @@ export const resSong_lyric = function resSong_lyric(key, id) {
                 resolve(parse);
             });
         }
-    
+
         return new Promise(resolve => {
             requestMethod(id).then(res => {
                 if (res === null) {

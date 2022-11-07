@@ -13,8 +13,8 @@
                 </div>
             </slot>
             <slot slot="centre">
-                    <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue" ref="InputSearch"
-                        @input="search(sreachValue)" @keyup.enter="search(sreachValue)"/>
+                <input type="text" placeholder="请输入您要搜索的内容..." v-model="sreachValue" ref="InputSearch"
+                    @input="search(sreachValue)" @enter="search(sreachValue)" />
             </slot>
             <slot slot="right">
                 <div @click="search(sreachValue)"><svg t="1664790854782" class="icon" viewBox="0 0 1024 1024"

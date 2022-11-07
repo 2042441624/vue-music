@@ -61,7 +61,8 @@ export default {
             }).then(() => {
 
                 this.$store.dispatch('addPlayList', this.playlist)
-
+        
+                this.$store.dispatch('addsongs', this.playlist[0].id)
                 this.$router.push({ name: 'playlist' })
             })
         }

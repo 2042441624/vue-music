@@ -38,11 +38,8 @@ export default {
             list = list.map(s => {
                 return s = s.id
             })
-            list = list.map((id) => {
-                return id = state.dispatch('addsongs', id)
-            })
 
-            console.log(list);
+            state.commit('Add_PALYLIST', list)
 
         },
         addhistorySongsList(state, list) {
@@ -69,7 +66,7 @@ export default {
                         //获取歌词
                         lyric: resSong_lyric('lyric', id)
                     })
-
+                    console.log(resSong);
                     state.commit('Add_SONG', resSong)
 
                 }
@@ -117,15 +114,7 @@ export default {
             state.historySongsList = list
         },
         Add_PALYLIST(state, list) {
-
-
-            song_detail(String(list)).then(res => {
-
-                state.playList = res.songs
-
-            })
-
-
+            song_detail(String(list)).then(res => state.playList = res.songs)
         },
         Remove_SONG(state, obj) {
             const nowIndex = state[obj.mode].findIndex(obj => obj.name == state.nowSong.name)
@@ -134,9 +123,7 @@ export default {
             console.log(state[obj.mode].length, state[obj.mode][nowIndex - 1], nowIndex);
             if (obj.name === state.nowSong.name) {
                 // 获取当前歌曲减1后的的歌曲
-
                 let nowAllList = util.allSongsList(state)
-
                 state.nowSong = state[obj.mode][nowIndex] ? state[obj.mode][nowIndex] : nowAllList[0][nowAllList[0].name][0] ? nowAllList[0][nowAllList[0].name][0] : { id: 0, name: '无音乐', singer: '请添加', album: '', picUrl: '', duration: 0, url: '', lyric: [] }
             }
         },
@@ -151,13 +138,13 @@ export default {
         },
         //下一首歌曲
         Next_SONG(state, obj = {}) {
-
+            console.log(obj.mode);
             if (obj.name) {
                 if (obj.mode === 'playList') {
                     let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
                     console.log('打开歌单的INDEX：' + nowSongIndex);
                 }
-                state.nowSong = state[obj.mode][obj.index]
+                // state.nowSong = state[obj.mode][obj.index]
 
             } else {
 
@@ -171,7 +158,8 @@ export default {
                     }
                     console.log('下一条歌曲索引:' + nowSongIndex);
                     state.nowSong = {}
-                    state.nowSong = state[state.nowListName][nowSongIndex]
+                    state.nowSong = state[state.nowListName][nowSongIndex].url ? state[state.nowListName][nowSongIndex] : this.dispatch('addsongs', state[state.nowListName][nowSongIndex].id)
+                    console.log(state.nowSong.url);
                     console.log('获取当前' + state.songMode + '歌曲对象如下');
                     console.log(state.nowSong);
 

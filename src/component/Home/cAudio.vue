@@ -1,13 +1,13 @@
 <template>
     <div id='c-Audio'>
         <audio id="ado" ref="audio"></audio>
-        <div class="nowSongs" v-show="song.name && !this.nowMusicPage">
+        <div class="nowSongs" v-show="song.id">
             <div class="mp3Box">
                 <!-- 歌曲图片 -->
                 <div class="songImg"><img ref='songimg' /></div>
                 <!-- 歌名显示 -->
                 <div class="songDei" @click="toMusicPage()">
-                    <p>{{ song.name.slice(0, 30) + '...' }}</p>
+                    <p>{{ song.name ? song.name.slice(0, 30) + '...' : '无音乐' }}</p>
 
                     <p> {{ song.singer }}</p>
                 </div>

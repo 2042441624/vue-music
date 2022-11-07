@@ -12,12 +12,16 @@
                 更多
             </slot>
         </c-Header>
+        <div v-if="this.songs.playList.length">
+            <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
+                <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name.slice(0, 10)
+                }}
+                </div>
 
-        <div v-for=" (song, index) in this.songs.playList" :key="song.id" :index="index" class="songList">
-            <div @click="switchSong(song.id, song.name, 'playList', index)" class="list">{{ song.name.slice(0, 10) }}
             </div>
 
         </div>
+        <div v-else>加载</div>
     </div>
 
 
@@ -66,13 +70,11 @@ export default {
             this.$store.dispatch('addsongs', id)
             console.log('打开歌单的mode：' + mode);
             this.$store.dispatch('nextSong', { name, mode, index })
-            this.$store.dispatch('nowListName', mode)
+  
         },
     },
     created() {
-        if (this.songs.playList.length === 0) {
-            this.$router.back()
-        }
+
         this.$store.dispatch('nowListName', 'playList')
     }
 };

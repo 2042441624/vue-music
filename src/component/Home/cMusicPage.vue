@@ -79,15 +79,6 @@ export default {
     },
     mounted() {
 
-        console.log(this.songs.lyric);
-        if (this.songs.lyric.then) {
-            this.songs.lyric.then(res => {
-
-                this.nowLyric = res.filter(l => l != '')
-                this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
-                // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);
-            })
-        }
 
 
 
@@ -101,7 +92,25 @@ export default {
 
     },
     watch: {
+        //实时监听当前歌曲
+        "songs.lyric": {
+            handler(newD, o) {
+                if (newD !== o) {
+                    if (this.songs.lyric.then) {
+                        this.songs.lyric.then(res => {
+                            console.log(res);
+                            this.nowLyric = res.filter(l => l != '')
+                            this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
+                            // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);
+                        })
+                    }
 
+                }
+            },
+            deep: true,
+            immediate: true
+        },
+        //实时监听进度时间
         "songs.nowDur": {
             handler(newD) {
 

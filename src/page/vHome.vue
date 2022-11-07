@@ -61,23 +61,22 @@ export default {
       recommendList: []
     }
   },
+  created() {
+    //刚加载页面需要确认所有歌单是否有歌曲
+    this.$store.dispatch('nowListName', 'historySongsList')
+    let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
+    if (historySongsList.length) {
+      this.$store.dispatch('addhistorySongsList', historySongsList)
+      this.$store.commit('Add_LYRIC', resSong_lyric('lyric', historySongsList[0].id))
+      this.$store.dispatch('nextSong', {})
+    }
+  },
   mounted() {
 
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
-    //刚加载页面需要确认所有歌单是否有歌曲
-    this.$nextTick(() => {
-      let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
-      if (historySongsList.length) {
-        this.$store.dispatch('addhistorySongsList', historySongsList)
 
-        let obj = { name: historySongsList[0].name, mode: 'historySongsList', index: 0 }
-        this.$store.commit('Add_LYRIC', resSong_lyric('lyric', historySongsList[0].id))
-        this.$store.dispatch('nextSong', obj)
 
-        this.$store.dispatch('nowListName', 'historySongsList')
-      }
-    })
 
 
   },

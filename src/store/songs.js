@@ -66,9 +66,7 @@ export default {
                         //获取歌词
                         lyric: resSong_lyric('lyric', id)
                     })
-                    console.log(resSong);
                     state.commit('Add_SONG', resSong)
-                    state.commit('Add_LYRIC', resSong_lyric('lyric', id))
                 }
             })
         },
@@ -77,17 +75,7 @@ export default {
             state.commit('Add_nowDur', str)
         },
         nextSong(state, obj = {}) {
-            if (state.nowListName === 'playList') {
-                let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
-                console.log('打开歌单的INDEX：' + nowSongIndex);
-            } else {
-                obj.name ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
-
-            }
-
-
-
-
+            obj.id ? state.commit('Next_SONG', obj) : state.commit('Next_SONG', {})
         },
         preSong(state) {
             state.commit('Pre_SONG')
@@ -137,55 +125,55 @@ export default {
             state.songMode = ModeList[ModeIndex]
         },
         //下一首歌曲
-        Next_SONG(state, obj = {}) {
-            console.log(obj.mode);
-            if (obj.name) {
-                if (obj.mode === 'playList') {
-                    let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
-                    console.log('打开歌单的INDEX：' + nowSongIndex);
-                }
-                // state.nowSong = state[obj.mode][obj.index]
+        Next_SONG(state, obj) {
+            //需要手动切换歌曲
+            if (obj.id) {
+                console.log('需要手动切换歌曲' + obj.name);
+                state.nowSong = state[state.nowListName].filter(s => s.id === obj.id && s.name === obj.name)[0]
 
             } else {
-
-                if (state.songMode === '顺序') {
-                    console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
-                    let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
-                    console.log('当前歌曲索引:' + nowSongIndex);
-                    nowSongIndex += 1;
-                    if (nowSongIndex >= state[state.nowListName].length) {
-                        nowSongIndex = 0
+                switch (state.songMode) {
+                    case '顺序': {
+                        console.log('当前歌单:' + state.nowListName);
+                        let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
+                        console.log('当前歌曲索引:' + nowSongIndex);
+                        nowSongIndex += 1;
+                        if (nowSongIndex >= state[state.nowListName].length) {
+                            nowSongIndex = 0
+                        }
+                        console.log('下一条歌曲索引:' + nowSongIndex);
+                        state.nowSong = {}
+                        state.nowSong = state[state.nowListName][nowSongIndex].url ? state[state.nowListName][nowSongIndex] : this.dispatch('addsongs', state[state.nowListName][nowSongIndex].id)
+                        console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
+                        break;
                     }
-                    console.log('下一条歌曲索引:' + nowSongIndex);
-                    state.nowSong = {}
-                    state.nowSong = state[state.nowListName][nowSongIndex].url ? state[state.nowListName][nowSongIndex] : this.dispatch('addsongs', state[state.nowListName][nowSongIndex].id)
-                    console.log(state.nowSong.url);
-                    console.log('获取当前' + state.songMode + '歌曲对象如下');
-                    console.log(state.nowSong);
+                    case '循环': {
+                        console.log('当前歌单:' + state.nowListName);
+                        console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
+                        let loop = state.nowSong
+                        state.nowSong = {}
+                        state.nowSong = loop
+                        console.log('获取当前' + state.songMode + '歌曲对象如下');
+                        console.log(state.nowSong);
+                        break;
+                    }
+                    case '随机': {
+                        console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
+                        state.nowSong = state[state.nowListName][util.RandomNum(0, (state[state.nowListName].length - 1))]
+                        console.log(state.songMode, state.nowSong);
+                        console.log('获取当前' + state.songMode + '歌曲对象如下');
+                        console.log(state.nowSong);
+                    }
 
-                } else if (state.songMode === '循环') {
-                    console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
-                    let loop = state.nowSong
-                    state.nowSong = {}
-                    state.nowSong = loop
-                    console.log('获取当前' + state.songMode + '歌曲对象如下');
-                    console.log(state.nowSong);
-
-                } else if (state.songMode === '随机') {
-                    console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
-                    state.nowSong = state[state.nowListName][util.RandomNum(0, (state[state.nowListName].length - 1))]
-                    console.log(state.songMode, state.nowSong);
-                    console.log('获取当前' + state.songMode + '歌曲对象如下');
-                    console.log(state.nowSong);
                 }
             }
 
-            return
-        },
+        }
+
+        ,
         //上一首歌曲
         Pre_SONG(state) {
             let nowSongIndex = state[state.nowListName].findIndex((obj) => obj.name == state.nowSong.name);
-
             nowSongIndex -= 1;
             if (nowSongIndex < 0) {
                 nowSongIndex = state[state.nowListName].length - 1

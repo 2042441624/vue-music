@@ -1,7 +1,7 @@
 <template>
     <div id='c-Audio'>
         <audio id="ado" ref="audio"></audio>
-        <div class="nowSongs" v-show="song.id">
+        <div class="nowSongs" v-show="song.name">
             <div class="mp3Box">
                 <!-- 歌曲图片 -->
                 <div class="songImg"><img ref='songimg' /></div>

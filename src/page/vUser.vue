@@ -14,17 +14,16 @@
       <div class="userName" ref="userName">用户名称</div>
       <div class="uservl" ref="uservl">等级关注粉丝</div>
     </div>
-    <div class="userSongList">我收藏的歌单</div>
-    <div class="userSongList">我的历史播放</div>
 
 
-    <transition name="fade">
+  
 
-      <div class="userSongList">我喜欢的音乐</div>
+      <div class="userSongList animate__animated animate__fadeInLeft">我的历史播放</div>
 
 
-    </transition>
 
+
+    <button @click="toggleVisible">transition</button>
 
   </div>
 </template>
@@ -40,7 +39,7 @@ export default {
   },
   data() {
     return {
-      userData: "text",
+      visible: false
     };
   },
   computed: {
@@ -50,26 +49,24 @@ export default {
     routerBack() {
       this.$router.back();
     },
+    toggleVisible() {
+      this.visible = !this.visible
+    }
   },
   created() {
-   
+
   },
   mounted() {
-    const selector = document.querySelector('.userSongList')
-    selector.classList.add('magictime', 'puffIn')
+
   },
 };
 </script>
 
 <style lang="less">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+h1 {
+  width: 100%;
+  height: 50px;
+  display: block;
 }
 
 .userData {
@@ -91,6 +88,8 @@ export default {
       height: 100%;
     }
   }
+
+
 }
 
 .userSongList {

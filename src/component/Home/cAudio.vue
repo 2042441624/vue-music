@@ -1,7 +1,7 @@
 <template>
     <div id='c-Audio'>
         <audio id="ado" ref="audio"></audio>
-        <div class="nowSongs" v-show="song.name">
+        <div class="nowSongs animate__animated animate__rubberBand" v-show="song.name">
             <div class="mp3Box">
                 <!-- 歌曲图片 -->
                 <div class="songImg"><img ref='songimg' /></div>
@@ -82,14 +82,12 @@ export default {
     watch: {
         "song.name": {
             handler(n, old) {
-                this.cDom()
+
                 if (old === undefined && n !== old) {
                     this.$nextTick(() => { this.$refs.audio.pause() })
                 } else {
-                    this.$nextTick(() => {
-                        this.$store.dispatch('switchingPlayStatus', true)
 
-                    })
+                    this.$store.dispatch('switchingPlayStatus', true)
                 }
 
             },
@@ -97,7 +95,9 @@ export default {
             immediate: true
         }
     },
-
+    mounted() {
+        this.cDom()
+    },
     methods: {
 
         songsList() {
@@ -113,7 +113,7 @@ export default {
             this.nowMusicPage = !this.nowMusicPage
         },
         fPlay() {
-            console.log('ww');
+            console.log('按钮回调');
             this.$store.dispatch('switchingPlayStatus')
             var audio = document.querySelector("#ado");
             if (this.songs.playStatus) {
@@ -125,8 +125,8 @@ export default {
         cDom() {
             this.$nextTick(() => {
                 var audio = document.querySelector("#ado");
-                audio.src = '';
-                audio.src = this.song.url
+                this.song.url ? audio.src = this.song.url : ''
+
                 audio.controls = false;
                 audio.volume = 0.3;
                 // var voice = document.querySelector(".voice");

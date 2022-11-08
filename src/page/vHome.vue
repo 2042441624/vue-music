@@ -33,9 +33,10 @@
         <!-- 轮播图 -->
         <c-Banner class="c-Banner" :imgList='ImgList'></c-Banner>
         <!-- 推荐歌单 -->
-        <c-Resource class="c-Resource" :recommendList="recommendList"></c-Resource>
+        <c-Resource class="c-Resource animate__animated animate__fadeInLeft" :recommendList="recommendList">
+        </c-Resource>
         <!-- 排行榜 -->
-        <c-Toplist class="c-Toplist"></c-Toplist>
+        <c-Toplist class="c-Toplist animate__animated animate__fadeInLeft"></c-Toplist>
       </div>
 
     </div>

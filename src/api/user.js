@@ -1,12 +1,13 @@
 import axios from '@/utils/axios';
 
 //手机登录的接口请求
-export const cellphone = () => {
-    // const { phone, password } = pramas
-    const phone = '18926730109';
-    const password = '2byjrsds';
+export const cellphone = (pramas) => {
+    console.log(pramas);
+    const { phone, act_pwd } = pramas
+    console.log(phone);
+    console.log(act_pwd);
     return axios.request({
-        url: `/login/cellphone?phone=${phone}&password=${password}`,
+        url: `/login/cellphone?phone=${phone}&password=${act_pwd}`,
         method: 'post'
     })
 }

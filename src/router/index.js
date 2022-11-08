@@ -15,6 +15,9 @@ const router = new vueRouter({
                 path: "/playlist", name: 'playlist', component: () => import('@/page/vPlayList.vue'),
             },]
         },
+        {
+            path: "/login", name: 'login', query: { id: '' }, component: () => import('@/page/vLogin.vue'),
+        },
 
         {
             path: "/musicpage", name: 'musicpage', query: { id: '' }, component: () => import('@/component/Home/cMusicPage.vue'),

@@ -32,7 +32,7 @@
 <script>
 import cHeader from "@/component/Home/cHeader.vue";
 //引入用户API
-import { cellphone } from "@/api/user";
+
 import { mapState } from "vuex";
 export default {
   components: {
@@ -52,18 +52,7 @@ export default {
     },
   },
   created() {
-    cellphone().then((res) => {
-      if (res.code === 200) {
-        //设置跟踪user数据
-        this.$store.state.user.state = res;
-        // 设置cookieF
-        localStorage.setItem("cookie", res.cookie);
-        console.log(this.$store.state.user.state);
-        this.$refs.userImg.src = this.user.state.profile.avatarUrl;
-        this.$refs.userName.innerText = this.user.state.profile.nickname;
-        this.$refs.uservl.innerText = `关注${this.user.state.profile.follows} 粉丝${this.user.state.profile.followeds}`;
-      }
-    });
+   
   },
   mounted() {
     const selector = document.querySelector('.userSongList')

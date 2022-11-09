@@ -90,11 +90,8 @@ export default {
         "songs.nowSong.id": {
             handler(newID, oldID) {
                 if (newID !== oldID) {
-                    console.log('歌词加载完成');
-
                     this.nowLyric = this.songs.nowSong.lyric.filter(l => l != '')
                     this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
-                    console.log(this.nowLyric);
                 }
             },
             deep: true,

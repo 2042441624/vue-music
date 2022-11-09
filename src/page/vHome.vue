@@ -80,7 +80,7 @@ export default {
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
 
-
+   
 
 
   },
@@ -136,7 +136,7 @@ export default {
     }
 
 
-  
+
   }
 
   .main {

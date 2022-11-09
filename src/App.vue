@@ -34,7 +34,13 @@ export default {
     height: 100vh;
     font-size: 1rem;
     background-color: #F6F6F6;
-
+    padding: 0px;
+    margin: 0px;
+    background: url(./assets/background/image.jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 }
 </style>

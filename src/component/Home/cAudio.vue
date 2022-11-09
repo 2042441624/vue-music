@@ -268,7 +268,7 @@ export default {
     .mp3Box {
         display: flex;
         flex-direction: row;
-
+        justify-content: space-around;
         align-items: center;
         height: 30px;
         padding: 0 0.4rem;
@@ -297,8 +297,8 @@ export default {
         }
 
         .songImg {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             overflow: hidden;
 
@@ -312,7 +312,7 @@ export default {
 
     .songDei {
         min-width: 200px;
-        flex: 1;
+        flex-wrap: wrap;
         margin: 2rem;
 
         p {

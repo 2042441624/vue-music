@@ -4,12 +4,13 @@
         <template slot="componentBottom">
             <div class="topListbox">
                 <!-- //五条数据 -->
-                <div class="c-Resource" v-for=" (item, index) in topList" :key="item.id">
+                <div class="c-Resource animate__animated animate__flipInX" v-for=" (item, index) in topList"
+                    :key="item.id" style="animation-duration: 1500ms">
                     <div class="Resource-top">
                         <h3>{{ item.name }} ></h3>
                         <div>更多</div>
                     </div>
-                    <div class="Resource-bottom">
+                    <div class="Resource-bottom ">
                         <!-- //三条数据      ar.originSongSimpleData() -->
                         <div v-for=" (item, now) in playlist[index]" :key="item.id" @click="addSong(item.id)">
                             <div><img :src="item.al.picUrl"></div>

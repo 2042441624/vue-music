@@ -98,7 +98,7 @@ export default {
                 if (newD !== o) {
                     if (this.songs.lyric.then) {
                         this.songs.lyric.then(res => {
-                            console.log(res);
+                            console.log('歌词加载完成');
                             this.nowLyric = res.filter(l => l != '')
                             this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
                             // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);

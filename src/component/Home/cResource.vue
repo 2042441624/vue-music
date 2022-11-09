@@ -6,7 +6,7 @@
                 <a>更多</a>
             </div>
             <slot name="componentBottom">
-                <div class="Resource-bottom">
+                <div class="Resource-bottom  animate__animated animate__flipInX" style="animation-duration: 1500ms">
                     <div v-for=" (item, index) in recommendList" :key="item.id"
                         @click="watchPlayList(recommendList[index])">
                         <div><img :src='item.picUrl'></div>
@@ -61,7 +61,7 @@ export default {
             }).then(() => {
 
                 this.$store.dispatch('addPlayList', this.playlist)
-        
+
                 this.$store.dispatch('addsongs', this.playlist[0].id)
                 this.$router.push({ name: 'playlist' })
             })
@@ -95,6 +95,8 @@ export default {
         flex-direction: row;
         overflow: scroll;
         justify-content: space-between;
+        animate-duration: 2s;
+        animate-delay: 1s;
 
         div {
             width: auto;

@@ -2,7 +2,9 @@
     <div class="Song-Controls">
         <c-gren v-if="yesOk"></c-gren>
         <div v-if="yesOk" @click="pre">上一首</div>
-        <div class="palyback" ref="palyback" @click="rePlay"></div>
+        <div class="palyback" ref="palyback" @click="rePlay">
+     
+        </div>
         <div v-if="yesOk" @click="next">下一首</div>
         <div v-if="yesOk" @click="songsList">歌单</div>
     </div>
@@ -29,9 +31,10 @@ export default {
         ...mapState(['songs'])
     },
     methods: {
-
+     
         rePlay() {
             this.$emit('resPlay')
+
         },
         next() {
             this.$emit('nextSong')
@@ -45,6 +48,7 @@ export default {
         }
     },
     mounted() {
+     
         if (this.yesOk) {
             if (this.songs.playStatus) {
                 this.$refs.palyback.classList.remove('zantingMax')
@@ -94,6 +98,11 @@ export default {
 
 </script>
 <style lang="less">
+.hiddenIpt {
+    width: 2rem;
+    opacity: 0;
+}
+
 .Song-Controls {
     width: 100%;
     height: 100%;

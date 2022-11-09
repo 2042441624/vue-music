@@ -2,7 +2,7 @@
     <div class="c-Footer">
         <c-Audio class="c-Audio "></c-Audio>
         <!-- 改进，不晓得监听当前路由 -->
-        <footer id="animationFooter" v-show="this.isShowFooter">
+        <footer v-show="this.isShowFooter" class="animate__animated animate__slideInLeft">
             <div @click="toRoute('home', $event)" ref="home">
                 <svg t="1653928043786" class="icon" viewBox="0 0 1042 1024" version="1.1" ref="color" p-id="2991"
                     width="24" height="24" v-on:click.self.prevent>
@@ -106,7 +106,6 @@ export default {
     },
     mounted() {
 
-        document.getElementById('animationFooter').classList.add('test')
 
         this.toRoute()
     },
@@ -172,11 +171,6 @@ export default {
     }
 }
 
-.test {
-    animation-name: example;
-    animation-duration: 0.5s;
-    top: 0;
-}
 
 .test2 {
     animation-name: example2;

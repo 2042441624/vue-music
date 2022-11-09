@@ -28,16 +28,19 @@
           </svg> -->
         </slot>
       </c-Header>
-      <!-- 主体 -->
-      <div class="main">
-        <!-- 轮播图 -->
-        <c-Banner class="c-Banner" :imgList='ImgList'></c-Banner>
-        <!-- 推荐歌单 -->
-        <c-Resource class="c-Resource animate__animated animate__fadeInLeft" :recommendList="recommendList">
-        </c-Resource>
-        <!-- 排行榜 -->
-        <c-Toplist class="c-Toplist animate__animated animate__fadeInLeft"></c-Toplist>
-      </div>
+      <!-- 缓存主体 -->
+      <keep-alive>
+        <div class="main">
+          <!-- 轮播图 -->
+          <c-Banner class="c-Banner  animate__animated animate__tada" :imgList='ImgList'
+            style="animation-duration: 1000ms"></c-Banner>
+          <!-- 推荐歌单 -->
+          <c-Resource class="c-Resource animate__animated animate__fadeInLeft" :recommendList="recommendList">
+          </c-Resource>
+          <!-- 排行榜 -->
+          <c-Toplist class="c-Toplist animate__animated animate__fadeInLeft"></c-Toplist>
+        </div>
+      </keep-alive>
 
     </div>
   </keep-alive>

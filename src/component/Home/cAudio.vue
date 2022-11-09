@@ -39,6 +39,7 @@
                 <progress-bar :slide="sStr" :fill="fStr"></progress-bar>
             </slot>
             <slot slot="control">
+
                 <play-back @resPlay="fPlay()" :yesOk="true" class="max" @nextSong="nextSong" @preSong="preSong">
                 </play-back>
             </slot>
@@ -82,7 +83,7 @@ export default {
     watch: {
         "song.name": {
             handler(n, old) {
-
+                this.cDom()
                 if (old === undefined && n !== old) {
                     this.$nextTick(() => { this.$refs.audio.pause() })
                 } else {
@@ -95,10 +96,20 @@ export default {
             immediate: true
         }
     },
+
+    created() {
+        document.onkeydown = (e) => {
+            if (e.keyCode == 13) {
+
+                this.fPlay()
+            }
+        }
+    },
     mounted() {
-        this.cDom()
+
     },
     methods: {
+
 
         songsList() {
             this.$refs.table.style.visibility = 'visible'
@@ -240,6 +251,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.hiddenIpt {
+    width: 2rem;
+    opacity: 0;
+}
+
 #c-Audio {
     z-index: 999999;
     background-color: yellow;

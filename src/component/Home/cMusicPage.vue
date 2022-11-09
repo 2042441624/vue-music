@@ -77,12 +77,6 @@ export default {
         }
 
     },
-    mounted() {
-
-
-
-
-    },
     updated() {
         this.$refs.address.style.backgroundImage = `url(` + this.songs.nowSong.picUrl + `)`
 
@@ -93,18 +87,14 @@ export default {
     },
     watch: {
         //实时监听当前歌曲
-        "songs.lyric": {
-            handler(newD, o) {
-                if (newD !== o) {
-                    if (this.songs.lyric.then) {
-                        this.songs.lyric.then(res => {
-                            console.log('歌词加载完成');
-                            this.nowLyric = res.filter(l => l != '')
-                            this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
-                            // console.log(Number(this.nowTimeLyric[80].split(':')[0]) > 0 ? Number(this.nowTimeLyric[80].split(':')[0]) * 60 : 0);
-                        })
-                    }
+        "songs.nowSong.id": {
+            handler(newID, oldID) {
+                if (newID !== oldID) {
+                    console.log('歌词加载完成');
 
+                    this.nowLyric = this.songs.nowSong.lyric.filter(l => l != '')
+                    this.nowTimeLyric = this.nowLyric.map(l => l = /(?<=\[).*(?=\])/.exec(l)[0])
+                    console.log(this.nowLyric);
                 }
             },
             deep: true,
@@ -112,18 +102,18 @@ export default {
         },
         //实时监听进度时间
         "songs.nowDur": {
-            handler(newD) {
-
-                this.nowTimeLyric.forEach((t) => {
-                    let min = Number(t.split(':')[0]) > 0 ? Number(t.split(':')[0]) * 60 : 0
-                    let sec = Number(t.split(':')[1].split('.')[0]) > 0 ? Number(t.split(':')[1].split('.')[0]) : 0
-                    if ((min + sec) === Number(String(newD).split('.')[0])) {
-                        this.$refs.nowP.filter(p => !this.nowLyric[this.nowTimeLyric.indexOf(t)].includes(p.innerHtml)).map(p => p.style.color = '')
-                        this.$refs.nowP[this.nowTimeLyric.indexOf(t)].style.color = 'white'
-                        this.pIndex = this.nowTimeLyric.indexOf(t)
-                    }
-                })
-
+            handler(nowDur, oldDur) {
+                if (nowDur !== 0 && oldDur !== undefined) {
+                    this.nowTimeLyric.forEach((t) => {
+                        let min = Number(t.split(':')[0]) > 0 ? Number(t.split(':')[0]) * 60 : 0
+                        let sec = Number(t.split(':')[1].split('.')[0]) > 0 ? Number(t.split(':')[1].split('.')[0]) : 0
+                        if ((min + sec) === Number(String(nowDur).split('.')[0])) {
+                            this.$refs.nowP.filter(p => !this.nowLyric[this.nowTimeLyric.indexOf(t)].includes(p.innerHtml)).map(p => p.style.color = '')
+                            this.$refs.nowP[this.nowTimeLyric.indexOf(t)].style.color = 'white'
+                            this.pIndex = this.nowTimeLyric.indexOf(t)
+                        }
+                    })
+                }
             },
             deep: true,
             immediate: true

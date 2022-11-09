@@ -51,10 +51,18 @@ export const song_url = (id) => {
 
 //获取音乐的歌词
 export const song_lyric = (id) => {
+
     return axios.request({
         url: `/lyric?id=${id}`,
         method: 'get'
+    }).then(res => {
+        /*do something*/
+        let obj = res.lrc.lyric.split('\n')
+        return obj
     })
+
+
+
 }
 
 //搜索的关键字

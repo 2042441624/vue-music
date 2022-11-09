@@ -1,7 +1,7 @@
 
 import { song_detail } from '@/api/home';
-import { Song, resSong_lyric } from '@/utils/song';
-// , song_lyric 
+import { Song } from '@/utils/song';
+import { song_lyric } from '@/api/home';
 import util from '@/utils/util';
 
 export default {
@@ -21,8 +21,7 @@ export default {
         nowSong: {},
         //当前歌曲的进度值
         nowListName: '',
-        nowDur: '',
-        lyric: [],
+        nowDur: 0,
         //歌曲模式（顺序,循环，随机）
         songMode: '顺序',
     },
@@ -53,22 +52,42 @@ export default {
         },
         //添加单曲
         addsongs(state, id) {
+            function song_lyricFunction(id) {
 
-            return song_detail(id).then((res) => {
-                if (res.code === 200) {
-                    res = res.songs[0]
-                    let resSong = new Song({
-                        ...res.al,
-                        name: res.name,
-                        singer: res.ar[0].name,
-                        //获取歌曲路径
-                        url: `https://music.163.com/song/media/outer/url?id=${id}.mp3`,
-                        //获取歌词
-                        lyric: resSong_lyric('lyric', id)
-                    })
-                    state.commit('Add_SONG', resSong)
-                }
-            })
+
+                return song_lyric(id).then((res) => {
+                    return res
+                })
+            }
+
+            async function returnToSong() {
+                const arr = await song_lyricFunction(id)
+                console.log(arr);
+                const obj = await song_detail(id).then((res) => {
+                    if (res.code === 200) {
+                        res = res.songs[0]
+                        return new Song({
+                            ...res.al,
+                            name: res.name,
+                            singer: res.ar[0].name,
+                            //获取歌曲路径
+                            url: `https://music.163.com/song/media/outer/url?id=${id}.mp3`,
+                            //获取歌词
+                            lyric: arr
+                        })
+
+
+                    }
+                })
+                console.log(obj);
+                return state.commit('Add_SONG', obj)
+            }
+            returnToSong()
+
+
+
+
+
         },
         //赋值进度条
         addDur(state, str) {

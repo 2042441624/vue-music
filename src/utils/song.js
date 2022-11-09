@@ -70,7 +70,7 @@ export const resSong_lyric = function resSong_lyric(key, id) {
         return new Promise(resolve => {
             song_lyric(id).then(res => {
                 /*do something*/
-
+         
                 resolve(res)
             })
         })

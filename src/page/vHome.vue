@@ -56,7 +56,7 @@ import cToplist from '@/component/Home/cToplist.vue';
 import { banner } from '@/api/home';
 import { getPersonalized } from "@/api/index.js";
 import { mapState } from 'vuex';
-import { resSong_lyric } from '@/utils/song';
+
 export default {
   name: 'v-home',
   data() {
@@ -71,7 +71,7 @@ export default {
     let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
     if (historySongsList.length) {
       this.$store.dispatch('addhistorySongsList', historySongsList)
-      this.$store.commit('Add_LYRIC', resSong_lyric('lyric', historySongsList[0].id))
+
       this.$store.dispatch('nextSong', {})
     }
   },

@@ -153,7 +153,7 @@ export default {
             } else {
                 switch (state.songMode) {
                     case '顺序': {
-                        console.log('当前歌单:' + state.nowListName);
+                       
                         let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
                         console.log('当前歌曲索引:' + nowSongIndex);
                         nowSongIndex += 1;
@@ -167,7 +167,7 @@ export default {
                         break;
                     }
                     case '循环': {
-                        console.log('当前歌单:' + state.nowListName);
+           
                         console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
                         let loop = state.nowSong
                         state.nowSong = {}

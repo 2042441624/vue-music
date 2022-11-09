@@ -13,7 +13,7 @@
         </slot>
         <slot slot="centre">
 
-          <keep-alive><input type="text" placeholder="请输入您要搜索的内容..." @focus="toSearch()"></keep-alive>
+          <keep-alive><input type="text" placeholder="请输入您要搜索的内容..." @focus="toSearch()" class="boder"></keep-alive>
 
         </slot>
         <slot slot="right">
@@ -29,18 +29,18 @@
         </slot>
       </c-Header>
       <!-- 缓存主体 -->
-      <keep-alive>
-        <div class="main">
-          <!-- 轮播图 -->
-          <c-Banner class="c-Banner  animate__animated animate__tada" :imgList='ImgList'
-            style="animation-duration: 1000ms"></c-Banner>
-          <!-- 推荐歌单 -->
-          <c-Resource class="c-Resource animate__animated animate__fadeInLeft" :recommendList="recommendList">
-          </c-Resource>
-          <!-- 排行榜 -->
-          <c-Toplist class="c-Toplist animate__animated animate__fadeInLeft"></c-Toplist>
-        </div>
-      </keep-alive>
+
+      <div class="main">
+        <!-- 轮播图 -->
+        <c-Banner class="c-Banner  animate__animated animate__tada" :imgList='ImgList'
+          style="animation-duration: 1000ms"></c-Banner>
+        <!-- 推荐歌单 -->
+        <c-Resource class="c-Resource animate__animated animate__fadeInLeft" :recommendList="recommendList">
+        </c-Resource>
+        <!-- 排行榜 -->
+        <c-Toplist class="c-Toplist animate__animated animate__fadeInLeft"></c-Toplist>
+      </div>
+
 
     </div>
   </keep-alive>
@@ -120,22 +120,23 @@ export default {
 
       width: 100%;
       outline: none;
-      border: 3px solid white;
-      border-radius: 45px;
-      border-bottom-color: @endColot;
-      border-left-color: @endColot;
-      border-right-color: @endColot;
+
       text-align: center;
       height: 100%;
     }
 
+    .boder {
+      border: solid #000;
+      border-image-source: url("@/assets/img/searchbroder.jpg");
+      border-image-width: 8px;
+      border-image-slice: 70 50 65 50;
+      border-image-repeat: stretch;
+      width: 100%;
+      height: 40px;
+    }
 
 
-
-
-
-
-
+  
   }
 
   .main {

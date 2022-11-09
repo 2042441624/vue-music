@@ -2,9 +2,9 @@
     <div id='c-Audio'>
         <audio id="ado" ref="audio"></audio>
         <div class="nowSongs animate__animated animate__rubberBand" v-show="song.name">
-            <div class="mp3Box">
+            <div class="mp3Box ">
                 <!-- 歌曲图片 -->
-                <div class="songImg"><img ref='songimg' /></div>
+                <div class="songImg Song-disc"><img ref='songimg' /></div>
                 <!-- 歌名显示 -->
                 <div class="songDei" @click="toMusicPage()">
                     <p>{{ song.name ? song.name.slice(0, 30) + '...' : '无音乐' }}</p>
@@ -256,10 +256,9 @@ export default {
     opacity: 0;
 }
 
-#c-Audio {
-    z-index: 999999;
-    background-color: yellow;
-}
+
+
+
 
 .nowSongs {
     width: 100%;
@@ -269,11 +268,28 @@ export default {
     .mp3Box {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+
         align-items: center;
         height: 30px;
         padding: 0 0.4rem;
         margin: 2px 0;
+        position: relative;
+
+        #c-Audio {
+            z-index: 999999;
+            position: relative;
+            left: 0px;
+        }
+
+        .Song-disc {
+            border: solid #000;
+            overflow: hidden;
+            border-image-source: url("@/assets/img/Songdisc.jpg");
+            border-image-width: 5px;
+            border-image-slice: 100;
+            border-image-repeat: stretch;
+
+        }
 
         .songsListIconf {
             width: 24px;
@@ -281,8 +297,8 @@ export default {
         }
 
         .songImg {
-            width: 30px;
-            height: 30px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             overflow: hidden;
 
@@ -296,6 +312,8 @@ export default {
 
     .songDei {
         min-width: 200px;
+        flex: 1;
+        margin: 2rem;
 
         p {
             font-size: 0.5rem;

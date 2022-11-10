@@ -6,7 +6,7 @@ const router = new vueRouter({
     routes: [
         {
             path: "/", name: '/', component: () => import('@/page/vMain.vue'), redirect: '/home',
-            children: [{ path: "/home", name: 'home', component: () => import('@/page/vHome.vue') },
+            children: [{ path: "/home", name: 'home', query: { songid: '' }, component: () => import('@/page/vHome.vue') },
             { path: "/user", name: 'user', component: () => import('@/page/vUser.vue') },
             {
                 // query: { keyword: '' },

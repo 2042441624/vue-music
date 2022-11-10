@@ -81,9 +81,13 @@ export default {
         ...mapState(['songs'])
     },
     watch: {
-        "song.name": {
+        "song.id": {
             handler(n, old) {
                 this.cDom()
+                this.$router.push({
+                    path: `/home?songid=${n}`,
+                })
+
                 if (old === undefined && n !== old) {
                     this.$nextTick(() => { this.$refs.audio.pause() })
                 } else {

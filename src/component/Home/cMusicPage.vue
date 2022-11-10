@@ -156,7 +156,7 @@ address {
             position: absolute;
             width: 100%;
             height: 20px;
-            top: 300px;
+            top: 280px;
             background-color: aliceblue;
             opacity: 0.5;
         }

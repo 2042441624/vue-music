@@ -45,11 +45,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
+
+
+
 .c-Header {
     width: 100%;
     height: 40px;
     position: relative;
     padding: 0 3px;
+    background-color: rgb(244, 40, 40);
 
     .search {
         display: flex;

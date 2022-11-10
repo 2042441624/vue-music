@@ -19,9 +19,9 @@ export default {
 @runColor: rgba(239, 236, 236, 0);
 @endColot: rgb(244, 40, 40);
 
-.pcolor {
-  color: @endColot;
-}
+
+
+
 
 * {
   margin: 0;

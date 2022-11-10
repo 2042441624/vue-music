@@ -11,11 +11,7 @@
               p-id="4250" fill="#F55252"></path>
           </svg> -->
         </slot>
-        <slot slot="centre">
-          <div class=" d2">
-            <input type="text" placeholder="搜索从这里开始..." @focus="toSearch()">
-          </div>
-        </slot>
+
 
         <slot slot="right">
           <!-- <svg t="1664792648908" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +150,7 @@ export default {
 
   .main {
     position: relative;
-    top: 42px;
+
   }
 
   .c-Banner {

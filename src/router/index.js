@@ -9,7 +9,8 @@ const router = new vueRouter({
             children: [{ path: "/home", name: 'home', component: () => import('@/page/vHome.vue') },
             { path: "/user", name: 'user', component: () => import('@/page/vUser.vue') },
             {
-                path: "/search", name: 'search', query: { keyword: '' }, component: () => import('@/page/vSearch.vue'),
+                // query: { keyword: '' },
+                path: "/search", name: 'search', component: () => import('@/page/vSearch.vue'),
             },
             {
                 path: "/playlist", name: 'playlist', component: () => import('@/page/vPlayList.vue'),

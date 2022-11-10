@@ -1,7 +1,17 @@
 <template>
 
-    <div>
-        <cHeader :searchlist="sreachList">
+    <form @submit.prevent="submitFn">
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <input type="text" class="search-input" ref="searchInput" placeholder="Type to search" />
+                <button class="search-icon" @click="searchToggle($event);" type="submit"><span></span></button>
+            </div>
+            <span class="close" @click="searchToggle($event);"></span>
+            <div class="result-container">
+            </div>
+        </div>
+    </form>
+    <!-- <cHeader :searchlist="sreachList">
             <slot slot="left">
                 <div @click="routerBack">
                     <svg t="1664774507872" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -27,18 +37,19 @@
                             p-id="2559" fill="#dbdbdb"></path>
                     </svg></div>
             </slot>
-        </cHeader>
+        </cHeader> -->
 
-    </div>
+
 </template>
 
 <script>
-import cHeader from '@/component/Home/cHeader.vue';
+// import cHeader from '@/component/Home/cHeader.vue';
 import { song_cloudsearch } from '@/api/home';
+import $ from '../../node_modules/jquery/dist/jquery.min.js';
 export default {
     name: 'v-Search',
     components: {
-        cHeader
+        // cHeader
     },
     props: {},
     data() {
@@ -50,10 +61,41 @@ export default {
     watch: {},
     computed: {},
     methods: {
+        searchToggle(evt) {
+            const container = $(evt.target).closest('.search-wrapper');
+            if (!container.hasClass('active')) {
+                container.addClass('active');
+            }
+            else if (container.hasClass('active') && $(evt.target).closest('.input-holder').length == 0) {
+                console.log($(evt.target).closest('.input-holder').length == 0);
+                container.removeClass('active');
+                // clear input
+                container.find('.search-input').val('');
+                // clear and hide result container when we press close
+                container.find('.result-container').fadeOut(100, function () { $(this).empty(); });
+            }
+        },
+
+        submitFn(evt) {
+            console.log('ss');
+            const value = $(evt.target).find('.search-input').val().trim();
+
+            let _html = "Yup yup! Your search text sounds like this: ";
+            if (!value.length) {
+                _html = "Yup yup! Add some text friend :D";
+            }
+            else {
+                _html += "<b>" + value + "</b>";
+            }
+
+            $(evt.target).find('.result-container').html('<span>' + _html + '</span>');
+            $(evt.target).find('.result-container').fadeIn(100);
+
+
+        },
         routerBack() {
             this.$router.back()
         },
-
         search(value) {
             song_cloudsearch(value).then(res => {
                 if (value) {
@@ -65,23 +107,224 @@ export default {
     },
     created() { },
     mounted() {
-        if (this.$route.name === 'search') {
+        // if (this.$route.name === 'search') {
 
-            this.$refs.InputSearch.focus()
-        } else {
-            return
-        }
+        //     this.$refs.searchInput.focus()
+        // } else {
+        //     return
+        // }
     }
 };
 </script>
 <style lang="less" scoped>
-input {
-    width: 100%;
-    outline: none;
-    border: none;
-    border-radius: 45px;
-    text-align: center;
-    height: 40px;
+@media screen and (max-width: 560px) {
+    .search-wrapper.active .input-holder {
+        width: 200px;
+    }
+}
 
+//搜索容器位置
+.search-wrapper {
+    position: absolute;
+
+    .result-container {
+        width: 100%;
+        position: absolute;
+        top: 80px;
+        left: 0px;
+        text-align: center;
+        font-family: "Open Sans", Arial, Verdana;
+        font-size: 14px;
+        display: none;
+        color: #B7B7B7;
+    }
+
+    .close {
+        position: absolute;
+        z-index: 1;
+        top: 24px;
+        right: 20px;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        -webkit-transform: rotate(-180deg);
+        -moz-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+        -webkit-transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+        -moz-transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+        transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+        -webkit-transition-delay: 0.2s;
+        -moz-transition-delay: 0.2s;
+        transition-delay: 0.2s;
+    }
+
+    //input以及按钮位置
+    .input-holder {
+        overflow: hidden;
+        height: 70px;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 6px;
+        position: relative;
+        width: 70px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+
+        .search-input {
+            width: 100%;
+            height: 50px;
+            padding: 0px 70px 0 20px;
+            opacity: 0;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: transparent;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            font-family: "Open Sans", Arial, Verdana;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+            color: #FFF;
+            -webkit-transform: translate(0, 60px);
+            -moz-transform: translate(0, 60px);
+            transform: translate(0, 60px);
+            -webkit-transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+            -moz-transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+            transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+            -webkit-transition-delay: 0.3s;
+            -moz-transition-delay: 0.3s;
+            transition-delay: 0.3s;
+        }
+
+        .search-icon {
+            width: 70px;
+            height: 70px;
+            border: none;
+            border-radius: 6px;
+            background: #FFF;
+            padding: 0px;
+            outline: none;
+            position: relative;
+            z-index: 2;
+            float: right;
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+
+            span {
+                width: 22px;
+                height: 22px;
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                transform: rotate(45deg);
+                -webkit-transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
+                -moz-transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
+                transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
+
+            }
+        }
+
+
+
+    }
+
+
+}
+
+//搜索容器选中
+.search-wrapper.active .input-holder {
+    border-radius: 50px;
+    width: 450px;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    -moz-transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+}
+
+.search-wrapper.active .input-holder .search-input {
+    opacity: 1;
+    -webkit-transform: translate(0, 10px);
+    -moz-transform: translate(0, 10px);
+    transform: translate(0, 10px);
+}
+
+.search-wrapper.active .input-holder .search-icon {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 30px;
+}
+
+.search-wrapper.active .input-holder .search-icon span {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.search-wrapper .input-holder .search-icon span::before,
+.search-wrapper .input-holder .search-icon span::after {
+    position: absolute;
+    content: '';
+}
+
+.search-wrapper .input-holder .search-icon span::before {
+    width: 4px;
+    height: 11px;
+    left: 9px;
+    top: 18px;
+    border-radius: 2px;
+    background: #974BE0;
+}
+
+.search-wrapper .input-holder .search-icon span::after {
+    width: 14px;
+    height: 14px;
+    left: 0px;
+    top: 0px;
+    border-radius: 16px;
+    border: 4px solid #974BE0;
+}
+
+.search-wrapper.active .close {
+    right: -50px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    -moz-transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    -webkit-transition-delay: 0.5s;
+    -moz-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+
+.search-wrapper .close::before,
+.search-wrapper .close::after {
+    position: absolute;
+    content: '';
+    background: #FFF;
+    border-radius: 2px;
+}
+
+.search-wrapper .close::before {
+    width: 5px;
+    height: 25px;
+    left: 10px;
+    top: 0px;
+}
+
+.search-wrapper .close::after {
+    width: 25px;
+    height: 5px;
+    left: 0px;
+    top: 10px;
 }
 </style>

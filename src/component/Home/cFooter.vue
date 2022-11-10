@@ -180,6 +180,7 @@ export default {
 
 div.c-Footer {
     width: 100%;
+    z-index: 99;
 
     footer {
         width: 100%;

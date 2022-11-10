@@ -53,13 +53,15 @@ export default {
 
     .v-PlayList {
         height: 100vh;
-        z-index: 9999;
+        z-index: 9;
     }
 
     .v {
+        z-index: 2;
         height: 100%;
     }
-//ok
+
+    //ok
     .c-Footer {
         position: fixed;
         bottom: 0;

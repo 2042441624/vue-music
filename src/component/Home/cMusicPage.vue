@@ -145,6 +145,10 @@ address {
     height: 100%;
     z-index: 999;
 
+    c-header {
+        z-index: 999;
+    }
+
     .lyric {
         position: relative;
 

@@ -9,6 +9,7 @@ import store from './store/index';
 
 import animated from 'animate.css'
 Vue.use(animated)
+
 router.beforeEach((to, from, next) => {
   const name = localStorage.getItem('cookie');//查看本地存储上是否有name对象
   if (name || to.path === '/login') {//短路逻辑，有就可以继续执行，没有就跳转到登录页面

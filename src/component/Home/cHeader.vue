@@ -49,7 +49,7 @@ export default {
             default: () => []
         },
     },
-    mounted() {
+    updated() {
         const container = $('.search-wrapper')
         if (this.$route.name === 'search') {
 

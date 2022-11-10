@@ -3,12 +3,10 @@
         <div class="search">
             <div class="left">
                 <slot name="left">
-
                 </slot>
             </div>
             <div class="centre">
                 <slot name="centre">
-                    <keep-alive><input type="text" placeholder="请输入您要搜索的内容..." @focus="toSearch()"></keep-alive>
                 </slot>
             </div>
             <div class="right">
@@ -28,6 +26,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'c-Header',
     props: {
@@ -45,16 +44,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
-
-
-
 .c-Header {
     width: 100%;
     height: 40px;
-    position: relative;
-    padding: 0 3px;
-    background-color: rgb(244, 40, 40);
+  
+    position: fixed;
+    z-index: 99999;
+
+
+
+
+
+
 
     .search {
         display: flex;
@@ -74,7 +75,7 @@ export default {
         .left,
         .right {
             text-align: center;
-            height: 40px;
+            height: 100%;
             line-height: 40px;
 
         }

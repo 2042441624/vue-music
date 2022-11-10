@@ -12,10 +12,11 @@
           </svg> -->
         </slot>
         <slot slot="centre">
-
-          <keep-alive><input type="text" placeholder="请输入您要搜索的内容..." @focus="toSearch()" class="boder"></keep-alive>
-
+          <div class=" d2">
+            <input type="text" placeholder="搜索从这里开始..." @focus="toSearch()">
+          </div>
         </slot>
+
         <slot slot="right">
           <!-- <svg t="1664792648908" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
             p-id="2806" width="38" height="38">
@@ -80,7 +81,7 @@ export default {
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
 
-   
+
 
 
   },
@@ -112,27 +113,39 @@ export default {
   position: relative;
 
   .c-Header {
-    position: fixed;
-    top: 0;
 
 
-    input {
 
-      width: 100%;
-      outline: none;
 
-      text-align: center;
-      height: 100%;
-    }
 
-    .boder {
-      border: solid #000;
-      border-image-source: url("@/assets/img/searchbroder.jpg");
-      border-image-width: 8px;
-      border-image-slice: 70 50 65 50;
-      border-image-repeat: stretch;
-      width: 100%;
-      height: 40px;
+    .d2 {
+
+      background: #DABB52;
+      display: flex;
+      flex-direction: row;
+
+      input,
+      buyy {
+        border: none;
+        outline: none;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      input {
+        width: 100%;
+
+        background: #F9F0DA;
+        text-align: center;
+        box-sizing: border-box;
+
+        buyy {
+
+
+          background: #F15B42;
+          cursor: pointer;
+        }
+      }
     }
 
 

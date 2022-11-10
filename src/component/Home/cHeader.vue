@@ -49,22 +49,32 @@ export default {
             default: () => []
         },
     },
+    mounted() {
+        const container = $('.search-wrapper')
+        if (this.$route.name === 'search') {
+
+
+            console.log(container);
+            container.addClass('active');
+            container.find('.search-input').focus()
+        } else {
+            container.removeClass('active');
+        }
+    },
     methods: {
         addSong(id) {
             this.$store.dispatch('addsongs', id)
         },
         searchToggle(evt) {
             const container = $(evt.target).closest('.search-wrapper');
+
             if (!container.hasClass('active')) {
                 container.addClass('active');
+                this.$router.push({ name: 'search' })
             }
-            else if (container.hasClass('active') && $(evt.target).closest('.input-holder').length == 0) {
-                console.log($(evt.target).closest('.input-holder').length == 0);
+            else {
                 container.removeClass('active');
-                // clear input
-                container.find('.search-input').val('');
-                // clear and hide result container when we press close
-
+                this.$router.back()
             }
         },
 
@@ -90,7 +100,7 @@ export default {
     position: relative;
     box-sizing: border-box;
 
-
+    .centre {}
 
 
 
@@ -159,6 +169,7 @@ export default {
 
 
                     .search-input {
+
                         width: 100%;
                         height: 100%;
                         padding: 0px 60px 0 20px;
@@ -232,7 +243,7 @@ export default {
             .search-wrapper.active .input-holder {
                 border-radius: 50px;
                 width: 100%;
-                background: rgba(206, 204, 204, 0.5);
+                background: rgb(255, 255, 255);
                 -webkit-transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
                 -moz-transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
                 transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
@@ -240,7 +251,7 @@ export default {
 
             .search-wrapper.active .input-holder .search-input {
                 opacity: 1;
-                color: #FFF;
+
                 -webkit-transform: translate(0, 10px);
                 -moz-transform: translate(0, 10px);
                 transform: translate(0, 10px);
@@ -252,6 +263,7 @@ export default {
                 height: 50px;
                 margin: 5px;
                 border-radius: 30px;
+                background: rgba(206, 204, 204, 0.5);
             }
 
             .search-wrapper.active .input-holder .search-icon span {
@@ -301,7 +313,7 @@ export default {
             .search-wrapper .close::after {
                 position: absolute;
                 content: '';
-                background: #FFF;
+                background: rgb(206, 204, 204);
                 border-radius: 2px;
             }
 

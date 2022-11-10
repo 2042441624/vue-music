@@ -4,14 +4,13 @@
             <div class="left">
                 <slot name="left">
                     <form @submit.prevent="submitFn">
-                        <div class="search-wrapper">
+                        <div :class="{ 'search-wrapper': true }">
                             <div class="input-holder">
                                 <input type="text" class="search-input" ref="searchInput"
                                     placeholder="Type to search" />
-                                <button class="search-icon" @click="searchToggle($event);"
-                                    type="submit"><span></span></button>
+                                <button class="search-icon" @click="Tosearch();" type="submit"><span></span></button>
                             </div>
-                            <span class="close" @click="searchToggle($event);"></span>
+                            <span class="close" @click="searchToggle();"></span>
 
                         </div>
                     </form>
@@ -48,33 +47,30 @@ export default {
             type: Array,
             default: () => []
         },
-    },
-    mounted() {
-    
-        const container = $('.search-wrapper')
-        if (this.$route.name === 'search') {
-            console.log(container);
-            container.addClass('active');
-            container.find('.search-input').focus()
-        } else {
-            container.removeClass('active');
+        isActive: {
+            type: Boolean,
+            default: () => false
         }
+    },
+    updated() {
+        this.$route.name === 'search' ? $('.search-wrapper').addClass('active') : $('.search-wrapper').removeClass('active')
     },
     methods: {
         addSong(id) {
             this.$store.dispatch('addsongs', id)
         },
-        searchToggle(evt) {
-            const container = $(evt.target).closest('.search-wrapper');
+        Tosearch() {
 
-            if (!container.hasClass('active')) {
-                container.addClass('active');
+            if (this.$route.name !== 'search') {
                 this.$router.push({ name: 'search' })
             }
-            else {
-                container.removeClass('active');
+        },
+        searchToggle() {
+            if (this.$route.name === 'search') {
                 this.$router.back()
+                $('.search-wrapper').removeClass('active')
             }
+
         },
 
         submitFn(evt) {

@@ -11,7 +11,7 @@
 <script>
 import cHeader from '@/component/Home/cHeader.vue';
 import { song_cloudsearch } from '@/api/home';
-import $ from '../../node_modules/jquery/dist/jquery.min.js';
+
 export default {
     name: 'v-Search',
     components: {
@@ -20,45 +20,16 @@ export default {
     props: {},
     data() {
         return {
-            sreachValue: '',
+
             sreachList: []
         };
     },
     watch: {},
     computed: {},
     methods: {
-        searchToggle(evt) {
-            const container = $(evt.target).closest('.search-wrapper');
-            if (!container.hasClass('active')) {
-                container.addClass('active');
-            }
-            else if (container.hasClass('active') && $(evt.target).closest('.input-holder').length == 0) {
-                console.log($(evt.target).closest('.input-holder').length == 0);
-                container.removeClass('active');
-                // clear input
-                container.find('.search-input').val('');
-                // clear and hide result container when we press close
-                container.find('.result-container').fadeOut(100, function () { $(this).empty(); });
-            }
-        },
-
-        submitFn(evt) {
-            console.log('ss');
-            const value = $(evt.target).find('.search-input').val().trim();
-
-            let _html = "Yup yup! Your search text sounds like this: ";
-            if (!value.length) {
-                _html = "Yup yup! Add some text friend :D";
-            }
-            else {
-                _html += "<b>" + value + "</b>";
-            }
-
-            $(evt.target).find('.result-container').html('<span>' + _html + '</span>');
-            $(evt.target).find('.result-container').fadeIn(100);
+ 
 
 
-        },
         routerBack() {
             this.$router.back()
         },

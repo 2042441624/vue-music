@@ -1,7 +1,7 @@
 <template>
 
 
-    <cHeader :searchlist="sreachList">
+    <cHeader :searchlist="sreachList" :isActive="isActive">
 
     </cHeader>
 
@@ -20,14 +20,17 @@ export default {
     props: {},
     data() {
         return {
-
+            isActive: '',
             sreachList: []
         };
     },
     watch: {},
     computed: {},
+    mounted() {
+        this.isActive = this.$route.name === 'search' ? true : false
+    },
     methods: {
- 
+
 
 
         routerBack() {

@@ -4,7 +4,7 @@
             <div class="left">
                 <slot name="left">
                     <form @submit.prevent="submitFn">
-                        <div :class="{ 'search-wrapper': true }">
+                        <div :class="{ 'search-wrapper': true, }">
                             <div class="input-holder">
                                 <input type="text" class="search-input" ref="searchInput"
                                     placeholder="Type to search" />
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import $ from '../../../node_modules/jquery/dist/jquery.min.js'
 
+import $ from '../../../node_modules/jquery/dist/jquery.min.js'
 export default {
     name: 'c-Header',
     props: {
@@ -52,8 +52,8 @@ export default {
             default: () => false
         }
     },
-    updated() {
-        this.$route.name === 'search' ? $('.search-wrapper').addClass('active') : $('.search-wrapper').removeClass('active')
+    mounted() {
+        this.isActive ? $('.search-wrapper').addClass('active') : $('.search-wrapper').removeClass('active')
     },
     methods: {
         addSong(id) {
@@ -61,14 +61,15 @@ export default {
         },
         Tosearch() {
 
-            if (this.$route.name !== 'search') {
-                this.$router.push({ name: 'search' })
-            }
+
+
+            this.$router.push({ name: 'search' })
+
         },
         searchToggle() {
             if (this.$route.name === 'search') {
                 this.$router.back()
-                $('.search-wrapper').removeClass('active')
+
             }
 
         },
@@ -130,23 +131,17 @@ export default {
 
                 .close {
 
-
                     position: absolute;
                     top: 30%;
                     left: 5%;
-
+                    opacity: 0;
                     width: 25px;
                     height: 25px;
                     cursor: pointer;
                     -webkit-transform: rotate(-180deg);
                     -moz-transform: rotate(-180deg);
                     transform: rotate(-180deg);
-                    -webkit-transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
-                    -moz-transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
-                    transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
-                    -webkit-transition-delay: 0.2s;
-                    -moz-transition-delay: 0.2s;
-                    transition-delay: 0.2s;
+
                 }
 
                 //input以及按钮位置
@@ -292,7 +287,7 @@ export default {
             }
 
             .search-wrapper.active .close {
-                right: -50px;
+                opacity: 1;
                 -webkit-transform: rotate(45deg);
                 -moz-transform: rotate(45deg);
                 transform: rotate(45deg);

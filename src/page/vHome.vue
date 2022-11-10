@@ -1,17 +1,17 @@
 <template>
-  <keep-alive>
-    <div class="v-home">
-      <!-- 头部 -->
-      <c-Header class="c-Header">
+
+  <div class="v-home">
+    <!-- 头部 -->
+    <c-Header class="c-Header" :isActive="isActive">
 
 
 
-        <slot slot="centre">
-          杨靓仔(晨依林)有限公司
-        </slot>
-      </c-Header>
-      <!-- 缓存主体 -->
-
+      <slot slot="centre">
+        杨靓仔(晨依林)有限公司
+      </slot>
+    </c-Header>
+    <!-- 缓存主体 -->
+    <keep-alive>
       <div class="main">
         <!-- 轮播图 -->
         <c-Banner class="c-Banner  animate__animated animate__tada" :imgList='ImgList'
@@ -22,10 +22,12 @@
         <!-- 排行榜 -->
         <c-Toplist class="c-Toplist animate__animated animate__fadeInLeft"></c-Toplist>
       </div>
+    </keep-alive>
+
+  </div>
 
 
-    </div>
-  </keep-alive>
+
 
 
 </template>
@@ -38,13 +40,14 @@ import cToplist from '@/component/Home/cToplist.vue';
 import { banner } from '@/api/home';
 import { getPersonalized } from "@/api/index.js";
 import { mapState } from 'vuex';
-
+import $ from '../../node_modules/jquery/dist/jquery.min.js'
 export default {
   name: 'v-home',
   data() {
     return {
       ImgList: [],
-      recommendList: []
+      recommendList: [],
+      isActive: ''
     }
   },
   created() {
@@ -58,6 +61,9 @@ export default {
     }
   },
   mounted() {
+    this.isActive = this.$route.name === 'home' ? false : true
+
+    this.isActive ? $('.search-wrapper').addClass('active') : $('.search-wrapper').removeClass('active')
 
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
@@ -94,58 +100,25 @@ export default {
   position: relative;
 
   .c-Header {
+    .main {
+      position: relative;
 
+    }
 
+    .c-Banner {
+      z-index: 0
+    }
 
-
-
-    .d2 {
-
-      background: #DABB52;
-      display: flex;
-      flex-direction: row;
-
-      input,
-      buyy {
-        border: none;
-        outline: none;
-        border-radius: 3px;
-        overflow: hidden;
-      }
-
-      input {
-        width: 100%;
-
-        background: #F9F0DA;
-        text-align: center;
-        box-sizing: border-box;
-
-        buyy {
-
-
-          background: #F15B42;
-          cursor: pointer;
-        }
-      }
+    .c-Banner,
+    .c-Resource,
+    .c-Toplist {
+      margin-bottom: 0.5rem;
     }
 
 
 
   }
 
-  .main {
-    position: relative;
 
-  }
-
-  .c-Banner {
-    z-index: 0
-  }
-
-  .c-Banner,
-  .c-Resource,
-  .c-Toplist {
-    margin-bottom: 0.5rem;
-  }
 }
 </style>

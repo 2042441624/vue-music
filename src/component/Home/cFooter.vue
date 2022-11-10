@@ -1,6 +1,8 @@
 <template>
     <div class="c-Footer">
-        <c-Audio class="c-Audio "></c-Audio>
+        <keep-alive>
+            <c-Audio class="c-Audio "></c-Audio>
+        </keep-alive>
         <!-- 改进，不晓得监听当前路由 -->
         <footer v-show="this.isShowFooter" class="animate__animated animate__slideInLeft">
             <div @click="toRoute('home', $event)" ref="home">

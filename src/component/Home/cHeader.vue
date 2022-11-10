@@ -3,11 +3,11 @@
         <div class="search">
             <div class="left">
                 <slot name="left">
-                    <form @submit.prevent="submitFn">
+                    <form @submit.prevent="search">
                         <div :class="{ 'search-wrapper': true, }">
                             <div class="input-holder">
-                                <input type="text" class="search-input" ref="searchInput"
-                                    placeholder="Type to search" />
+                                <input type="text" class="search-input" ref="searchInput" placeholder="Type to search"
+                                    @input="search($event)" />
                                 <button class="search-icon" @click="Tosearch();" type="submit"><span></span></button>
                             </div>
                             <span class="close" @click="searchToggle();"></span>
@@ -40,16 +40,19 @@
 <script>
 
 import $ from '../../../node_modules/jquery/dist/jquery.min.js'
+import { song_cloudsearch } from '@/api/home';
 export default {
     name: 'c-Header',
     props: {
-        searchlist: {
-            type: Array,
-            default: () => []
-        },
+
         isActive: {
             type: Boolean,
             default: () => false
+        }
+    },
+    data() {
+        return {
+            searchlist: []
         }
     },
     mounted() {
@@ -73,16 +76,19 @@ export default {
             }
 
         },
-
-        submitFn(evt) {
-            console.log(evt);
-
-
-
-
-
-
+        search(e) {
+            if (this.$route.name === 'search') {
+                console.log(e.data);
+                song_cloudsearch(e.data).then(res => {
+                    if (res.code === 200 && e.data) {
+                        console.log(res.result.songs);
+                        this.searchlist = res.result.songs
+                    } else { this.searchlist = [] }
+                })
+            }
+            return
         },
+
     }
 };
 </script>
@@ -126,11 +132,7 @@ export default {
             .search-wrapper {
                 position: absolute;
 
-
-
-
                 .close {
-
                     position: absolute;
                     top: 30%;
                     left: 5%;
@@ -335,7 +337,7 @@ export default {
 
     .search-content {
         position: absolute;
-        height: 0;
+
     }
 
 }

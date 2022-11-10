@@ -3,15 +3,13 @@
   <div class="v-home">
     <!-- 头部 -->
     <c-Header class="c-Header" :isActive="isActive">
-
-
-
       <slot slot="centre">
         杨靓仔(晨依林)有限公司
       </slot>
     </c-Header>
     <!-- 缓存主体 -->
     <keep-alive>
+
       <div class="main">
         <!-- 轮播图 -->
         <c-Banner class="c-Banner  animate__animated animate__tada" :imgList='ImgList'
@@ -52,17 +50,10 @@ export default {
   },
   created() {
     //刚加载页面需要确认所有歌单是否有歌曲
-    this.$store.dispatch('nowListName', 'historySongsList')
-    let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
-    if (historySongsList.length) {
-      this.$store.dispatch('addhistorySongsList', historySongsList)
 
-      this.$store.dispatch('nextSong', {})
-    }
   },
   mounted() {
     this.isActive = this.$route.name === 'home' ? false : true
-
     this.isActive ? $('.search-wrapper').addClass('active') : $('.search-wrapper').removeClass('active')
 
     banner().then(res => { this.ImgList = res.banners })
@@ -73,9 +64,7 @@ export default {
 
   },
   methods: {
-    toSearch() {
-      this.$router.push({ name: 'search' })
-    },
+
 
 
   },

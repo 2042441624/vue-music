@@ -11,17 +11,22 @@
 export default {
   name: 'App',
   components: {
+  },
+  created() {
+    this.$store.dispatch('nowListName', 'historySongsList')
+    let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
+    if (historySongsList.length) {
+      this.$store.commit('Switching_PLAYSTATUS')
+      this.$store.dispatch('addhistorySongsList', historySongsList)
+      this.$store.dispatch('nextSong', {})
+
+    }
   }
 }
+
 </script>
 
 <style lang="less">
-
-
-
-
-
-
 * {
   margin: 0;
   padding: 0;

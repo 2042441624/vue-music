@@ -10,7 +10,7 @@
 
 <script>
 import cHeader from '@/component/Home/cHeader.vue';
-import { song_cloudsearch } from '@/api/home';
+
 
 export default {
     name: 'v-Search',
@@ -36,14 +36,7 @@ export default {
         routerBack() {
             this.$router.back()
         },
-        search(value) {
-            song_cloudsearch(value).then(res => {
-                if (value) {
-                    console.log(res.result.songs);
-                    this.sreachList = res.result.songs
-                } else { this.sreachList = [] }
-            })
-        },
+       
     },
     created() { },
 

@@ -49,11 +49,10 @@ export default {
             default: () => []
         },
     },
-    updated() {
+    mounted() {
+    
         const container = $('.search-wrapper')
         if (this.$route.name === 'search') {
-
-
             console.log(container);
             container.addClass('active');
             container.find('.search-input').focus()

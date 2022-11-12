@@ -84,23 +84,17 @@ export default {
         "song.id": {
             handler(n, old) {
                 this.cDom()
-                this.$router.push({
-                    path: `/home?songid=${n}`,
-                })
-
                 if (old === undefined && n !== old) {
                     this.$nextTick(() => { this.$refs.audio.pause() })
                 } else {
 
                     this.$store.dispatch('switchingPlayStatus', true)
                 }
-
             },
             deep: true,
             immediate: true
         }
     },
-
     created() {
         document.onkeydown = (e) => {
             if (e.keyCode == 13) {

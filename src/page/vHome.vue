@@ -39,6 +39,7 @@ import { banner } from '@/api/home';
 import { getPersonalized } from "@/api/index.js";
 import { mapState } from 'vuex';
 import $ from '../../node_modules/jquery/dist/jquery.min.js'
+
 export default {
   name: 'v-home',
   data() {
@@ -58,7 +59,9 @@ export default {
 
     banner().then(res => { this.ImgList = res.banners })
     getPersonalized().then(res => this.recommendList = res.result)
-
+    this.$router.push({
+      path: `/home?songid=${this.songs.nowSong.id ? this.songs.nowSong.id : ''}`,
+    })
 
 
 

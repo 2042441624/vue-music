@@ -3,7 +3,7 @@
   <div id="app">
     <router-view v-if="!isWait"></router-view>
     <div class="counter" v-if="isWait">
-      <div class="nums">
+      <div class="nums" >
         <span class="in">3</span>
         <span>2</span>
         <span>1</span>
@@ -12,7 +12,7 @@
       <h4>Get Ready</h4>
     </div>
 
-    <div class="final">
+    <div class="final" v-if="isWait">
       <h1>GO</h1>
       <button id="replay">
         <span @click="()=> this.isWait = false">run</span>

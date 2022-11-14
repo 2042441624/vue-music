@@ -1,9 +1,8 @@
 <template>
-
   <div id="app">
     <router-view v-if="!isWait"></router-view>
     <div class="counter" v-if="isWait">
-      <div class="nums" >
+      <div class="nums">
         <span class="in">3</span>
         <span>2</span>
         <span>1</span>
@@ -15,87 +14,87 @@
     <div class="final" v-if="isWait">
       <h1>GO</h1>
       <button id="replay">
-        <span @click="()=> this.isWait = false">run</span>
+        <span @click="() => (this.isWait = false)">run</span>
       </button>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      isWait: true
-    }
+      isWait: true,
+    };
   },
   methods: {
     replay() {
-      const counter = document.querySelector('.counter')
-      const nums = document.querySelectorAll('.nums span')
+      const counter = document.querySelector(".counter");
+      const nums = document.querySelectorAll(".nums span");
 
-      const finalMessage = document.querySelector('.final')
+      const finalMessage = document.querySelector(".final");
       async function ok() {
-        await resetDOM()
-        await runAnimation()
+        await resetDOM();
+        await runAnimation();
       }
 
-      runAnimation()
+      runAnimation();
 
       function resetDOM() {
-        counter.classList.remove('hide')
-        finalMessage.classList.remove('show')
+        counter.classList.remove("hide");
+        finalMessage.classList.remove("show");
 
         nums.forEach((num) => {
-          num.classList.value = ''
-        })
+          num.classList.value = "";
+        });
 
-        nums[0].classList.add('in')
+        nums[0].classList.add("in");
       }
 
       function runAnimation() {
         nums.forEach((num, idx) => {
-          const nextToLast = nums.length - 1
+          const nextToLast = nums.length - 1;
 
-          num.addEventListener('animationend', (e) => {
-            if (e.animationName === 'goIn' && idx !== nextToLast) {
-              num.classList.remove('in')
-              num.classList.add('out')
-            } else if (e.animationName === 'goOut' && num.nextElementSibling) {
-              num.nextElementSibling.classList.add('in')
+          num.addEventListener("animationend", (e) => {
+            if (e.animationName === "goIn" && idx !== nextToLast) {
+              num.classList.remove("in");
+              num.classList.add("out");
+            } else if (e.animationName === "goOut" && num.nextElementSibling) {
+              num.nextElementSibling.classList.add("in");
             } else {
-              counter.classList.add('hide')
-              finalMessage.classList.add('show')
+              counter.classList.add("hide");
+              finalMessage.classList.add("show");
             }
-          })
-        })
+          });
+        });
       }
-      ok()
-    }
-
-
-
-
-
+      ok();
+    },
   },
   created() {
-
-
-    this.$store.dispatch('nowListName', 'historySongsList')
-    let historySongsList = JSON.parse(localStorage.getItem('historySongsList')) ? JSON.parse(localStorage.getItem('historySongsList')) : []
+    // waitValue ? (this.isWait = false) : localStorage.setItem("wait", true);
+    this.$store.dispatch("nowListName", "historySongsList");
+    let historySongsList = JSON.parse(localStorage.getItem("historySongsList"))
+      ? JSON.parse(localStorage.getItem("historySongsList"))
+      : [];
     if (historySongsList.length) {
-      this.$store.commit('Switching_PLAYSTATUS')
-      this.$store.dispatch('addhistorySongsList', historySongsList)
-      this.$store.dispatch('nextSong', {})
-
+      this.$store.commit("Switching_PLAYSTATUS");
+      this.$store.dispatch("addhistorySongsList", historySongsList);
+      this.$store.dispatch("nextSong", {});
     }
   },
   mounted() {
-    this.replay()
+    let waitValue = sessionStorage.getItem("wait");
+    console.log(waitValue);
+    if (waitValue) {
+      this.isWait = false;
+    } else {
+      sessionStorage.setItem("wait", true);
+      this.replay();
+    }
   },
-}
-
+};
 </script>
 
 <style lang="less">
@@ -109,15 +108,14 @@ export default {
     width: 100%;
     height: 100vh;
     font-size: 1rem;
-    background-color: #F6F6F6;
-
+    background-color: #f6f6f6;
 
     * {
       box-sizing: border-box;
     }
 
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: "Roboto", sans-serif;
       margin: 0;
       height: 100vh;
       overflow: hidden;
@@ -257,7 +255,7 @@ export default {
     }
 
     #replay span:after {
-      content: '\00bb';
+      content: "\00bb";
       position: absolute;
       opacity: 0;
       top: 0;
@@ -273,7 +271,6 @@ export default {
       opacity: 1;
       right: 0;
     }
-
   }
 }
 </style>

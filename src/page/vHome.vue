@@ -61,13 +61,12 @@ export default {
     });
     getPersonalized().then((res) => (this.recommendList = res.result));
 
-    this.$route.query.songid
-      ? ""
-      : this.$router.push({
-          path: `/home?songid=${
-            this.songs.nowSong.id ? this.songs.nowSong.id : ""
-          }`,
-        });
+    if (!this.$route.query.songid) {
+      let nowSongID = this.songs.nowSong.id;
+      nowSongID
+        ? this.$router.push({ path: `/home?songid=${this.songs.nowSong.id} ` })
+        : this.$router.push({ path: `/home?songid=undefind` });
+    }
   },
   methods: {},
   computed: {

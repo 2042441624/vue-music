@@ -16,9 +16,9 @@
     </div>
 
 
-  
 
-      <div class="userSongList animate__animated animate__fadeInLeft">我的历史播放</div>
+
+    <div class="userSongList animate__animated animate__fadeInLeft">我的历史播放</div>
 
 
 
@@ -31,7 +31,7 @@
 <script>
 import cHeader from "@/component/Home/cHeader.vue";
 //引入用户API
-
+import { playlist } from '@/api/user';
 import { mapState } from "vuex";
 export default {
   components: {
@@ -54,10 +54,13 @@ export default {
     }
   },
   created() {
-
+    console.log(this.user.data.account.id);
   },
   mounted() {
-
+    playlist(this.user.data.account.id).then(res => console.log(res))
+    this.$refs.userImg.src = this.user.data.profile.avatarUrl;
+    this.$refs.userName.innerText = this.user.data.profile.nickname;
+    this.$refs.uservl.innerText = `关注${this.user.data.profile.follows} 粉丝${this.user.data.profile.followeds}`;
   },
 };
 </script>

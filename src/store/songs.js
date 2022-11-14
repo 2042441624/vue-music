@@ -8,7 +8,7 @@ export default {
 
     state: {
         //是否播放
-        playStatus: false,
+        playStatus: true,
         //历史播放
         historySongsList: [],
         //当前的播放的歌单
@@ -106,7 +106,7 @@ export default {
     },
     mutations: {
         Switching_PLAYSTATUS(state, boolean) {
-            boolean ? console.log('添加赋值播放') : console.log('播放反转')
+
             boolean ? state.playStatus = Boolean(boolean) : state.playStatus = !state.playStatus
 
 
@@ -153,7 +153,7 @@ export default {
             } else {
                 switch (state.songMode) {
                     case '顺序': {
-                       
+
                         let nowSongIndex = state[state.nowListName].findIndex(s => s.name === state.nowSong.name)
                         console.log('当前歌曲索引:' + nowSongIndex);
                         nowSongIndex += 1;
@@ -167,7 +167,7 @@ export default {
                         break;
                     }
                     case '循环': {
-           
+
                         console.log('当前歌单: ' + state.nowListName, '播放模式:' + state.songMode, '当前歌曲:' + state.nowSong.name);
                         let loop = state.nowSong
                         state.nowSong = {}

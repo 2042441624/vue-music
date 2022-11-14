@@ -100,15 +100,7 @@ export function getMusicUrl(id) {
   })
 }
 
-// 获取歌词
-export function getLyric(id) {
-  const url = '/lyric'
-  return axios.request(url, {
-    params: {
-      id
-    }
-  })
-}
+
 
 // 获取音乐评论
 export function getComment(id, page, limit = defaultLimit) {

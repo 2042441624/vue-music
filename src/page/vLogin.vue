@@ -38,14 +38,15 @@ export default {
             cellphone(this.formMess).then((res) => {
                 if (res.code === 200) {
                     //设置跟踪user数据
-                    this.$store.state.user.state = res;
+                    this.$store.dispatch('addUser', res)
                     // 设置cookieF
                     localStorage.setItem("cookie", res.cookie);
-                    this.$router.push({ name: 'home'})
-                    // console.log(this.$store.state.user.state);
-                    // this.$refs.userImg.src = this.user.state.profile.avatarUrl;
-                    // this.$refs.userName.innerText = this.user.state.profile.nickname;
-                    // this.$refs.uservl.innerText = `关注${this.user.state.profile.follows} 粉丝${this.user.state.profile.followeds}`;
+
+
+                    localStorage.setItem("data", JSON.stringify(res));
+                    this.$router.push({ name: 'home' })
+
+
                 }
             });
         }

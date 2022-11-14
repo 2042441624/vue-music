@@ -12,11 +12,12 @@ export const cellphone = (pramas) => {
     })
 }
 
-//用户歌单的接口请求
-export const playlist = () => {
+
+export const playlist = (id) => {
     return axios.request({
-        url: `/user/playlist?uid=3363221402`,
+        url: `/user/playlist?uid=${id}`,
         method: 'get'
     })
 }
+
 

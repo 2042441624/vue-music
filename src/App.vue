@@ -79,9 +79,10 @@ export default {
       ? JSON.parse(localStorage.getItem("historySongsList"))
       : [];
     if (historySongsList.length) {
-      this.$store.commit("Switching_PLAYSTATUS");
+
       this.$store.dispatch("addhistorySongsList", historySongsList);
       this.$store.dispatch("nextSong", {});
+      this.$store.commit("Switching_PLAYSTATUS", false);
     }
   },
   mounted() {

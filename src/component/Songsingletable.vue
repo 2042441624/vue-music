@@ -4,7 +4,7 @@
         <div class="songListContainer">
             <div v-for=" (list) in this.allSongsList" :key="list.name">
                 <h2>{{ list.name }}{{ list[list.name].length }}</h2>
-                <div v-for=" (song, index) in list[list.name]" :key="song.id" :index="index">
+                <div v-for="(song, index) in list[list.name]" :key="song.id" :index="index">
                     <div @click="switchSong(song.id, song.name, list.name, index)" class="list">{{ song.name.slice(0,
                             10)
                     }}</div>
@@ -36,8 +36,9 @@ export default {
             this.$emit('songList')
         },
         switchSong(id, name, mode, index) {
+
             //打开歌单需要缓存大量数据，直接用现场调用
-            mode === 'playList' ? this.$store.dispatch('addsongs', id) : this.$store.dispatch('nextSong', { name, mode, index })
+            mode === 'playList' ? this.$store.dispatch('addsongs', id) : this.$store.dispatch('nextSong', { id, name, mode, index })
         },
         removeSong(id, name, mode) {
             this.$store.dispatch('removeSong', { id, name, mode })

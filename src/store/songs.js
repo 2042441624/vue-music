@@ -93,8 +93,9 @@ export default {
         addDur(state, str) {
             state.commit('Add_nowDur', str)
         },
-        nextSong(state, obj = {}) {
-            obj.id ? state.commit('Next_SONG', obj) : state.commit('Next_SONG', {})
+        nextSong(state, obj) {
+            console.log(obj.id);
+            obj.id ? state.commit('Next_SONG', obj) : state.commit('Next_SONG')
         },
         preSong(state) {
             state.commit('Pre_SONG')
@@ -144,8 +145,9 @@ export default {
             state.songMode = ModeList[ModeIndex]
         },
         //下一首歌曲
-        Next_SONG(state, obj) {
+        Next_SONG(state, obj = {}) {
             //需要手动切换歌曲
+
             if (obj.id) {
                 console.log('需要手动切换歌曲' + obj.name);
                 state.nowSong = state[state.nowListName].filter(s => s.id === obj.id && s.name === obj.name)[0]
@@ -203,10 +205,12 @@ export default {
         Add_SONG(state, song) {
 
             state.nowSong = song
-            state.songsList.unshift(state.nowSong)
-            state.historySongsList.unshift(state.nowSong)
+
+            state.songsList.push(state.nowSong)
+            state.historySongsList.push(state.nowSong)
             state.songsList = new util.exclude(state.songsList)
             state.historySongsList = new util.exclude(state.historySongsList)
+
             //历史本地会话歌单缓存
             localStorage.setItem('historySongsList', JSON.stringify(state.historySongsList))
         },

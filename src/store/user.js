@@ -2,6 +2,7 @@
 // import { cellphone } from '@/api/user';
 export default {
     state: {
+ 
         data: JSON.parse(localStorage.getItem('data'))
     },
     actions: {

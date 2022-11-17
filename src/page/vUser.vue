@@ -4,8 +4,10 @@
       <slot slot="left">
         <div @click="routerBack">返回</div>
       </slot>
-      <slot slot="centre"> 状态 </slot>
-      <slot slot="right"> 搜索 </slot>
+      <slot slot="centre"><span ref="userState"></span></slot>
+      <slot slot="right">
+        <div @click="Back">退出</div>
+      </slot>
     </c-Header>
     <div class="userData">
       <div class="userImg"><img ref="userImg" /></div>
@@ -17,12 +19,8 @@
         <img />
         <span>本地播放</span>
       </div>
-      <div
-        class="animate__animated animate__fadeInLeft"
-        v-for="list in this.userPlayList"
-        :key="list.id"
-        @click="watchPlayList(list.id)"
-      >
+      <div class="animate__animated animate__fadeInLeft" v-for="list in this.userPlayList" :key="list.id"
+        @click="watchPlayList(list.id)">
         <img :src="list.coverImgUrl" />
         <span>{{ list.name }}</span>
       </div>
@@ -51,6 +49,11 @@ export default {
     ...mapState(["user"]),
   },
   methods: {
+    Back() {
+      localStorage.removeItem('data')
+      localStorage.removeItem('cookie')
+      this.$router.push({ name: 'login' })
+    },
     routerBack() {
       this.$router.back();
     },
@@ -87,8 +90,10 @@ export default {
         this.userPlayList = res.playlist;
       }
     });
-    this.$refs.userImg.src = this.user.data.profile.avatarUrl;
-    this.$refs.userName.innerText = this.user.data.profile.nickname;
+    this.$refs.userImg.src = this.user.data.profile.avatarUrl
+
+    this.user.data.profile.nickname ? this.$refs.userName.innerText = this.user.data.profile.nickname : ''
+    this.user.data.profile.nickname ? this.$refs.userState.innerText = '在线' : '离线'
     this.$refs.uservl.innerText = `关注${this.user.data.profile.follows} 粉丝${this.user.data.profile.followeds}`;
   },
 };
@@ -132,14 +137,17 @@ h1 {
   align-items: center;
   flex-wrap: wrap;
   position: relative;
+
   div {
     width: 25%;
 
     height: 25%;
+
     img {
       width: 100%;
       height: 100%;
     }
+
     span {
       position: absolute;
       display: inline-block;

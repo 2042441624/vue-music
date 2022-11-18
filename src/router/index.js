@@ -2,7 +2,8 @@ import vue from 'vue';
 import vueRouter from 'vue-router';
 vue.use(vueRouter)
 const router = new vueRouter({
-    mode: 'history',
+    mode: 'hash',
+    
     routes: [
         {
             path: "/", name: '/', component: () => import('@/page/vMain.vue'), redirect: '/home',

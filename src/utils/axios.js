@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = '/api'
 
 //类>>>特殊的函数>>>类声明不会
 class HttpRequest {
@@ -15,7 +15,9 @@ class HttpRequest {
             baseURL: this.baseUrl,
             timeout: 3000,
             withCredentials: true,
-            header: {}
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            }
         }
         return config
     }
@@ -27,7 +29,7 @@ class HttpRequest {
             console.log('响应数据');
             let res;
             if (response.status === 200 && response.data.code === 200) {
-               
+
                 res = response.data;
             }
             return res

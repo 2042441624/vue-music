@@ -12,7 +12,7 @@ module.exports = {
         secure: false,
         changeOrigin: true, // 允许跨域
         pathRewrite: {
-          '^/api': '' // 重写请求
+          '^/api': 'http://localhost:3000' // 重写请求
         }
       }
     }

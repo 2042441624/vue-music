@@ -6,9 +6,7 @@ Vue.use(VueAwesomeSwiper)
 import router from './router/index';
 Vue.config.productionTip = false
 import store from './store/index';
-
-import animated from 'animate.css'
-Vue.use(animated)
+require('animate.css')
 
 router.beforeEach((to, from, next) => {
   const name = localStorage.getItem('cookie');//查看本地存储上是否有name对象

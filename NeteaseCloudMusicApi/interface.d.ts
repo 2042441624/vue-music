@@ -712,6 +712,10 @@ export function lyric(
   params: { id: string | number } & RequestBaseConfig,
 ): Promise<Response>
 
+export function lyric_new(
+  params: { id: string | number } & RequestBaseConfig,
+): Promise<Response>
+
 export function msg_comments(
   params: {
     uid: string | number
@@ -1651,5 +1655,49 @@ export function sheet_list(
 export function sheet_preview(
   params: {
     id: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function style_list(params: RequestBaseConfig): Promise<Response>
+
+export function style_preference(params: RequestBaseConfig): Promise<Response>
+
+export function style_detail(
+  params: {
+    tagId: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function style_song(
+  params: {
+    tagId: number | string
+    size?: number | string
+    cursor?: number | string
+    sort?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function style_album(
+  params: {
+    tagId: number | string
+    size?: number | string
+    cursor?: number | string
+    sort?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function style_playlist(
+  params: {
+    tagId: number | string
+    size?: number | string
+    cursor?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function style_artist(
+  params: {
+    tagId: number | string
+    size?: number | string
+    cursor?: number | string
   } & RequestBaseConfig,
 ): Promise<Response>

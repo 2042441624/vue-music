@@ -7,7 +7,7 @@ export const cellphone = (pramas) => {
     console.log(phone);
     console.log(act_pwd);
     return axios.request({
-        url: `/login/cellphone?phone=${phone}&password=${act_pwd}`,
+        url: `/login?email=${phone}&password=${act_pwd}`,
         method: 'post'
     })
 }

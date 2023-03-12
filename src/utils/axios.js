@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const baseUrl = '/api'
+const baseUrl = 'http://localhost:3000'
 
 //类>>>特殊的函数>>>类声明不会
 class HttpRequest {
